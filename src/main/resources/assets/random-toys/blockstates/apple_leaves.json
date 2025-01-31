@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "apples=false": {
+      "model": "random-toys:block/apple_leaves"
+    },
+    "apples=true": {
+      "model": "random-toys:block/apple_leaves_apples"
+    }
+  }
+}

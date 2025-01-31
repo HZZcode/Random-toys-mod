@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dice": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:dice"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_calc_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:calc_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "random-toys:randomizer1"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dice",
+      "has_calc_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "random-toys:randomizer1"
+    ]
+  }
+}

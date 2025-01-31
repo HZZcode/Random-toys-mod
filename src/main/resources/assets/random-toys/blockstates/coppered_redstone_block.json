@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "random-toys:block/coppered_redstone_block"
+    }
+  }
+}

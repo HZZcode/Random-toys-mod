@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "random-toys",
+	"version": "0.1",
+	"name": "Random Toys",
+	"description": "Just some simple random toys by ZZ.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://github.com/HZZcode",
+		"sources": "Not yet Available"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/random-toys/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"random_toys.zz_404.RandomToys"
+		],
+		"fabric-datagen": [
+			"random_toys.zz_404.RandomToysDataGenerator"
+		]
+	},
+	"mixins": [
+		"random-toys.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/blackstone",
+    "east": "random-toys:block/blackstone_processing_table",
+    "north": "random-toys:block/blackstone_processing_table",
+    "south": "random-toys:block/blackstone_processing_table",
+    "up": "minecraft:block/gilded_blackstone",
+    "west": "random-toys:block/blackstone_processing_table",
+    "particle": "minecraft:block/gilded_blackstone"
+  }
+}

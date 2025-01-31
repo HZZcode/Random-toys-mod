@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "random-toys:bud",
+    "random-toys:randomizer_block",
+    "random-toys:coppered_redstone_block",
+    "random-toys:blackstone_processing_table"
+  ]
+}

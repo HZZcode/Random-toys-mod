@@ -1,0 +1,6 @@
+{
+    "parent": "random-toys:block/coppered_redstone_dust_side_alt",
+    "textures": {
+        "line": "random-toys:block/coppered_redstone_dust_line1"
+    }
+}

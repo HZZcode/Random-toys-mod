@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "item_type=empty": {
+      "model": "random-toys:block/randomizer"
+    },
+    "item_type=randomizer1": {
+      "model": "random-toys:block/randomizer1"
+    },
+    "item_type=randomizer2": {
+      "model": "random-toys:block/randomizer2"
+    },
+    "item_type=randomizer3": {
+      "model": "random-toys:block/randomizer3"
+    }
+  }
+}

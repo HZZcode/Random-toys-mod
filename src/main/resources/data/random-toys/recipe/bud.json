@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "x": {
+      "item": "minecraft:observer"
+    },
+    "#": {
+      "item": "minecraft:note_block"
+    }
+  },
+  "pattern": [
+    "x",
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:bud"
+  }
+}

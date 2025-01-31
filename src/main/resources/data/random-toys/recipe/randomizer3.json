@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "o": {
+      "item": "random-toys:randomizer2"
+    },
+    "#": {
+      "item": "random-toys:calc_core"
+    }
+  },
+  "pattern": [
+    "oo ",
+    "o#o",
+    " oo"
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:randomizer3"
+  }
+}

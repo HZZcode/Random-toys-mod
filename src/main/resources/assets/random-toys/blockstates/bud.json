@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "random-toys:block/bud"
+    },
+    "powered=true": {
+      "model": "random-toys:block/bud_on"
+    }
+  }
+}
