@@ -21,7 +21,7 @@ public class ModGamerules {
         return GameRuleRegistry.register(name, ModCategory, gamerulesType);
     }
 
-    public static void registerModGamerules() {
+    public static void registerGamerules() {
         RandomToys.LOGGER.info("Registering Gamerules");
     }
 }

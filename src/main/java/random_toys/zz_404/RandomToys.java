@@ -2,9 +2,7 @@ package random_toys.zz_404;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +15,12 @@ public class RandomToys implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModBlocks.registerModBlocks();
-		ModEntities.registerModEntities();
-		ModItems.registerModItems();
-		ModGamerules.registerModGamerules();
+		ModBlocks.registerBlocks();
+		ModEntities.registerEntities();
+		ModItems.registerItems();
+		ModGamerules.registerGamerules();
 		ModBlockEntities.registerBlockEntities();
-		ModParticles.registerModParticles();
+		ModParticles.registerParticles();
 		ModScreenHandlers.registerScreenHandlers();
 		ModModelLayers.registerModelLayers();
 		ModDimensions.registerDimensions();

@@ -52,7 +52,7 @@ public class ModBlocks {
         return register(id, item_id, block, new CopperedRedstoneItem(block, new Item.Settings()));
     }
 
-    public static void registerModBlocks() {
+    public static void registerBlocks() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPERED_REDSTONE_WIRE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DISPOSABLE_SPAWNER, RenderLayer.getCutout());
 

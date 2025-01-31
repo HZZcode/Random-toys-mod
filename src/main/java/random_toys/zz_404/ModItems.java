@@ -26,7 +26,7 @@ public class ModItems {
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
     }
 
-    public static void registerModItems(){
+    public static void registerItems(){
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModItems::addRedstoneGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(ModItems::addNaturalGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addCombatGroupItems);

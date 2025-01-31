@@ -18,7 +18,7 @@ public class ModParticles {
         return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(RandomToys.MOD_ID, name), type);
     }
 
-    public static void registerModParticles() {
+    public static void registerParticles() {
         ParticleFactoryRegistry.getInstance().register(ModParticles.GREEN_ZZ, EndRodParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.RED_ZZ, EndRodParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.YELLOW_ZZ, EndRodParticle.Factory::new);
