@@ -1,0 +1,12 @@
+{
+  "type": "random-toys:the_gilded",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "minecraft:nether_wastes",
+      "lakes": false,
+      "layers": [],
+      "structure_overrides": []
+    }
+  }
+}

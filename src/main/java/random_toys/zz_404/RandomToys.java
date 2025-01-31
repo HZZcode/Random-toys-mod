@@ -25,6 +25,7 @@ public class RandomToys implements ModInitializer {
 		ModParticles.registerModParticles();
 		ModScreenHandlers.registerScreenHandlers();
 		ModModelLayers.registerModelLayers();
+		ModDimensions.registerDimensions();
 		DispenserBlock.registerBehavior(Items.SHEARS, new DispenserShearsHarvestBehavior());
 
 		LOGGER.info("Hello from RandomToys.ZZ_404!");
