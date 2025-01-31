@@ -8,4 +8,8 @@ public class ModModelLayers {
             new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "zz"), "main");
     public static final EntityModelLayer GILDED_BLACKSTONE_SCRAP =
             new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "gilded_blackstone_scrap"), "main");
+
+    public static void registerModelLayers() {
+        RandomToys.LOGGER.info("Registering Model Layers");
+    }
 }
