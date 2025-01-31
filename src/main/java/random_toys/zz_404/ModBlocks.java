@@ -56,6 +56,6 @@ public class ModBlocks {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPERED_REDSTONE_WIRE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DISPOSABLE_SPAWNER, RenderLayer.getCutout());
 
-        RandomToys.LOGGER.info("Registering Blocks");
+        RandomToys.log("Registering Blocks");
     }
 }

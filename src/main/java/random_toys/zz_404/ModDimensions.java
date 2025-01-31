@@ -16,6 +16,6 @@ public class ModDimensions {
                 .flatPortal()
                 .registerPortal();
 
-        RandomToys.LOGGER.info("Registering Dimensions");
+        RandomToys.log("Registering Dimensions");
     }
 }

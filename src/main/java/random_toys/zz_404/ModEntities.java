@@ -48,6 +48,6 @@ public class ModEntities {
                 );
         EntityRendererRegistry.register(THROWN_ENCHANTED_GILDED_BLACKSTONE, ThrownBlackstonesRenderer::new);
 
-        RandomToys.LOGGER.info("Registering Entities");
+        RandomToys.log("Registering Entities");
     }
 }

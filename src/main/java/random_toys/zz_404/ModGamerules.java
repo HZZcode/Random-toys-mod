@@ -22,6 +22,6 @@ public class ModGamerules {
     }
 
     public static void registerGamerules() {
-        RandomToys.LOGGER.info("Registering Gamerules");
+        RandomToys.log("Registering Gamerules");
     }
 }

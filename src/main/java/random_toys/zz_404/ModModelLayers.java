@@ -10,6 +10,6 @@ public class ModModelLayers {
             new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "gilded_blackstone_scrap"), "main");
 
     public static void registerModelLayers() {
-        RandomToys.LOGGER.info("Registering Model Layers");
+        RandomToys.log("Registering Model Layers");
     }
 }

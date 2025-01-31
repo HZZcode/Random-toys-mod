@@ -24,6 +24,6 @@ public class ModParticles {
         ParticleFactoryRegistry.getInstance().register(ModParticles.YELLOW_ZZ, EndRodParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticles.WHITE_ZZ, EndRodParticle.Factory::new);
 
-        RandomToys.LOGGER.info("Registering Particles");
+        RandomToys.log("Registering Particles");
     }
 }

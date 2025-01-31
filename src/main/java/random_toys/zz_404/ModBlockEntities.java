@@ -21,6 +21,6 @@ public class ModBlockEntities {
     }
 
     public static void registerBlockEntities() {
-        RandomToys.LOGGER.info("Registering Block Entities");
+        RandomToys.log("Registering Block Entities");
     }
 }

@@ -34,7 +34,7 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addFunctionalGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addSpawnEggGroupItems);
 
-        RandomToys.LOGGER.info("Registering Items");
+        RandomToys.log("Registering Items");
     }
 
     private static void addRedstoneGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
