@@ -3,10 +3,25 @@
   "generator": {
     "type": "minecraft:flat",
     "settings": {
-      "biome": "minecraft:nether_wastes",
+      "biome": "random-toys:the_gilded",
       "lakes": false,
-      "layers": [],
-      "structure_overrides": []
+      "layers": [
+        {
+          "height": 64,
+          "block": "minecraft:void_air"
+        },
+        {
+          "height": 1,
+          "block": "minecraft:bedrock"
+        },
+        {
+          "height": 3,
+          "block": "minecraft:blackstone"
+        }
+      ],
+      "structure_overrides": [
+        "random-toys:zz_island"
+      ]
     }
   }
 }

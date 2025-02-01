@@ -36,6 +36,8 @@
   "tooltip.random-toys.coppered_redstone": "Cheaper but with Lower quality...",
   "tooltip.random-toys.zz_core": "Try to use it while sneaking on a crafting table!",
   "gamerule.category.random-toys": "Random Toys Mod Gamerules",
+  "gamerule.dispenserHarvestCrops": "Dispenser harvests some crops with shears (including apple leaves, nether warts, sweet berry bushes)",
+  "gamerule.dispenserHarvestCropDamageTool": "Shears damages when used by dispensers",
   "entity.random-toys.zz": "ZZ",
   "entity.random-toys.thrown_blackstone": "Blackstone Crystal",
   "entity.random-toys.thrown_gilded_blackstone": "Gilded Blackstone Crystal",
