@@ -3,15 +3,15 @@
 	"id": "random-toys",
 	"version": "0.1",
 	"name": "Random Toys",
-	"description": "Just some simple random toys by ZZ.",
+	"description": "Just some simple random ideas of ZZ.",
 	"authors": [
-		"Me!"
+		"ZZ_404"
 	],
 	"contact": {
 		"homepage": "https://github.com/HZZcode",
-		"sources": "Not yet Available"
+		"sources": "https://github.com/HZZcode/Random-toys-mod"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/random-toys/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -32,6 +32,5 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
 	}
 }
