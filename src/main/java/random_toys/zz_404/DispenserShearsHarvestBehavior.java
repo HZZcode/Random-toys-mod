@@ -1,10 +1,8 @@
 package random_toys.zz_404;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.NetherWartBlock;
-import net.minecraft.block.SweetBerryBushBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.dispenser.DispenserBehavior;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
@@ -37,6 +35,17 @@ public class DispenserShearsHarvestBehavior implements DispenserBehavior {
                 world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
             }
             //Copied from net.minecraft.block.SweetBerryBushBlock.onUse
+            return true;
+        }
+        if (state.getBlock() instanceof CaveVines) {
+            if (state.get(CaveVines.BERRIES)) {
+                dropStack(world, pos, new ItemStack(Items.GLOW_BERRIES, 1));
+                world.playSound(null, pos, SoundEvents.BLOCK_CAVE_VINES_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8F + world.random.nextFloat() * 0.4F);
+                BlockState blockState = state.with(CaveVines.BERRIES, false);
+                world.setBlockState(pos, blockState, 2);
+                world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
+            }
+            //Copied from net.minecraft.block.CaveVines.pickBerries
             return true;
         }
         if (state.getBlock() instanceof NetherWartBlock) {

@@ -9,6 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -53,6 +55,7 @@ public class AppleLeavesBlock extends LeavesBlock implements Fertilizable {
 
     private void dropApples(@NotNull BlockState state, @NotNull World world, BlockPos pos) {
         dropStack(world, pos, new ItemStack(Items.APPLE, 1 + world.random.nextInt(1)));
+        world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
         BlockState blockState = state.with(APPLES, false);
         world.setBlockState(pos, blockState, 2);
         world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(blockState));
