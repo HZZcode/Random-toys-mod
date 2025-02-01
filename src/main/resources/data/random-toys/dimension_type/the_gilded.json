@@ -8,7 +8,7 @@
   "has_raids": true,
   "has_skylight": false,
   "height": 256,
-  "infiniburn": "#minecraft:infiniburn_nether",
+  "infiniburn": "#minecraft:infiniburn_gilded",
   "logical_height": 256,
   "min_y": -64,
   "monster_spawn_block_light_limit": 15,

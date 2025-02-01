@@ -7,12 +7,8 @@
       "lakes": false,
       "layers": [
         {
-          "height": 64,
-          "block": "minecraft:void_air"
-        },
-        {
           "height": 1,
-          "block": "minecraft:bedrock"
+          "block": "random-toys:black_bedrock"
         },
         {
           "height": 3,

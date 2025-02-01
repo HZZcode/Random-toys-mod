@@ -3,6 +3,7 @@ package random_toys.zz_404;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -19,6 +20,7 @@ public class ModBlocks {
     public static final Block COPPERED_REDSTONE_BLOCK = registerCopperedRedstone("coppered_redstone_block", new CopperedRedstoneBlock(AbstractBlock.Settings.copy(Blocks.REDSTONE_BLOCK)));
     public static final Block DISPOSABLE_SPAWNER = register("disposable_spawner", new DisposableSpawnerBlock(AbstractBlock.Settings.copy(Blocks.SPAWNER).strength(-1.0F, 3600000.0F).dropsNothing()));
     public static final Block BLACKSTONE_PROCESSING_TABLE = register("blackstone_processing_table", new BlackstoneProcessingTableBlock(AbstractBlock.Settings.copy(Blocks.BLACKSTONE)));
+    public static final Block BLACK_BEDROCK = register("black_bedrock", new Block(AbstractBlock.Settings.copy(Blocks.BEDROCK).mapColor(MapColor.BLACK)));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

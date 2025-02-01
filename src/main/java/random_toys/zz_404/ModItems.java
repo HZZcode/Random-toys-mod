@@ -46,6 +46,7 @@ public class ModItems {
 
     private static void addNaturalGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OAK_LEAVES, ModBlocks.APPLE_LEAVES);
+        fabricItemGroupEntries.addAfter(Blocks.BEDROCK, ModBlocks.BLACK_BEDROCK);
     }
 
     private static void addIngredientsGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
@@ -91,5 +92,6 @@ public class ModItems {
                         entries.add(ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL);
                         entries.add(ModItems.ZZ_CORE);
                         entries.add(ModBlocks.BLACKSTONE_PROCESSING_TABLE);
+                        entries.add(ModBlocks.BLACK_BEDROCK);
                     }).build());
 }
