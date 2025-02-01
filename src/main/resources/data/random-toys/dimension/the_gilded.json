@@ -1,0 +1,23 @@
+{
+  "type": "random-toys:the_gilded",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "random-toys:the_gilded",
+      "lakes": false,
+      "layers": [
+        {
+          "height": 1,
+          "block": "random-toys:black_bedrock"
+        },
+        {
+          "height": 3,
+          "block": "minecraft:blackstone"
+        }
+      ],
+      "structure_overrides": [
+        "random-toys:zz_island"
+      ]
+    }
+  }
+}

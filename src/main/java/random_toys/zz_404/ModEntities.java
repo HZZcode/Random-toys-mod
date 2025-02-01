@@ -21,7 +21,7 @@ public class ModEntities {
         return Registry.register(Registries.ENTITY_TYPE, Identifier.of(RandomToys.MOD_ID, id), entityTypeBuilder.build(id));
     }
 
-    public static void registerModEntities() {
+    public static void registerEntities() {
         ZZ = registerEntities("zz",
                 EntityType.Builder.create(ZZEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.6f, 2.9f)
@@ -48,6 +48,6 @@ public class ModEntities {
                 );
         EntityRendererRegistry.register(THROWN_ENCHANTED_GILDED_BLACKSTONE, ThrownBlackstonesRenderer::new);
 
-        RandomToys.LOGGER.info("Registering Entities");
+        RandomToys.log("Registering Entities");
     }
 }

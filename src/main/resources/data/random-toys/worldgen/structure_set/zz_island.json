@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "random-toys:zz_island",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 234687295,
+    "spacing": 20,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}

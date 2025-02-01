@@ -26,7 +26,7 @@ public class ModItems {
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
     }
 
-    public static void registerModItems(){
+    public static void registerItems(){
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModItems::addRedstoneGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(ModItems::addNaturalGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addCombatGroupItems);
@@ -34,7 +34,7 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addFunctionalGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addSpawnEggGroupItems);
 
-        RandomToys.LOGGER.info("Registering Items");
+        RandomToys.log("Registering Items");
     }
 
     private static void addRedstoneGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
@@ -46,6 +46,7 @@ public class ModItems {
 
     private static void addNaturalGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OAK_LEAVES, ModBlocks.APPLE_LEAVES);
+        fabricItemGroupEntries.addAfter(Blocks.BEDROCK, ModBlocks.BLACK_BEDROCK);
     }
 
     private static void addIngredientsGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
@@ -91,5 +92,6 @@ public class ModItems {
                         entries.add(ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL);
                         entries.add(ModItems.ZZ_CORE);
                         entries.add(ModBlocks.BLACKSTONE_PROCESSING_TABLE);
+                        entries.add(ModBlocks.BLACK_BEDROCK);
                     }).build());
 }
