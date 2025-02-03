@@ -62,6 +62,11 @@ public class ZZEntity extends HostileEntity implements Angerable {
     };
     Status previousStatus = Status.NO_GOAL;
 
+    @Override
+    public boolean canUsePortals(boolean allowVehicles) {
+        return false;
+    }
+
     enum Status {
         NO_GOAL("no_goal"),
         RESTING("resting"),
