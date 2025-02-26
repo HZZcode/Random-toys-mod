@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Comparator;
 import java.util.stream.IntStream;
 
 public class CompressorBlockEntity extends LootableContainerBlockEntity {
@@ -35,7 +36,7 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity {
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable("container.compressor");
+        return Text.translatable("container.random-toys.compressor");
     }
 
     @Override
@@ -131,7 +132,15 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity {
         return result;
     }
 
+    private void swapStack(int i, int j) {
+        var m = inventory.get(i);
+        inventory.set(i, inventory.get(j));
+        inventory.set(j, m);
+    }
+
     public void tick(World world, BlockPos pos, BlockState state) {
+        if (world == null) return;
+        if (world.getReceivedRedstonePower(pos) != 0) return;
         for (int i = 0; i < 27; i++) {
             for (int j = i + 1; j < 27; j++) {
                 ItemStack stack1 = inventory.get(i);
@@ -152,6 +161,13 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity {
                     inventory.set(i, inventory.get(i).copyWithCount(remaining));
                     inventory.set(j, new ItemStack(recipe.out().getItem(), mul * recipe.out().getCount()));
                 }
+            }
+        }
+        for (int i = 0; i < 26; i++) {
+            for (int j = i + 2; j < 27; j++) {
+                if (inventory.get(i).getItem() == inventory.get(j).getItem()
+                        && inventory.get(i).getItem() != inventory.get(i + 1).getItem())
+                    swapStack(i + 1, j);
             }
         }
     }
