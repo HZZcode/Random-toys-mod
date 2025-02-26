@@ -21,6 +21,7 @@ public class ModBlocks {
     public static final Block DISPOSABLE_SPAWNER = register("disposable_spawner", new DisposableSpawnerBlock(AbstractBlock.Settings.copy(Blocks.SPAWNER).strength(-1.0F, 3600000.0F).dropsNothing()));
     public static final Block BLACKSTONE_PROCESSING_TABLE = register("blackstone_processing_table", new BlackstoneProcessingTableBlock(AbstractBlock.Settings.copy(Blocks.BLACKSTONE)));
     public static final Block BLACK_BEDROCK = register("black_bedrock", new Block(AbstractBlock.Settings.copy(Blocks.BEDROCK).mapColor(MapColor.BLACK)));
+    public static final Block COMPRESSOR = register("compressor", new CompressorBlock(AbstractBlock.Settings.copy(Blocks.CHEST), () -> ModBlockEntities.COMPRESSOR));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

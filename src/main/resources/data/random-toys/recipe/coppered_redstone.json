@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "random-toys:coppered_redstone_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "random-toys:coppered_redstone_dust"
+  }
+}
