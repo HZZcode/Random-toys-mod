@@ -15,6 +15,7 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BlackstoneProcessingTableBlock extends BlockWithEntity implements BlockEntityProvider {
@@ -45,7 +46,7 @@ public class BlackstoneProcessingTableBlock extends BlockWithEntity implements B
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+    protected void onStateReplaced(@NotNull BlockState state, World world, BlockPos pos, @NotNull BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof BlackstoneProcessingTableBlockEntity) {
@@ -58,13 +59,13 @@ public class BlackstoneProcessingTableBlock extends BlockWithEntity implements B
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world_, BlockState state_, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.BLACKSTONE_PROCESSING_TABLE,
-                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+                (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient()){
             NamedScreenHandlerFactory screenHandlerFactory = (BlackstoneProcessingTableBlockEntity) world.getBlockEntity(pos);
             if (screenHandlerFactory != null) {

@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BlackstoneProcessingTableBlockEntity extends BlockEntity implements ImplementedInventory, ExtendedScreenHandlerFactory<BlackstoneProcessingTableData> {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
@@ -159,13 +160,12 @@ public class BlackstoneProcessingTableBlockEntity extends BlockEntity implements
         this.removeStack(INPUT_SLOT, 1);
     }
 
-    private @NotNull ArrayList<Item> possibleOutputs(Item input) {
-        ArrayList<Item> outputs = new ArrayList<>();
-        for (Recipe recipe: recipes) if (recipe.input == input) outputs.add(recipe.output);
-        return outputs;
+    private @NotNull List<Item> possibleOutputs(Item input) {
+        return recipes.stream().filter((recipe) -> recipe.input == input)
+                .map((recipe) -> recipe.output).toList();
     }
 
-    private <T> @Nullable T randomElement(@NotNull ArrayList<T> list) {
+    private <T> @Nullable T randomElement(@NotNull List<T> list) {
         if (list.isEmpty() || world == null) return null;
         if (list.size() == 1) return list.getFirst();
         return list.get(world.random.nextInt(list.size()));
