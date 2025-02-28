@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "random-toys:block/experience_collector/top",
+    "side": "random-toys:block/experience_collector/level5"
+  }
+}

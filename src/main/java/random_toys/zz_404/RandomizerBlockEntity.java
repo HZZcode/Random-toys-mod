@@ -126,7 +126,8 @@ public class RandomizerBlockEntity extends LootableContainerBlockEntity implemen
     }
 
     public void updateBlockState(@NotNull World world, BlockPos pos, @NotNull BlockState state) {
-        world.setBlockState(pos, state.with(RandomizerBlock.ITEM_TYPE, getItemType()));
+        if (!world.isClient)
+            world.setBlockState(pos, state.with(RandomizerBlock.ITEM_TYPE, getItemType()));
     }
 
     @Override
@@ -135,14 +136,14 @@ public class RandomizerBlockEntity extends LootableContainerBlockEntity implemen
     }
 
     public void dropItem() {
-        if (this.world != null && !this.world.isClient) {
-            BlockPos blockPos = this.getPos();
+        if (world != null && !world.isClient) {
+            BlockPos blockPos = getPos();
             ItemStack itemStack = new ItemStack(inventory.getFirst().getItem(), 1);
             Block.dropStack(world, blockPos, itemStack);
         }
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-//        updateBlockState(world, pos, state);
+        updateBlockState(world, pos, state);
     }
 }

@@ -8,11 +8,13 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -68,5 +70,15 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world_, BlockState state_, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.COMPRESSOR,
                 (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
+    }
+
+    @Override
+    protected boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
+        return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
     }
 }

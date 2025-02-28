@@ -1,6 +1,7 @@
 package random_toys.zz_404;
 
 import com.mojang.datafixers.types.Type;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.datafixer.TypeReferences;
@@ -15,6 +16,7 @@ public class ModBlockEntities {
     public static final BlockEntityType<DisposableSpawnerBlockEntity> DISPOSABLE_SPAWNER = create("disposable_spawner", BlockEntityType.Builder.create(DisposableSpawnerBlockEntity::new, ModBlocks.DISPOSABLE_SPAWNER));
     public static final BlockEntityType<BlackstoneProcessingTableBlockEntity> BLACKSTONE_PROCESSING_TABLE = create("blackstone_processing_table", BlockEntityType.Builder.create(BlackstoneProcessingTableBlockEntity::new, ModBlocks.BLACKSTONE_PROCESSING_TABLE));
     public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", BlockEntityType.Builder.create(CompressorBlockEntity::new, ModBlocks.COMPRESSOR));
+    public static final BlockEntityType<ExperienceCollectorBlockEntity> EXPERIENCE_COLLECTOR = create("experience_collector", BlockEntityType.Builder.create(ExperienceCollectorBlockEntity::new, ModBlocks.EXPERIENCE_COLLECTOR));
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.@NotNull Builder<T> builder) {
         Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, id);

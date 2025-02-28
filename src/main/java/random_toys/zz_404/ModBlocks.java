@@ -22,6 +22,7 @@ public class ModBlocks {
     public static final Block BLACKSTONE_PROCESSING_TABLE = register("blackstone_processing_table", new BlackstoneProcessingTableBlock(AbstractBlock.Settings.copy(Blocks.BLACKSTONE)));
     public static final Block BLACK_BEDROCK = register("black_bedrock", new Block(AbstractBlock.Settings.copy(Blocks.BEDROCK).mapColor(MapColor.BLACK)));
     public static final Block COMPRESSOR = register("compressor", new CompressorBlock(AbstractBlock.Settings.copy(Blocks.CHEST), () -> ModBlockEntities.COMPRESSOR));
+    public static final Block EXPERIENCE_COLLECTOR = register("experience_collector", new ExperienceCollectorBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque()));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);
@@ -58,6 +59,7 @@ public class ModBlocks {
     public static void registerBlocks() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPERED_REDSTONE_WIRE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DISPOSABLE_SPAWNER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EXPERIENCE_COLLECTOR, RenderLayer.getCutout());
 
         RandomToys.log("Registering Blocks");
     }

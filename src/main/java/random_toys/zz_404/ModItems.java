@@ -42,6 +42,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.REDSTONE_BLOCK, ModBlocks.RANDOMIZER);
         fabricItemGroupEntries.addAfter(Items.REDSTONE, ModBlocks.COPPERED_REDSTONE_WIRE);
         fabricItemGroupEntries.addAfter(Items.REDSTONE_BLOCK, ModBlocks.COPPERED_REDSTONE_BLOCK);
+        fabricItemGroupEntries.addBefore(Blocks.CHEST, ModBlocks.COMPRESSOR);
     }
 
     private static void addNaturalGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
@@ -64,6 +65,8 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.BLACKSTONE_CRYSTAL);
+        fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.EXPERIENCE_COLLECTOR);
+        fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.COMPRESSOR);
     }
 
     private static void addSpawnEggGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
@@ -93,5 +96,7 @@ public class ModItems {
                         entries.add(ModItems.ZZ_CORE);
                         entries.add(ModBlocks.BLACKSTONE_PROCESSING_TABLE);
                         entries.add(ModBlocks.BLACK_BEDROCK);
+                        entries.add(ModBlocks.COMPRESSOR);
+                        entries.add(ModBlocks.EXPERIENCE_COLLECTOR);
                     }).build());
 }
