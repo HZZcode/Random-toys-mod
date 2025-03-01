@@ -99,7 +99,7 @@ public class RandomizerBlockEntity extends LootableContainerBlockEntity implemen
     public int getRandomNumber() {
         if (inventory.getFirst().isEmpty()) return 0;
         Item item = inventory.getFirst().getItem();
-        if (item instanceof RandomizerItem) return ((RandomizerItem) item).getRandomNumber();
+        if (item instanceof RandomizerItem randomizer) return randomizer.getRandomNumber();
         return 0;
     }
 

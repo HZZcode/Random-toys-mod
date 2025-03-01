@@ -39,6 +39,8 @@ public class ExperienceCollectorBlockEntity extends BlockEntity {
 
     public void tick(@NotNull World world, BlockPos pos, BlockState state) {
         if (world.isClient) return;
+        world.setBlockState(pos, state.with(TransferringBlock.POWERED,
+                world.getReceivedRedstonePower(pos) != 0));
         if (world.getReceivedRedstonePower(pos) == 0) {
             Box box = new Box(pos).expand(10.0);
             for (ExperienceOrbEntity orb : world.getEntitiesByClass(ExperienceOrbEntity.class, box,

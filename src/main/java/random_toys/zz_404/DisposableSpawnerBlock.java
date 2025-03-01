@@ -59,8 +59,8 @@ public class DisposableSpawnerBlock extends BlockWithEntity {
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world_, BlockState state_, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.DISPOSABLE_SPAWNER,
-                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+                (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
     }
 }

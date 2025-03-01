@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.stream.IntStream;
 
 public class CompressorBlockEntity extends LootableContainerBlockEntity {
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
+    public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
 
     public CompressorBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
@@ -147,7 +147,9 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity {
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if (world == null) return;
+        if (world == null || world.isClient) return;
+        world.setBlockState(pos, state.with(TransferringBlock.POWERED,
+                world.getReceivedRedstonePower(pos) != 0));
         if (world.getReceivedRedstonePower(pos) != 0) return;
         int count = IntStream.range(0, 27).filter(i -> !inventory.get(i).isEmpty()).max().orElse(0) + 1;
         for (int i = 0; i < count; i++) {

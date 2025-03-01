@@ -9,6 +9,9 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
@@ -21,6 +24,7 @@ import java.util.function.Supplier;
 
 public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     public static final MapCodec<CompressorBlock> CODEC = createCodec(settings -> new CompressorBlock(settings, () -> ModBlockEntities.COMPRESSOR));
+    public static final BooleanProperty POWERED;
 
     @Override
     protected MapCodec<? extends AbstractChestBlock<CompressorBlockEntity>> getCodec() {
@@ -29,6 +33,12 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
 
     public CompressorBlock(AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends CompressorBlockEntity>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
+        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.@NotNull Builder<Block, BlockState> builder) {
+        builder.add(POWERED);
     }
 
     @Override
@@ -80,5 +90,9 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     @Override
     protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+    }
+
+    static {
+        POWERED = Properties.POWERED;
     }
 }

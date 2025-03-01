@@ -43,6 +43,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.REDSTONE, ModBlocks.COPPERED_REDSTONE_WIRE);
         fabricItemGroupEntries.addAfter(Items.REDSTONE_BLOCK, ModBlocks.COPPERED_REDSTONE_BLOCK);
         fabricItemGroupEntries.addBefore(Blocks.CHEST, ModBlocks.COMPRESSOR);
+        fabricItemGroupEntries.addAfter(Blocks.HOPPER, ModBlocks.TRANSFER);
     }
 
     private static void addNaturalGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
@@ -98,5 +99,6 @@ public class ModItems {
                         entries.add(ModBlocks.BLACK_BEDROCK);
                         entries.add(ModBlocks.COMPRESSOR);
                         entries.add(ModBlocks.EXPERIENCE_COLLECTOR);
+                        entries.add(ModBlocks.TRANSFER);
                     }).build());
 }

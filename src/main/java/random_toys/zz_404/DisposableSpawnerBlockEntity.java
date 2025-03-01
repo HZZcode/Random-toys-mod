@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class DisposableSpawnerBlockEntity extends BlockEntity implements Spawner {
     private EntityType<?> entityType;
@@ -42,7 +43,7 @@ public class DisposableSpawnerBlockEntity extends BlockEntity implements Spawner
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+    protected void readNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         if (nbt.contains("EntityType")) {
             Identifier id = Identifier.of(nbt.getString("EntityType"));
             this.entityType = Registries.ENTITY_TYPE.get(id);

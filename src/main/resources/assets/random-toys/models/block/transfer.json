@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/transfer_bottom",
+    "east": "random-toys:block/transfer",
+    "north": "random-toys:block/transfer",
+    "particle": "random-toys:block/transfer",
+    "south": "random-toys:block/transfer",
+    "west": "random-toys:block/transfer",
+    "up": "random-toys:block/transfer_top"
+  }
+}

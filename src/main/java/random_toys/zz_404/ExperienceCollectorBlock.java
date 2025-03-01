@@ -19,7 +19,9 @@ import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
@@ -34,6 +36,7 @@ import java.util.Optional;
 
 public class ExperienceCollectorBlock extends BlockWithEntity {
     public static final MapCodec<ExperienceCollectorBlock> CODEC = createCodec(ExperienceCollectorBlock::new);
+    public static final BooleanProperty POWERED;
 
     public static final IntProperty LEVEL;
     public static final int max = 12;
@@ -46,6 +49,7 @@ public class ExperienceCollectorBlock extends BlockWithEntity {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(LEVEL);
+        builder.add(POWERED);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class ExperienceCollectorBlock extends BlockWithEntity {
 
     public ExperienceCollectorBlock(AbstractBlock.Settings settings) {
         super(settings);
-        setDefaultState(getStateManager().getDefaultState().with(LEVEL, 0));
+        setDefaultState(getStateManager().getDefaultState().with(LEVEL, 0).with(POWERED, false));
     }
 
     @Override
@@ -174,5 +178,6 @@ public class ExperienceCollectorBlock extends BlockWithEntity {
 
     static {
         LEVEL = IntProperty.of("level", 0, max);
+        POWERED = Properties.POWERED;
     }
 }
