@@ -22,16 +22,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
-    public static final MapCodec<CompressorBlock> CODEC = createCodec(settings -> new CompressorBlock(settings, () -> ModBlockEntities.COMPRESSOR));
+public class DisenchantmentBlock extends AbstractChestBlock<DisenchantmentBlockEntity> {
+    public static final MapCodec<DisenchantmentBlock> CODEC = createCodec(settings -> new DisenchantmentBlock(settings, () -> ModBlockEntities.DISENCHANTMENTOR));
     public static final BooleanProperty POWERED;
 
     @Override
-    protected MapCodec<? extends AbstractChestBlock<CompressorBlockEntity>> getCodec() {
+    protected MapCodec<? extends AbstractChestBlock<DisenchantmentBlockEntity>> getCodec() {
         return CODEC;
     }
 
-    public CompressorBlock(AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends CompressorBlockEntity>> blockEntityTypeSupplier) {
+    public DisenchantmentBlock(Settings settings, Supplier<BlockEntityType<? extends DisenchantmentBlockEntity>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
     }
@@ -49,7 +49,7 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CompressorBlockEntity(pos, state);
+        return new DisenchantmentBlockEntity(pos, state);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient()) {
             NamedScreenHandlerFactory factory = this.createScreenHandlerFactory(state, world, pos);
             if (factory != null) {
@@ -78,7 +78,7 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world_, BlockState state_, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.COMPRESSOR,
+        return validateTicker(type, ModBlockEntities.DISENCHANTMENTOR,
                 (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
     }
 

@@ -1,0 +1,43 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "random-toys:block/experience_collector/level0"
+    },
+    "level=1": {
+      "model": "random-toys:block/experience_collector/level1"
+    },
+    "level=2": {
+      "model": "random-toys:block/experience_collector/level2"
+    },
+    "level=3": {
+      "model": "random-toys:block/experience_collector/level3"
+    },
+    "level=4": {
+      "model": "random-toys:block/experience_collector/level4"
+    },
+    "level=5": {
+      "model": "random-toys:block/experience_collector/level5"
+    },
+    "level=6": {
+      "model": "random-toys:block/experience_collector/level6"
+    },
+    "level=7": {
+      "model": "random-toys:block/experience_collector/level7"
+    },
+    "level=8": {
+      "model": "random-toys:block/experience_collector/level8"
+    },
+    "level=9": {
+      "model": "random-toys:block/experience_collector/level9"
+    },
+    "level=10": {
+      "model": "random-toys:block/experience_collector/level10"
+    },
+    "level=11": {
+      "model": "random-toys:block/experience_collector/level11"
+    },
+    "level=12": {
+      "model": "random-toys:block/experience_collector/level12"
+    }
+  }
+}

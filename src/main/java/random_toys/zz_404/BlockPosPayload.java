@@ -37,7 +37,7 @@ import java.util.function.Predicate;
 public interface BlockPosPayload {
     BlockPos pos();
 
-    default boolean isWithinDistance(PlayerEntity player,double distance){
+    default boolean isWithinDistance(PlayerEntity player, double distance){
         return player.getBlockPos().isWithinDistance(pos(), distance);
     }
 

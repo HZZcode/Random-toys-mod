@@ -64,7 +64,7 @@ public class RandomizerBlock extends AbstractChestBlock<RandomizerBlockEntity> {
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
             RandomizerBlockEntity randomizerBlockEntity = (RandomizerBlockEntity) world.getBlockEntity(pos);
             if (randomizerBlockEntity != null) {
@@ -99,14 +99,14 @@ public class RandomizerBlock extends AbstractChestBlock<RandomizerBlockEntity> {
     }
 
     @Override
-    protected int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+    protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
         RandomizerBlockEntity randomizerBlockEntity = (RandomizerBlockEntity) world.getBlockEntity(pos);
         return randomizerBlockEntity != null ? randomizerBlockEntity.getRandomNumber() : 0;
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.isOf(newState.getBlock())) {
+    protected void onStateReplaced(@NotNull BlockState state, World world, BlockPos pos, @NotNull BlockState newState, boolean moved) {
+        if (!state.isOf(newState.getBlock()) && !world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof RandomizerBlockEntity randomizerBlockEntity) {
                 randomizerBlockEntity.dropItem();

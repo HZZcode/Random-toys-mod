@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class ThrowableItem<T extends ThrownItemEntity> extends Item {
     EntityType<T> entityType;
@@ -18,7 +19,7 @@ public class ThrowableItem<T extends ThrownItemEntity> extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public TypedActionResult<ItemStack> use(World world, @NotNull PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         itemStack.decrementUnlessCreative(1, user);
         T entity = entityType.create(world);
