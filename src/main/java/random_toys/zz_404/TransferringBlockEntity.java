@@ -3,6 +3,7 @@ package random_toys.zz_404;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,8 +14,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.stream.IntStream;
 
 public class TransferringBlockEntity extends BlockEntity implements Clearable, SingleStackInventory.SingleStackBlockEntityInventory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
@@ -40,18 +39,16 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
                 world.getBlockEntity(pos.east()),
         };
         BlockEntity out = world.getBlockEntity(pos.down());
-        if (out instanceof CompressorBlockEntity output) {
-            int[] spaces = IntStream.range(0, 27)
-                .filter(k -> output.inventory.get(k).isEmpty()).toArray();
-            if (spaces.length == 0) return;
-            int space = spaces[0];
+        if (out instanceof TransferableBlockEntity output) {
+            var space = output.getSpace();
+            if (space.isEmpty()) return;
             for (BlockEntity in : inputs) {
-                if (in instanceof CompressorBlockEntity input) {
+                if (in instanceof TransferableBlockEntity input) {
                     for (int i = 0; i < 27; i++) {
-                        ItemStack stack = input.inventory.get(i);
+                        ItemStack stack = input.get(i);
                         if ((isEmpty() || stack.isOf(getItem())) && !stack.isEmpty()) {
-                            output.inventory.set(space, input.inventory.get(i).copy());
-                            input.inventory.set(i, ItemStack.EMPTY);
+                            output.set(space.orElseThrow(), input.get(i).copy());
+                            input.set(i, ItemStack.EMPTY);
                         }
                     }
                 }
@@ -95,6 +92,16 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
 
     public void clearItem() {
         inventory.set(0, ItemStack.EMPTY);
+    }
+
+    @Override
+    public boolean isValid(int slot, ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+        return false;
     }
 
     @Override

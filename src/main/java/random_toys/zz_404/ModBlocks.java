@@ -28,6 +28,7 @@ public class ModBlocks {
     public static final Block COMPRESSOR = register("compressor", new CompressorBlock(AbstractBlock.Settings.copy(Blocks.CHEST), () -> ModBlockEntities.COMPRESSOR));
     public static final Block EXPERIENCE_COLLECTOR = register("experience_collector", new ExperienceCollectorBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque()));
     public static final Block TRANSFER = register("transfer", new TransferringBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+    public static final Block DISENCHANTMENTOR = register("disenchantmentor", new DisenchantmentBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.DISENCHANTMENTOR));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

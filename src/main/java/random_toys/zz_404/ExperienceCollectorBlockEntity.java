@@ -64,10 +64,10 @@ public class ExperienceCollectorBlockEntity extends BlockEntity {
                 world.getBlockEntity(pos.east()),
         };
         BlockEntity near = nears[world.random.nextInt(6)];
-        if (world.getReceivedRedstonePower(pos) == 0 && near instanceof CompressorBlockEntity compressor)
+        if (world.getReceivedRedstonePower(pos) == 0 && near instanceof TransferableBlockEntity entity)
             if (experience == max) {
                 int before = experience;
-                boolean success = compressor
+                boolean success = entity
                         .transformSingle(Items.BOOK, ExperienceCollectorBlock.enchantBook(world, this));
                 if (!success) experience = before;
             }

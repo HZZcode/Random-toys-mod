@@ -18,6 +18,7 @@ public class ModBlockEntities {
     public static final BlockEntityType<CompressorBlockEntity> COMPRESSOR = create("compressor", BlockEntityType.Builder.create(CompressorBlockEntity::new, ModBlocks.COMPRESSOR));
     public static final BlockEntityType<ExperienceCollectorBlockEntity> EXPERIENCE_COLLECTOR = create("experience_collector", BlockEntityType.Builder.create(ExperienceCollectorBlockEntity::new, ModBlocks.EXPERIENCE_COLLECTOR));
     public static final BlockEntityType<TransferringBlockEntity> TRANSFER = create("transfer", BlockEntityType.Builder.create(TransferringBlockEntity::new, ModBlocks.TRANSFER));
+    public static final BlockEntityType<DisenchantmentBlockEntity> DISENCHANTMENTOR = create("disenchantmentor", BlockEntityType.Builder.create(DisenchantmentBlockEntity::new, ModBlocks.DISENCHANTMENTOR));
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.@NotNull Builder<T> builder) {
         Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, id);

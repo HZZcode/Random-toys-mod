@@ -17,13 +17,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.stream.IntStream;
 
-public class CompressorBlockEntity extends LootableContainerBlockEntity {
+public class CompressorBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity {
     public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
 
     public CompressorBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
@@ -32,6 +31,11 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity {
 
     public CompressorBlockEntity(BlockPos blockPos, BlockState blockState) {
         this(ModBlockEntities.COMPRESSOR, blockPos, blockState);
+    }
+
+    @Override
+    public DefaultedList<ItemStack> getInventory() {
+        return inventory;
     }
 
     @Override
@@ -111,62 +115,19 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity {
         return null;
     }
 
-    private @NotNull ItemStack @NotNull [] mergeStack(@NotNull ItemStack stack1, @NotNull ItemStack stack2) {
-        ItemStack result1, result2;
-        if (stack1.isEmpty() && !stack2.isEmpty()) {
-            result1 = stack2.copy();
-            result2 = ItemStack.EMPTY;
-        }
-        else if (stack1.getItem() == stack2.getItem() && stack1.getCount() < stack1.getItem().getMaxCount()) {
-            Item item = stack1.getItem();
-            int max = item.getMaxCount();
-            int count = stack1.getCount() + stack2.getCount();
-            if (count <= max){
-                result1 = new ItemStack(item, count);
-                result2 = ItemStack.EMPTY;
-            }
-            else {
-                result1 = new ItemStack(item, max);
-                result2 = new ItemStack(item, count - max);
-            }
-        }
-        else {
-            result1 = stack1.copy();
-            result2 = stack2.copy();
-        }
-        ItemStack[] result = new ItemStack[2];
-        result[0] = result1;
-        result[1] = result2;
-        return result;
-    }
-
-    private void swapStack(int i, int j) {
-        var m = inventory.get(i).copy();
-        inventory.set(i, inventory.get(j).copy());
-        inventory.set(j, m);
-    }
-
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world == null || world.isClient) return;
         world.setBlockState(pos, state.with(TransferringBlock.POWERED,
                 world.getReceivedRedstonePower(pos) != 0));
         if (world.getReceivedRedstonePower(pos) != 0) return;
         int count = IntStream.range(0, 27).filter(i -> !inventory.get(i).isEmpty()).max().orElse(0) + 1;
-        for (int i = 0; i < count; i++) {
-            for (int j = i + 1; j < count; j++) {
-                ItemStack stack1 = inventory.get(i);
-                ItemStack stack2 = inventory.get(j);
-                var stacks = mergeStack(stack1, stack2);
-                inventory.set(i, stacks[0]);
-                inventory.set(j, stacks[1]);
-            }
-        }
+        mergeStacks();
         for (int i = 0; i < count; i++) {
             var recipe = getCompressRecipe(inventory.get(i).getItem());
             if (recipe != null){
-                int[] spaces = IntStream.range(0, 27).filter(k -> inventory.get(k).isEmpty()).toArray();
-                if (spaces.length != 0){
-                    int j = spaces[0];
+                var space = getSpace();
+                if (space.isPresent()){
+                    int j = space.orElseThrow();
                     int mul = inventory.get(i).getCount() / recipe.in().getCount();
                     int remaining = inventory.get(i).getCount() % recipe.in().getCount();
                     inventory.set(i, inventory.get(i).copyWithCount(remaining));
@@ -181,26 +142,6 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity {
                     swapStack(i + 1, j);
             }
         }
-    }
-
-    public boolean transformSingle(Item from, ItemStack to) {
-        int[] indexes = IntStream.range(0, 27)
-                .filter(k -> !inventory.get(k).isEmpty() && inventory.get(k).getItem() == from).toArray();
-        int[] spaces = IntStream.range(0, 27).filter(k -> inventory.get(k).isEmpty()).toArray();
-        if (indexes.length != 0) {
-            int index = indexes[0];
-            if (spaces.length != 0) {
-                int space = spaces[0];
-                inventory.set(index, inventory.get(index).copyWithCount(inventory.get(index).getCount() - 1));
-                inventory.set(space, to);
-                return true;
-            }
-            else if (inventory.get(index).getCount() == 1) {
-                inventory.set(index, to);
-                return true;
-            }
-        }
-        return false;
     }
 
     public record CompressingResult(ItemStack in, ItemStack out) { }

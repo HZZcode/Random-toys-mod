@@ -9,6 +9,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public class ModItems {
     public static final Item DICE = registerItems("dice", new RandomizerItem(new Item.Settings()));
@@ -37,40 +38,42 @@ public class ModItems {
         RandomToys.log("Registering Items");
     }
 
-    private static void addRedstoneGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
+    private static void addRedstoneGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OBSERVER, ModBlocks.BUD);
         fabricItemGroupEntries.addAfter(Blocks.REDSTONE_BLOCK, ModBlocks.RANDOMIZER);
         fabricItemGroupEntries.addAfter(Items.REDSTONE, ModBlocks.COPPERED_REDSTONE_WIRE);
         fabricItemGroupEntries.addAfter(Items.REDSTONE_BLOCK, ModBlocks.COPPERED_REDSTONE_BLOCK);
         fabricItemGroupEntries.addBefore(Blocks.CHEST, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.HOPPER, ModBlocks.TRANSFER);
+        fabricItemGroupEntries.addAfter(Blocks.FURNACE, ModBlocks.DISENCHANTMENTOR);
     }
 
-    private static void addNaturalGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
+    private static void addNaturalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OAK_LEAVES, ModBlocks.APPLE_LEAVES);
         fabricItemGroupEntries.addAfter(Blocks.BEDROCK, ModBlocks.BLACK_BEDROCK);
     }
 
-    private static void addIngredientsGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
+    private static void addIngredientsGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Items.HEART_OF_THE_SEA, ModItems.ZZ_CORE);
     }
 
-    private static void addCombatGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
+    private static void addCombatGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.BLACKSTONE_CRYSTAL);
     }
 
-    private static void addFunctionalGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
+    private static void addFunctionalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.SMITHING_TABLE, ModBlocks.BLACKSTONE_PROCESSING_TABLE);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.EXPERIENCE_COLLECTOR);
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.COMPRESSOR);
+        fabricItemGroupEntries.addAfter(Blocks.GRINDSTONE, ModBlocks.DISENCHANTMENTOR);
     }
 
-    private static void addSpawnEggGroupItems(FabricItemGroupEntries fabricItemGroupEntries){
+    private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.add(ModItems.ZZ_SPAWN_EGG);
         fabricItemGroupEntries.addAfter(Items.SPAWNER, ModBlocks.DISPOSABLE_SPAWNER);
     }
@@ -100,5 +103,6 @@ public class ModItems {
                         entries.add(ModBlocks.COMPRESSOR);
                         entries.add(ModBlocks.EXPERIENCE_COLLECTOR);
                         entries.add(ModBlocks.TRANSFER);
+                        entries.add(ModBlocks.DISENCHANTMENTOR);
                     }).build());
 }
