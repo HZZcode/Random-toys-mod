@@ -22,6 +22,7 @@ public class ModItems {
     public static final Item GILDED_BLACKSTONE_CRYSTAL = registerItems("gilded_blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_GILDED_BLACKSTONE, new Item.Settings().fireproof()));
     public static final Item ENCHANTED_GILDED_BLACKSTONE_CRYSTAL = registerItems("enchanted_gilded_blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_ENCHANTED_GILDED_BLACKSTONE, new Item.Settings().fireproof().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
     public static final Item ZZ_CORE = registerItems("zz_core", new ZZCoreItem(new Item.Settings().fireproof()));
+    public static final Item ENDER_LINKER_CONFIGURATOR = registerItems("ender_linker_configurator", new EnderLinkerConfiguratorItem(new Item.Settings()));
 
     private static Item registerItems(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
@@ -80,7 +81,7 @@ public class ModItems {
 
     public static final ItemGroup RandomToys_GROUP = Registry.register(Registries.ITEM_GROUP, Identifier.of(RandomToys.MOD_ID, "random-toys"),
             ItemGroup.create(null, -1).displayName(Text.translatable("itemGroup.random-toys"))
-                    .icon(() -> new ItemStack(ModItems.DICE))
+                    .icon(() -> new ItemStack(ModItems.ZZ_CORE))
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.DICE);
                         entries.add(ModItems.CALC_CORE);
@@ -104,5 +105,7 @@ public class ModItems {
                         entries.add(ModBlocks.EXPERIENCE_COLLECTOR);
                         entries.add(ModBlocks.TRANSFER);
                         entries.add(ModBlocks.DISENCHANTMENTOR);
+                        entries.add(ModBlocks.ENDER_LINKER);
+                        entries.add(ModItems.ENDER_LINKER_CONFIGURATOR);
                     }).build());
 }

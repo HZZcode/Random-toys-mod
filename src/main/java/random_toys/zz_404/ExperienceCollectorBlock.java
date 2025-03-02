@@ -145,7 +145,7 @@ public class ExperienceCollectorBlock extends BlockWithEntity {
             final int unitXp = 100;
             if (player.isSneaking()) entity.transform(player, unitXp);
             else entity.transform(player, -ExperienceCollectorBlockEntity.max(entity.experience / 2, unitXp));
-            return ActionResult.CONSUME;
+            return ActionResult.SUCCESS_NO_ITEM_USED;
         }
         return super.onUse(state, world, pos, player, hit);
     }

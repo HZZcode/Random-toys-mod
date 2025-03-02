@@ -3,7 +3,10 @@ package random_toys.zz_404;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Items;
+import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +22,11 @@ public class RandomToys implements ModInitializer {
 
 	public static void error(String format, Object... objects) {
 		LOGGER.error(String.format("[RandomToys] %s", format), objects);
+	}
+
+	public static void msg(LivingEntity entity, Text message) {
+		if (entity != null) entity.sendMessage(message);
+		//TODO: change it to showing message on screen (like /title command)
 	}
 
 	@Override

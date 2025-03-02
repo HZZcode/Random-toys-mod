@@ -42,7 +42,12 @@ public class DisenchantmentBlockEntity extends LootableContainerBlockEntity impl
     }
 
     @Override
-    protected Text getContainerName() {
+    public void setInventory(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
+    }
+
+    @Override
+    public Text getContainerName() {
         return Text.translatable("container.random-toys.disenchantmentor");
     }
 
@@ -57,7 +62,7 @@ public class DisenchantmentBlockEntity extends LootableContainerBlockEntity impl
     }
 
     @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+    public ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, this);
     }
 

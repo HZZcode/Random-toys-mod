@@ -9,9 +9,7 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
@@ -22,23 +20,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
-    public static final MapCodec<CompressorBlock> CODEC = createCodec(settings -> new CompressorBlock(settings, () -> ModBlockEntities.COMPRESSOR));
-    public static final BooleanProperty POWERED;
+public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity> {
+    public static final MapCodec<EnderLinkerBlock> CODEC = createCodec(settings -> new EnderLinkerBlock(settings, () -> ModBlockEntities.ENDER_LINKER));
 
     @Override
-    protected MapCodec<? extends AbstractChestBlock<CompressorBlockEntity>> getCodec() {
+    protected MapCodec<? extends AbstractChestBlock<EnderLinkerBlockEntity>> getCodec() {
         return CODEC;
     }
 
-    public CompressorBlock(AbstractBlock.Settings settings, Supplier<BlockEntityType<? extends CompressorBlockEntity>> blockEntityTypeSupplier) {
+    public EnderLinkerBlock(Settings settings, Supplier<BlockEntityType<? extends EnderLinkerBlockEntity>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
-        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
-    }
-
-    @Override
-    protected void appendProperties(StateManager.@NotNull Builder<Block, BlockState> builder) {
-        builder.add(POWERED);
     }
 
     @Override
@@ -49,7 +40,7 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new CompressorBlockEntity(pos, state);
+        return new EnderLinkerBlockEntity(pos, state);
     }
 
     @Override
@@ -66,6 +57,8 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
                 player.openHandledScreen(factory);
                 return ActionResult.SUCCESS;
             }
+            RandomToys.msg(player, Text.translatable("message.random-toys.ender_linker"));
+            return ActionResult.FAIL;
         }
         return ActionResult.PASS;
     }
@@ -79,8 +72,8 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world_, BlockState state_, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.COMPRESSOR,
-                (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
+        return validateTicker(type, ModBlockEntities.ENDER_LINKER,
+                (world, pos, state, blockEntity) -> blockEntity.nullCheck());
     }
 
     @Override
@@ -91,9 +84,5 @@ public class CompressorBlock extends AbstractChestBlock<CompressorBlockEntity> {
     @Override
     protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
-    }
-
-    static {
-        POWERED = Properties.POWERED;
     }
 }

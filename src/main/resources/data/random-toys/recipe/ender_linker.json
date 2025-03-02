@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "redstone",
+  "category": "misc",
   "key": {
     "o": {
       "item": "minecraft:gold_block"
@@ -9,7 +9,7 @@
       "item": "minecraft:iron_ingot"
     },
     "#": {
-      "item": "minecraft:barrel"
+      "item": "minecraft:ender_pearl"
     }
   },
   "pattern": [
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "random-toys:compressor"
+    "id": "random-toys:ender_linker"
   }
 }

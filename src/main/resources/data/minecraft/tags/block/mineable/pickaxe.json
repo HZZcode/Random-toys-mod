@@ -6,6 +6,9 @@
     "random-toys:coppered_redstone_block",
     "random-toys:blackstone_processing_table",
     "random-toys:compressor",
-    "random-toys:experience_collector"
+    "random-toys:experience_collector",
+    "random-toys:transfer",
+    "random-toys:disenchantmentor",
+    "random-toys:ender_linker"
   ]
 }

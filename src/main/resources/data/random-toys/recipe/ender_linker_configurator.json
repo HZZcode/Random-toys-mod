@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "o": {
+      "item": "minecraft:ender_pearl"
+    },
+    "/": {
+      "item": "minecraft:bone"
+    }
+  },
+  "pattern": [
+    " o",
+    "/ "
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:ender_linker_configurator"
+  }
+}
