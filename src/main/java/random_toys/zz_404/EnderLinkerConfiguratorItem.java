@@ -72,11 +72,7 @@ public class EnderLinkerConfiguratorItem extends Item {
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker == null || target == null) return false;
-        World world = attacker.getWorld();
         swapPos(attacker, target);
-        world.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(),
-                SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL,
-                0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
         return true;
     }
 
@@ -93,5 +89,8 @@ public class EnderLinkerConfiguratorItem extends Item {
         float pitch2 = entity2.getPitch();
         entity1.setPitch(pitch2);
         entity2.setPitch(pitch1);
+        entity1.getWorld().playSound(null, entity1.getX(), entity1.getY(), entity1.getZ(),
+                SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL,
+                0.5F, 0.4F / (entity1.getWorld().getRandom().nextFloat() * 0.4F + 0.8F));
     }
 }

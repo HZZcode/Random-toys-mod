@@ -44,7 +44,7 @@
   "container.random-toys.ender_linker": "Ender Linker (%s)",
   "message.random-toys.randomizer": "Your random number is %s!",
   "message.random-toys.ender_linker": "§cLinked Container Not Found!§r",
-  "message.random-toys.ender_linker_configurator.check": "Currently linking to: %s, (%d,%d,%d)...",
+  "message.random-toys.ender_linker_configurator.check": "Currently linking to: %s, (%d,%d,%d)",
   "message.random-toys.ender_linker_configurator.get": "§6Linking to: %s, (%d,%d,%d)...§r",
   "message.random-toys.ender_linker_configurator.set": "§aLinked to: %s, (%d,%d,%d)!§r",
   "tooltip.random-toys.randomizer": "Random size: %s",
