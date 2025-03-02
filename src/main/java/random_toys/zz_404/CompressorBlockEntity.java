@@ -39,7 +39,12 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
     }
 
     @Override
-    protected Text getContainerName() {
+    public void setInventory(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
+    }
+
+    @Override
+    public Text getContainerName() {
         return Text.translatable("container.random-toys.compressor");
     }
 
@@ -54,7 +59,7 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
     }
 
     @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+    public ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, this);
     }
 

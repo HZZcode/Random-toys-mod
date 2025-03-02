@@ -46,7 +46,7 @@ public class RandomizerItem extends Item {
     @Override
     public ItemStack finishUsing(ItemStack stack, @NotNull World world, LivingEntity user) {
         if (world.isClient) return stack;
-        user.sendMessage(Text.translatable("message.random-toys.randomizer", getRandomNumber()));
+        RandomToys.msg(user, Text.translatable("message.random-toys.randomizer", getRandomNumber()));
         return super.finishUsing(stack, world, user);
     }
 

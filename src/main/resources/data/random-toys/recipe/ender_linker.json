@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "o": {
+      "item": "minecraft:gold_block"
+    },
+    "|": {
+      "item": "minecraft:iron_ingot"
+    },
+    "#": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    "|o|",
+    "|#|",
+    "|o|"
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:ender_linker"
+  }
+}

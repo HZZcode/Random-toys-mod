@@ -8,6 +8,7 @@
     "random-toys:compressor",
     "random-toys:experience_collector",
     "random-toys:transfer",
-    "random-toys:disenchantmentor"
+    "random-toys:disenchantmentor",
+    "random-toys:ender_linker"
   ]
 }

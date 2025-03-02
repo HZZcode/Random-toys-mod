@@ -59,14 +59,15 @@ public class DisenchantmentBlock extends AbstractChestBlock<DisenchantmentBlockE
 
     @Override
     protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient()) {
+        if (!world.isClient() && !player.getStackInHand(player.getActiveHand())
+                .isOf(ModItems.ENDER_LINKER_CONFIGURATOR)) {
             NamedScreenHandlerFactory factory = this.createScreenHandlerFactory(state, world, pos);
             if (factory != null) {
                 player.openHandledScreen(factory);
                 return ActionResult.SUCCESS;
             }
         }
-        return ActionResult.CONSUME;
+        return ActionResult.PASS;
     }
 
     @Override

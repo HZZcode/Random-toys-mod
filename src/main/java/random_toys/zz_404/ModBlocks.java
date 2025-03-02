@@ -29,6 +29,7 @@ public class ModBlocks {
     public static final Block EXPERIENCE_COLLECTOR = register("experience_collector", new ExperienceCollectorBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque()));
     public static final Block TRANSFER = register("transfer", new TransferringBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
     public static final Block DISENCHANTMENTOR = register("disenchantmentor", new DisenchantmentBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.DISENCHANTMENTOR));
+    public static final Block ENDER_LINKER = register("ender_linker", new EnderLinkerBlock(AbstractBlock.Settings.copy(Blocks.END_STONE), () -> ModBlockEntities.ENDER_LINKER));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

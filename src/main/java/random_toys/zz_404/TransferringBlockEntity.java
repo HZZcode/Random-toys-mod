@@ -44,10 +44,12 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
             if (space.isEmpty()) return;
             for (BlockEntity in : inputs) {
                 if (in instanceof TransferableBlockEntity input) {
+                    if (input == output) continue;
                     for (int i = 0; i < 27; i++) {
                         ItemStack stack = input.get(i);
+                        if (stack == null) continue;
                         if ((isEmpty() || stack.isOf(getItem())) && !stack.isEmpty()) {
-                            output.set(space.orElseThrow(), input.get(i).copy());
+                            output.set(space.orElseThrow(), stack.copy());
                             input.set(i, ItemStack.EMPTY);
                         }
                     }
