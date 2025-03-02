@@ -1,8 +1,7 @@
 package random_toys.zz_404;
 
 import net.minecraft.block.*;
-import net.minecraft.block.dispenser.DispenserBehavior;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.dispenser.ShearsDispenserBehavior;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static net.minecraft.block.Block.dropStack;
 
-public class DispenserShearsHarvestBehavior implements DispenserBehavior {
+public class DispenserShearsHarvestBehavior extends ShearsDispenserBehavior {
     private boolean useShears(@NotNull World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof AppleLeavesBlock appleLeavesBlock) {
@@ -63,7 +62,7 @@ public class DispenserShearsHarvestBehavior implements DispenserBehavior {
     }
 
     @Override
-    public ItemStack dispense(BlockPointer pointer, @NotNull ItemStack stack) {
+    public ItemStack dispenseSilently(BlockPointer pointer, @NotNull ItemStack stack) {
         if (stack.isOf(Items.SHEARS)) {
             World world = pointer.world();
             BlockPos pos = pointer.pos().offset(pointer.state().get(DispenserBlock.FACING));
@@ -75,6 +74,6 @@ public class DispenserShearsHarvestBehavior implements DispenserBehavior {
                 return stack;
             }
         }
-        return DispenserBlock.BEHAVIORS.get(stack.getItem()).dispense(pointer, stack);
+        return super.dispenseSilently(pointer, stack);
     }
 }
