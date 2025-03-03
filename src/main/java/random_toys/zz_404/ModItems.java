@@ -24,6 +24,7 @@ public class ModItems {
     public static final Item ZZ_CORE = registerItems("zz_core", new ZZCoreItem(new Item.Settings().fireproof()));
     public static final Item ENDER_LINKER_CONFIGURATOR = registerItems("ender_linker_configurator", new EnderLinkerConfiguratorItem(new Item.Settings()));
     public static final Item HELPER = registerItems("helper", new HelperItem(new Item.Settings()));
+    public static final Item GLASSES = registerItems("glasses", new GlassesItem(new Item.Settings()));
 
     private static Item registerItems(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
@@ -36,6 +37,8 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addIngredientsGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addFunctionalGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addSpawnEggGroupItems);
+
+        EndermanAvoidStarringItems.addAvoidStarringItem(GLASSES);
 
         RandomToys.log("Registering Items");
     }
@@ -73,6 +76,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.EXPERIENCE_COLLECTOR);
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.GRINDSTONE, ModBlocks.DISENCHANTMENTOR);
+        fabricItemGroupEntries.addBefore(Blocks.FURNACE, ModBlocks.OXIDIZER);
     }
 
     private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -109,5 +113,6 @@ public class ModItems {
                         entries.add(ModBlocks.DISENCHANTMENTOR);
                         entries.add(ModBlocks.ENDER_LINKER);
                         entries.add(ModItems.ENDER_LINKER_CONFIGURATOR);
+                        entries.add(ModBlocks.OXIDIZER);
                     }).build());
 }

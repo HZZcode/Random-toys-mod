@@ -27,7 +27,7 @@ public class HelperItem extends Item {
     public ActionResult useOnBlock(@NotNull ItemUsageContext context) {
         Block block = context.getWorld().getBlockState(context.getBlockPos()).getBlock();
         Text name = block.getName();
-        if (name.getContent() instanceof TranslatableTextContent translatable) {
+        if (context.getWorld().isClient && name.getContent() instanceof TranslatableTextContent translatable) {
             String key = translatable.getKey();
             String[] parts = key.split("\\.");
             showTooltip(parts, context.getPlayer());
