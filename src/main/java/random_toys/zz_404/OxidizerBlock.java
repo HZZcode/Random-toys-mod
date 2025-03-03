@@ -9,7 +9,9 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
@@ -20,16 +22,23 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity> {
-    public static final MapCodec<EnderLinkerBlock> CODEC = createCodec(settings -> new EnderLinkerBlock(settings, () -> ModBlockEntities.ENDER_LINKER));
+public class OxidizerBlock extends AbstractChestBlock<OxidizerBlockEntity> {
+    public static final MapCodec<OxidizerBlock> CODEC = createCodec(settings -> new OxidizerBlock(settings, () -> ModBlockEntities.OXIDIZER));
+    public static final BooleanProperty POWERED;
 
     @Override
-    protected MapCodec<? extends AbstractChestBlock<EnderLinkerBlockEntity>> getCodec() {
+    protected MapCodec<? extends AbstractChestBlock<OxidizerBlockEntity>> getCodec() {
         return CODEC;
     }
 
-    public EnderLinkerBlock(Settings settings, Supplier<BlockEntityType<? extends EnderLinkerBlockEntity>> blockEntityTypeSupplier) {
+    public OxidizerBlock(Settings settings, Supplier<BlockEntityType<? extends OxidizerBlockEntity>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
+        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.@NotNull Builder<Block, BlockState> builder) {
+        builder.add(POWERED);
     }
 
     @Override
@@ -40,7 +49,7 @@ public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity>
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new EnderLinkerBlockEntity(pos, state);
+        return new OxidizerBlockEntity(pos, state);
     }
 
     @Override
@@ -57,8 +66,6 @@ public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity>
                 player.openHandledScreen(factory);
                 return ActionResult.SUCCESS;
             }
-            RandomToys.msg(player, Text.translatable("message.random-toys.ender_linker"));
-            return ActionResult.FAIL;
         }
         return ActionResult.PASS;
     }
@@ -72,8 +79,8 @@ public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity>
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world_, BlockState state_, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.ENDER_LINKER,
-                (world, pos, state, blockEntity) -> blockEntity.nullCheck());
+        return validateTicker(type, ModBlockEntities.OXIDIZER,
+                (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
     }
 
     @Override
@@ -83,8 +90,10 @@ public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity>
 
     @Override
     protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
-        if (world.getBlockEntity(pos) instanceof EnderLinkerBlockEntity linker)
-            return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(linker.linked));
-        return 0;
+        return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+    }
+
+    static {
+        POWERED = Properties.POWERED;
     }
 }
