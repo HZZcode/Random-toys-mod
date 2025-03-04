@@ -14,7 +14,6 @@ import java.util.Random;
 public class RandomToys implements ModInitializer {
 	public static final String MOD_ID = "random-toys";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-	//TODO: Glasses that can avoid enderman
 
 	public static void log(String format, Object... objects) {
 		LOGGER.info(String.format("[RandomToys] %s", format), objects);

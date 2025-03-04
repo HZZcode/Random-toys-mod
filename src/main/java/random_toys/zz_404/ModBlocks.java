@@ -27,6 +27,8 @@ public class ModBlocks {
     public static final Block DISENCHANTMENTOR = register("disenchantmentor", new DisenchantmentBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.DISENCHANTMENTOR));
     public static final Block ENDER_LINKER = register("ender_linker", new EnderLinkerBlock(AbstractBlock.Settings.copy(Blocks.END_STONE), () -> ModBlockEntities.ENDER_LINKER));
     public static final Block OXIDIZER = register("oxidizer", new OxidizerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.OXIDIZER));
+    public static final Block VANISHING_DOOR = register("vanishing_door", new VanishingDoorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
+    public static final Block IMITATOR = register("imitator", new ImitatorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);
@@ -55,6 +57,8 @@ public class ModBlocks {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.COPPERED_REDSTONE_WIRE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DISPOSABLE_SPAWNER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EXPERIENCE_COLLECTOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.VANISHING_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.IMITATOR, RenderLayer.getCutout());
 
         RandomToys.log("Registering Blocks");
     }
