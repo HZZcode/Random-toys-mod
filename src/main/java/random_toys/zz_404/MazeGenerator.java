@@ -3,11 +3,13 @@ package random_toys.zz_404;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.Spawner;
-import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.decoration.ArmorStandEntity;
+import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -212,7 +214,7 @@ public class MazeGenerator {
                 setBlock(center.east(), Blocks.RAW_GOLD_BLOCK.getDefaultState());
             } //10%
             else if (x < 10) {
-                setBlock(center, ModBlocks.COMPRESSOR.getDefaultState().with(CompressorBlock.POWERED, true));
+                setBlock(center, ModBlocks.COMPRESSOR.getDefaultState().with(CompressorBlock.POWERED, false));
                 if (world.getBlockEntity(center) instanceof CompressorBlockEntity compressor)
                     for (int i = 0; i < 27; i++)
                         compressor.inventory.set(i, new ItemStack(Items.GOLD_NUGGET, 64));
@@ -220,7 +222,7 @@ public class MazeGenerator {
                 available.addAll(empties);
                 List<BlockPos> nears = available.stream()
                         .filter(pos1 -> distance(pos1, center) <= 8)
-                        .filter(pos1 -> !pos1.equals(pos)).toList();
+                        .filter(pos1 -> !pos1.equals(center)).toList();
                 if (!nears.isEmpty()) {
                     BlockPos near = nears.get(world.random.nextInt(nears.size()));
                     centers.remove(near);
@@ -252,6 +254,10 @@ public class MazeGenerator {
                             world.random.nextInt(6) + 9));
                 }
             } //5%
+            else if (x < 13) {
+                world.spawnEntity(new EndCrystalEntity(world,
+                        center.getX() + 0.5, center.getY() - 1, center.getZ() + 0.5));
+            } //5%
             else {
                 setBlock(center, Blocks.AIR.getDefaultState());
                 setBlock(center.up(), Blocks.AIR.getDefaultState());
@@ -259,7 +265,7 @@ public class MazeGenerator {
                 setBlock(center.down(), Blocks.AIR.getDefaultState());
                 setBlock(center.down(2), Blocks.AIR.getDefaultState());
                 empties.add(center);
-            } //45%
+            } //40%
             centers.remove(center);
         }
     }
@@ -274,9 +280,22 @@ public class MazeGenerator {
                 BlockPos corner = relative(li * length, lj * length).toBlockPos();
                 BlockPos mid = relative(li * (length - 0.5), lj * (length - 0.5)).toBlockPos();
                 BlockPos far = relative(li * (length - 1), lj * (length - 1)).toBlockPos();
+
                 for (int h = 0; h < 10; h++)
                     setBlock(corner.add(-li, height + h, -lj), Blocks.AIR.getDefaultState());
                 setBlock(corner.add(-li, 0, -lj), Blocks.WATER.getDefaultState());
+                setBlock(corner.add(-li, -1, -lj), Blocks.BLUE_STAINED_GLASS.getDefaultState());
+                setBlock(corner.add(-li, -2, -lj), Blocks.BEACON.getDefaultState());
+                setBlock(corner.add(-li, -3, -lj), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li, -3, -lj - 1), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li, -3, -lj + 1), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li - 1, -3, -lj), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li - 1, -3, -lj - 1), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li - 1, -3, -lj + 1), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li + 1, -3, -lj), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li + 1, -3, -lj - 1), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li + 1, -3, -lj + 1), Blocks.NETHERITE_BLOCK.getDefaultState());
+
                 setBlock(corner.add(-2 * li, 0, -lj),
                         Blocks.POLISHED_BLACKSTONE_BRICK_SLAB.getDefaultState());
                 setBlock(corner.add(-li, 0, -2 * lj),
@@ -285,15 +304,61 @@ public class MazeGenerator {
                         Blocks.POLISHED_BLACKSTONE_BRICK_SLAB.getDefaultState());
                 setBlock(far.add(li, 0, lj), Blocks.BARREL.getDefaultState()
                         .with(BarrelBlock.FACING, Direction.UP));
-
-                if (world.getBlockEntity(far.add(li, 0, lj)) instanceof BarrelBlockEntity barrel) {
-                    barrel.setStack(13, new ItemStack(ModItems.ENDER_LINKER_CONFIGURATOR, 3));
-                    barrel.setStack(22, new ItemStack(Items.FLINT_AND_STEEL));
+                if (li * lj == 1) {
+                    ArmorStandEntity armorStand = new ArmorStandEntity(world,
+                            far.getX() + li + 0.5, far.getY() + 2, far.getZ() + lj + 0.5);
+                    armorStand.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.NETHERITE_HELMET));
+                    armorStand.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.NETHERITE_CHESTPLATE));
+                    armorStand.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.NETHERITE_LEGGINGS));
+                    armorStand.equipStack(EquipmentSlot.FEET, new ItemStack(Items.NETHERITE_BOOTS));
+                    lookAt(armorStand, far);
+                    world.spawnEntity(armorStand);
+                    if (world.getBlockEntity(far.add(li, 0, lj)) instanceof BarrelBlockEntity barrel) {
+                        barrel.setStack(13, new ItemStack(ModItems.ENDER_LINKER_CONFIGURATOR, 3));
+                        barrel.setStack(22, new ItemStack(Items.FLINT_AND_STEEL));
+                    }
+                    setBlock(mid, Blocks.NETHERRACK.getDefaultState());
+                    setBlock(mid.up(), Blocks.FIRE.getDefaultState());
                 }
-                setBlock(mid, Blocks.NETHERRACK.getDefaultState());
-                setBlock(mid.up(), Blocks.FIRE.getDefaultState());
-                //TODO: add another variety of this
+                else if (li == 1) {
+                    if (world.getBlockEntity(far.add(li, 0, lj)) instanceof BarrelBlockEntity barrel) {
+                        barrel.setStack(4, new ItemStack(Blocks.COPPER_BLOCK, 16));
+                        barrel.setStack(13, new ItemStack(ModBlocks.OXIDIZER));
+                        barrel.setStack(22, new ItemStack(Items.WATER_BUCKET));
+                    }
+                    setBlock(mid.north(), Blocks.POLISHED_BLACKSTONE_SLAB.getDefaultState());
+                    setBlock(mid.south(), Blocks.POLISHED_BLACKSTONE_SLAB.getDefaultState());
+                    setBlock(mid.west(), Blocks.POLISHED_BLACKSTONE_SLAB.getDefaultState());
+                    setBlock(mid.east(), Blocks.POLISHED_BLACKSTONE_SLAB.getDefaultState());
+                    setBlock(mid.up(), ModBlocks.OXIDIZER.getDefaultState());
+                }
+                else {
+                    if (world.getBlockEntity(far.add(li, 0, lj)) instanceof BarrelBlockEntity barrel) {
+                        barrel.setStack(13, ExperienceCollectorBlock.enchantBook(world, 30));
+                    }
+                    world.setBlockState(far.add(li, 0, lj), Blocks.AIR.getDefaultState());
+                    setBlock(mid, ModBlocks.DISENCHANTMENTOR.getDefaultState()
+                            .with(DisenchantmentBlock.POWERED, true));
+                    setBlock(mid.up(), ModBlocks.TRANSFER.getDefaultState());
+                    setBlock(mid.up(2), ModBlocks.COMPRESSOR.getDefaultState());
+                }
             }
+    }
+
+    private void lookAt(@NotNull Entity entity, @NotNull BlockPos pos) {
+        double entityX = entity.getX();
+        double entityY = entity.getY() + entity.getStandingEyeHeight();
+        double entityZ = entity.getZ();
+        double targetX = pos.getX() + 0.5;
+        double targetY = pos.getY() + 0.5;
+        double targetZ = pos.getZ() + 0.5;
+        double deltaX = targetX - entityX;
+        double deltaY = targetY - entityY;
+        double deltaZ = targetZ - entityZ;
+        double yaw = Math.atan2(deltaX, deltaZ) * 180.0 / Math.PI;
+        double pitch = Math.atan2(deltaY, Math.sqrt(deltaX * deltaX + deltaZ * deltaZ)) * 180.0 / Math.PI;
+        entity.setYaw((float) yaw);
+        entity.setPitch((float) pitch);
     }
 
     private void placeCenterFeatures() {
@@ -341,11 +406,11 @@ public class MazeGenerator {
         setBlock(pos.up(), ModBlocks.COMPRESSOR.getDefaultState().with(CompressorBlock.POWERED, true));
         setBlock(pos, Blocks.REDSTONE_TORCH.getDefaultState());
         if (world.getBlockEntity(pos.up()) instanceof CompressorBlockEntity compressor) {
-            ItemStack stack = new ItemStack(Items.BEACON);
-            stack.set(DataComponentTypes.CUSTOM_NAME,
-                    Text.of("There Will Be Something Here Soon!"));
-            //TODO: complete this
-            compressor.inventory.set(13, stack);
+            compressor.inventory.set(13, new ItemStack(Items.BEACON));
+            compressor.inventory.set(4, new ItemStack(ModBlocks.BLACK_BEDROCK));
+            compressor.inventory.set(12, new ItemStack(ModBlocks.BLACK_BEDROCK));
+            compressor.inventory.set(14, new ItemStack(ModBlocks.BLACK_BEDROCK));
+            compressor.inventory.set(22, new ItemStack(ModBlocks.BLACK_BEDROCK));
         }
     }
 
@@ -356,17 +421,16 @@ public class MazeGenerator {
             for (int z = pos1.getZ(); z <= pos2.getZ(); z++) {
                 setBlock(new BlockPos(x, pos.getY() - 1, z),
                         ModBlocks.BLACK_BEDROCK.getDefaultState());
-//                setBlock(new BlockPos(x, pos.getY() + height, z),
-//                        ModBlocks.BLACK_BEDROCK.getDefaultState());
-                //TODO: un-comment this after finishing all work
+                setBlock(new BlockPos(x, pos.getY() + height, z),
+                        ModBlocks.BLACK_BEDROCK.getDefaultState());
             }
     }
 
     @Contract(" -> new")
     public @NotNull Box getRangeBox() {
-        final int dx = 1 + length * unit;
-        final int dy = 5;
-        final int dz = 1 + length * unit;
+        final int dx = 15 + length * unit;
+        final int dy = height * 2;
+        final int dz = 15 + length * unit;
         return new Box(pos.getX() - dx, pos.getY() - dy, pos.getZ() - dz,
                 pos.getX() + dx, pos.getY() + dy, pos.getZ() + dz);
     }
@@ -423,6 +487,21 @@ public class MazeGenerator {
         }
 
         public HashMap<RelativePos, Boolean> generate() {
+            RelativePos[] exclude = {
+                    relative(1, 0.5), relative(1, -0.5),
+                    relative(-1, 0.5), relative(-1, -0.5),
+                    relative(0.5, 1), relative(-0.5, 1),
+                    relative(0.5, -1), relative(-0.5, -1),
+                    relative(length - 1, length - 0.5), relative(length - 0.5, length - 1),
+                    relative(-length + 1, length - 0.5), relative(-length + 0.5, length - 1),
+                    relative(length - 1, -length + 0.5), relative(length - 0.5, -length + 1),
+                    relative(-length + 1, -length + 0.5), relative(-length + 0.5, -length + 1)
+            };
+            posIsOpen.put(exclude[world.random.nextInt(8)], true);
+            posIsOpen.put(exclude[8 + world.random.nextInt(2)], true);
+            posIsOpen.put(exclude[10 + world.random.nextInt(2)], true);
+            posIsOpen.put(exclude[12 + world.random.nextInt(2)], true);
+            posIsOpen.put(exclude[14 + world.random.nextInt(2)], true);
             int times = 0;
             do {
                 times++;
@@ -432,6 +511,7 @@ public class MazeGenerator {
                 int count = (closed.size() + 1) / 4;
                 for (int i = 0; i < count; i++) {
                     RelativePos open = closed.get(world.random.nextInt(closed.size()));
+                    if (Arrays.asList(exclude).contains(open)) continue;
                     closed.remove(open);
                     posIsOpen.put(open, true);
                 }

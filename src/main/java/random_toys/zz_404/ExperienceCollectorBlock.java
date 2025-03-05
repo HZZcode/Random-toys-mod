@@ -86,21 +86,26 @@ public class ExperienceCollectorBlock extends BlockWithEntity {
                 (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
     }
 
-    public static @Nullable ItemStack enchantBook(@NotNull World world, ExperienceCollectorBlockEntity entity) {
+    public static @Nullable ItemStack enchantBook(@NotNull World world, int level) {
         Optional<RegistryEntryList.Named<Enchantment>> optional = world.getRegistryManager()
                 .get(RegistryKeys.ENCHANTMENT).getEntryList(EnchantmentTags.IN_ENCHANTING_TABLE);
         if (optional.isPresent()) {
             RegistryEntryList.Named<Enchantment> namedList = optional.get();
-            int level = ExperienceCollectorBlockEntity.max(Xp2Level(entity.experience), 30);
             List<?> list = EnchantmentHelper.generateEnchantments(world.random,
                     new ItemStack(Items.BOOK), level, namedList.stream());
             ItemStack newStack = new ItemStack(Items.ENCHANTED_BOOK);
             for (Object object : list) if (object instanceof EnchantmentLevelEntry enchantmentLevelEntry)
                 newStack.addEnchantment(enchantmentLevelEntry.enchantment, enchantmentLevelEntry.level);
-            entity.experience -= (int) Level2Xp(level);
             return newStack;
         }
         return null;
+    }
+
+    public static @Nullable ItemStack enchantBook(@NotNull World world, @NotNull ExperienceCollectorBlockEntity entity) {
+        int level = ExperienceCollectorBlockEntity.max(Xp2Level(entity.experience), 30);
+        ItemStack result = enchantBook(world, level);
+        if (result != null) entity.experience -= (int) Level2Xp(level);
+        return result;
     }
 
     @Override

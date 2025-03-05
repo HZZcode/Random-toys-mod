@@ -5,7 +5,9 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractWindChargeEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
@@ -61,6 +63,13 @@ public class VanishingDoorBlock extends BlockWithEntity {
             return ActionResult.SUCCESS_NO_ITEM_USED;
         }
         return super.onUse(state, world, pos, player, hit);
+    }
+
+    @Override
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        if (entity instanceof AbstractWindChargeEntity
+                && world.getBlockEntity(pos) instanceof VanishingDoorBlockEntity door)
+            door.open();
     }
 
     @Override

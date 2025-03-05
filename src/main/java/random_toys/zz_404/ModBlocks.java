@@ -61,6 +61,8 @@ public class ModBlocks {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.VANISHING_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.IMITATOR, RenderLayer.getCutout());
 
+        EndCrystalPlacingBlocks.addPlacingBlocks(BLACK_BEDROCK);
+
         RandomToys.log("Registering Blocks");
     }
 }
