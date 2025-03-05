@@ -29,6 +29,7 @@ public class ModBlocks {
     public static final Block OXIDIZER = register("oxidizer", new OxidizerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.OXIDIZER));
     public static final Block VANISHING_DOOR = register("vanishing_door", new VanishingDoorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
     public static final Block IMITATOR = register("imitator", new ImitatorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
+    public static final Block MAZE_CORE = register("maze_core", new MazeCoreBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

@@ -117,7 +117,8 @@ public class ImitatorBlock extends BlockWithEntity {
     @Override
     protected ItemActionResult onUseWithItem(@NotNull ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world != null && !world.isClient && stack.getItem() instanceof BlockItem blockItem
-                && world.getBlockEntity(pos) instanceof ImitatorBlockEntity imitator) {
+                && world.getBlockEntity(pos) instanceof ImitatorBlockEntity imitator
+                && imitator.block == null) {
             imitator.block = blockItem.getBlock();
             imitator.updateListeners();
             return ItemActionResult.SUCCESS;

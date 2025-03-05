@@ -23,6 +23,7 @@ public class ModBlockEntities {
     public static final BlockEntityType<OxidizerBlockEntity> OXIDIZER = create("oxidizer", BlockEntityType.Builder.create(OxidizerBlockEntity::new, ModBlocks.OXIDIZER));
     public static final BlockEntityType<VanishingDoorBlockEntity> VANISHING_DOOR = create("vanishing_door", BlockEntityType.Builder.create(VanishingDoorBlockEntity::new, ModBlocks.VANISHING_DOOR));
     public static final BlockEntityType<ImitatorBlockEntity> IMITATOR = create("imitator", BlockEntityType.Builder.create(ImitatorBlockEntity::new, ModBlocks.IMITATOR));
+    public static final BlockEntityType<MazeCoreBlockEntity> MAZE_CORE = create("maze_core", BlockEntityType.Builder.create(MazeCoreBlockEntity::new, ModBlocks.MAZE_CORE));
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.@NotNull Builder<T> builder) {
         Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, id);
