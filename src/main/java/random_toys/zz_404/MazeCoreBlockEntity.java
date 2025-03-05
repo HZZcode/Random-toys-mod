@@ -45,7 +45,7 @@ public class MazeCoreBlockEntity extends BlockEntity {
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE,
                             300, 2, false, false));
             }
-            if (!world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(10),
+            if (!world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(10, 4, 10),
                     player -> !player.isCreative() && !player.isSpectator()).isEmpty())
                 world.setBlockState(pos, Blocks.AIR.getDefaultState());
         }
