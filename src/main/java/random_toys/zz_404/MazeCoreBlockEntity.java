@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -46,8 +47,13 @@ public class MazeCoreBlockEntity extends BlockEntity {
                             300, 2, false, false));
             }
             if (!world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(10, 4, 10),
-                    player -> !player.isCreative() && !player.isSpectator()).isEmpty())
-                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+                    player -> !player.isCreative() && !player.isSpectator()).isEmpty()) {
+                world.setBlockState(pos, Blocks.BEACON.getDefaultState());
+                for (int i = -1; i <= 1; i++)
+                    for (int j = -1; j <= 1; j++)
+                        world.setBlockState(pos.add(i, -1, j), Blocks.NETHERITE_BLOCK.getDefaultState());
+                world.spawnEntity(new EndCrystalEntity(world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5));
+            }
         }
         else {
             generator.generate();

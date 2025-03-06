@@ -286,15 +286,15 @@ public class MazeGenerator {
                 setBlock(corner.add(-li, 0, -lj), Blocks.WATER.getDefaultState());
                 setBlock(corner.add(-li, -1, -lj), Blocks.BLUE_STAINED_GLASS.getDefaultState());
                 setBlock(corner.add(-li, -2, -lj), Blocks.BEACON.getDefaultState());
-                setBlock(corner.add(-li, -3, -lj), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li, -3, -lj - 1), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li, -3, -lj + 1), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li - 1, -3, -lj), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li - 1, -3, -lj - 1), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li - 1, -3, -lj + 1), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li + 1, -3, -lj), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li + 1, -3, -lj - 1), Blocks.NETHERITE_BLOCK.getDefaultState());
-                setBlock(corner.add(-li + 1, -3, -lj + 1), Blocks.NETHERITE_BLOCK.getDefaultState());
+                setBlock(corner.add(-li, -3, -lj), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li, -3, -lj - 1), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li, -3, -lj + 1), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li - 1, -3, -lj), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li - 1, -3, -lj - 1), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li - 1, -3, -lj + 1), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li + 1, -3, -lj), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li + 1, -3, -lj - 1), Blocks.GOLD_BLOCK.getDefaultState());
+                setBlock(corner.add(-li + 1, -3, -lj + 1), Blocks.GOLD_BLOCK.getDefaultState());
 
                 setBlock(corner.add(-2 * li, 0, -lj),
                         Blocks.POLISHED_BLACKSTONE_BRICK_SLAB.getDefaultState());
