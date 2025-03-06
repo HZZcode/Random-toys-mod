@@ -3,6 +3,7 @@ package random_toys.zz_404.mixin;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BeaconBlockEntity;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -20,7 +21,7 @@ public class BeaconBlockSpecialCaseMixin {
             ),
             require = 1
     )
-    private static boolean isNotBlocking(BlockState instance, Block block) {
-        return BeaconBlockSpecialCaseBlocks.check(block);
+    private static boolean isNotBlocking(@NotNull BlockState instance, Block block) {
+        return BeaconBlockSpecialCaseBlocks.check(instance.getBlock());
     }
 }

@@ -105,6 +105,7 @@
   "gamerule.category.random-toys": "Random Toys Mod Gamerules",
   "gamerule.dispenserHarvestCrops": "Dispenser harvests some crops with shears (including apple leaves, nether warts, sweet berry bushes)",
   "gamerule.dispenserHarvestCropDamageTool": "Shears damages when used by dispensers",
+  "gamerule.mazeMiningFatigue": "Players get mining fatigue effect in mazes",
   "entity.random-toys.zz": "ZZ",
   "entity.random-toys.thrown_blackstone": "Blackstone Crystal",
   "entity.random-toys.thrown_gilded_blackstone": "Gilded Blackstone Crystal",

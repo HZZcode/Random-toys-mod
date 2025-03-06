@@ -40,7 +40,7 @@ public class MazeCoreBlockEntity extends BlockEntity {
         MazeGenerator generator = new MazeGenerator(world, pos);
         if (world.isClient) return;
         if (activated) {
-            if (world.getTime() % 240 == 0) {
+            if (world.getTime() % 240 == 0 && world.getGameRules().getBoolean(ModGamerules.MAZE_MINING_FATIGUE)) {
                 for (PlayerEntity player : world.getEntitiesByClass(PlayerEntity.class, generator.getRangeBox(),
                         player -> !player.isCreative() && !player.isSpectator()))
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE,
