@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/oxidizer_bottom",
+    "east": "random-toys:block/oxidizer",
+    "north": "random-toys:block/oxidizer",
+    "particle": "random-toys:block/oxidizer",
+    "south": "random-toys:block/oxidizer",
+    "west": "random-toys:block/oxidizer",
+    "up": "random-toys:block/oxidizer_top"
+  }
+}

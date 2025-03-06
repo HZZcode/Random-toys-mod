@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "appear=true": {
+      "model": "random-toys:block/vanishing_door"
+    },
+    "appear=false": {
+      "model": "minecraft:block/air"
+    }
+  }
+}

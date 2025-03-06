@@ -16,7 +16,8 @@
         }
       ],
       "structure_overrides": [
-        "random-toys:zz_island"
+        "random-toys:zz_island",
+        "random-toys:maze_core"
       ]
     }
   }

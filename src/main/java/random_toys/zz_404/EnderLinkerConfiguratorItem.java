@@ -1,6 +1,7 @@
 package random_toys.zz_404;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -62,6 +63,16 @@ public class EnderLinkerConfiguratorItem extends Item {
             }
         }
         return super.useOnBlock(context);
+    }
+
+    @Override
+    public void onItemEntityDestroyed(@NotNull ItemEntity entity) {
+        if (entity.getOwner() instanceof LivingEntity owner) {
+            owner.teleport(entity.getX(), entity.getY(), entity.getZ(), true);
+            owner.getWorld().playSound(null, owner.getX(), owner.getY(), owner.getZ(),
+                    SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL,
+                    0.5F, 0.4F / (owner.getWorld().getRandom().nextFloat() * 0.4F + 0.8F));
+        }
     }
 
     @Override

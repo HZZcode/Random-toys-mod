@@ -4,14 +4,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Random;
 
 public class RandomizerItem extends Item {
@@ -48,11 +46,5 @@ public class RandomizerItem extends Item {
         if (world.isClient) return stack;
         RandomToys.msg(user, Text.translatable("message.random-toys.randomizer", getRandomNumber()));
         return super.finishUsing(stack, world, user);
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, tooltip, type);
-        tooltip.add(Text.translatable("tooltip.random-toys.randomizer", size));
     }
 }

@@ -5,15 +5,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class ZZCoreItem extends Item {
     public ZZCoreItem(Settings settings) {
@@ -35,10 +31,5 @@ public class ZZCoreItem extends Item {
             return ActionResult.CONSUME;
         }
         return ActionResult.PASS;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, @NotNull List<Text> tooltip, TooltipType type) {
-        tooltip.add(Text.translatable("tooltip.random-toys.zz_core"));
     }
 }

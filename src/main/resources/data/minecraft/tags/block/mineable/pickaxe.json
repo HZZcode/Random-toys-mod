@@ -9,6 +9,9 @@
     "random-toys:experience_collector",
     "random-toys:transfer",
     "random-toys:disenchantmentor",
-    "random-toys:ender_linker"
+    "random-toys:ender_linker",
+    "random-toys:oxidizer",
+    "random-toys:vanishing_door",
+    "random-toys:imitator"
   ]
 }

@@ -16,6 +16,9 @@ public class ModGamerules {
     public static final GameRules.Key<GameRules.BooleanRule> DISPENSER_HARVEST_CROP_DAMAGE_TOOL =
             registerGamerules("dispenserHarvestCropDamageTool",
                     GameRuleFactory.createBooleanRule(true));
+    public static final GameRules.Key<GameRules.BooleanRule> MAZE_MINING_FATIGUE =
+            registerGamerules("mazeMiningFatigue",
+                    GameRuleFactory.createBooleanRule(true));
 
     public static <T extends GameRules.Rule<T>> GameRules.Key<T> registerGamerules(String name, GameRules.Type<T> gamerulesType) {
         return GameRuleRegistry.register(name, ModCategory, gamerulesType);

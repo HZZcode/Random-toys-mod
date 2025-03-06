@@ -11,11 +11,21 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_bone": {
+    "has_blaze": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:bone"
+            "items": "minecraft:blaze_rod"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_breeze": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:breeze_rod"
           }
         ]
       },
@@ -32,7 +42,8 @@
     [
       "has_the_recipe",
       "has_ender_pearl",
-      "has_bone"
+      "has_blaze",
+      "has_breeze"
     ]
   ],
   "rewards": {

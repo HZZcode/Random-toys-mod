@@ -83,6 +83,8 @@ public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity>
 
     @Override
     protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
-        return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+        if (world.getBlockEntity(pos) instanceof EnderLinkerBlockEntity linker)
+            return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(linker.linked));
+        return 0;
     }
 }

@@ -11,6 +11,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
+import static random_toys.zz_404.mixin_utils.MixinSets.EndermanAvoidStarringItems;
+
 public class ModItems {
     public static final Item DICE = registerItems("dice", new RandomizerItem(new Item.Settings()));
     public static final Item CALC_CORE = registerItems("calc_core", new Item(new Item.Settings()));
@@ -23,6 +25,8 @@ public class ModItems {
     public static final Item ENCHANTED_GILDED_BLACKSTONE_CRYSTAL = registerItems("enchanted_gilded_blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_ENCHANTED_GILDED_BLACKSTONE, new Item.Settings().fireproof().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
     public static final Item ZZ_CORE = registerItems("zz_core", new ZZCoreItem(new Item.Settings().fireproof()));
     public static final Item ENDER_LINKER_CONFIGURATOR = registerItems("ender_linker_configurator", new EnderLinkerConfiguratorItem(new Item.Settings()));
+    public static final Item HELPER = registerItems("helper", new HelperItem(new Item.Settings()));
+    public static final Item GLASSES = registerItems("glasses", new GlassesItem(new Item.Settings()));
 
     private static Item registerItems(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
@@ -36,6 +40,8 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addFunctionalGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addSpawnEggGroupItems);
 
+        EndermanAvoidStarringItems.add(GLASSES);
+
         RandomToys.log("Registering Items");
     }
 
@@ -47,6 +53,7 @@ public class ModItems {
         fabricItemGroupEntries.addBefore(Blocks.CHEST, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.HOPPER, ModBlocks.TRANSFER);
         fabricItemGroupEntries.addAfter(Blocks.FURNACE, ModBlocks.DISENCHANTMENTOR);
+        fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
     }
 
     private static void addNaturalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -72,6 +79,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.EXPERIENCE_COLLECTOR);
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.GRINDSTONE, ModBlocks.DISENCHANTMENTOR);
+        fabricItemGroupEntries.addBefore(Blocks.FURNACE, ModBlocks.OXIDIZER);
     }
 
     private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -83,6 +91,7 @@ public class ModItems {
             ItemGroup.create(null, -1).displayName(Text.translatable("itemGroup.random-toys"))
                     .icon(() -> new ItemStack(ModItems.ZZ_CORE))
                     .entries((displayContext, entries) -> {
+                        entries.add(ModItems.HELPER);
                         entries.add(ModItems.DICE);
                         entries.add(ModItems.CALC_CORE);
                         entries.add(ModItems.RANDOMIZER1);
@@ -107,5 +116,7 @@ public class ModItems {
                         entries.add(ModBlocks.DISENCHANTMENTOR);
                         entries.add(ModBlocks.ENDER_LINKER);
                         entries.add(ModItems.ENDER_LINKER_CONFIGURATOR);
+                        entries.add(ModBlocks.OXIDIZER);
+                        entries.add(ModBlocks.VANISHING_DOOR);
                     }).build());
 }

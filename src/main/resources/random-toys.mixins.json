@@ -3,6 +3,9 @@
   "package": "random_toys.zz_404.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BeaconBlockSpecialCaseMixin",
+    "EndCrystalPlacingMixin",
+    "EndermanStarringMixin"
   ],
   "injectors": {
     "defaultRequire": 1
