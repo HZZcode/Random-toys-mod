@@ -11,6 +11,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
+import static random_toys.zz_404.mixin_utils.MixinSets.EndermanAvoidStarringItems;
+
 public class ModItems {
     public static final Item DICE = registerItems("dice", new RandomizerItem(new Item.Settings()));
     public static final Item CALC_CORE = registerItems("calc_core", new Item(new Item.Settings()));
@@ -38,7 +40,7 @@ public class ModItems {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addFunctionalGroupItems);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addSpawnEggGroupItems);
 
-        EndermanAvoidStarringItems.addAvoidStarringItem(GLASSES);
+        EndermanAvoidStarringItems.add(GLASSES);
 
         RandomToys.log("Registering Items");
     }

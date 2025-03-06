@@ -6,7 +6,8 @@ import net.minecraft.item.EndCrystalItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import random_toys.zz_404.EndCrystalPlacingBlocks;
+
+import static random_toys.zz_404.mixin_utils.MixinSets.EndCrystalPlacingBlocks;
 
 @Mixin(EndCrystalItem.class)
 public class EndCrystalPlacingMixin {
@@ -20,7 +21,7 @@ public class EndCrystalPlacingMixin {
             require = 1
     )
     private boolean redirectFirstIsOf(BlockState instance, Block block) {
-        return EndCrystalPlacingBlocks.canPlaceOn(block);
+        return EndCrystalPlacingBlocks.check(block);
     }
 
     @Redirect(

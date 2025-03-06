@@ -12,6 +12,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.block.Blocks;
 
+import static random_toys.zz_404.mixin_utils.MixinSets.BeaconBlockSpecialCaseBlocks;
+import static random_toys.zz_404.mixin_utils.MixinSets.EndCrystalPlacingBlocks;
+
 public class ModBlocks {
     public static final Block BUD = register("bud", new BUDBlock(AbstractBlock.Settings.copy(Blocks.OBSERVER)));
     public static final Block RANDOMIZER = register("randomizer_block", new RandomizerBlock(AbstractBlock.Settings.copy(Blocks.CHEST), () -> ModBlockEntities.RANDOMIZER));
@@ -61,7 +64,8 @@ public class ModBlocks {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.VANISHING_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.IMITATOR, RenderLayer.getCutout());
 
-        EndCrystalPlacingBlocks.addPlacingBlocks(BLACK_BEDROCK);
+        EndCrystalPlacingBlocks.add(BLACK_BEDROCK);
+        BeaconBlockSpecialCaseBlocks.add(BLACK_BEDROCK);
 
         RandomToys.log("Registering Blocks");
     }
