@@ -118,5 +118,6 @@ public class ModItems {
                         entries.add(ModItems.ENDER_LINKER_CONFIGURATOR);
                         entries.add(ModBlocks.OXIDIZER);
                         entries.add(ModBlocks.VANISHING_DOOR);
+                        entries.add(ModItems.GLASSES);
                     }).build());
 }
