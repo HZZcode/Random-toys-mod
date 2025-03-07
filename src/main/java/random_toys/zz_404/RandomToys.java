@@ -32,6 +32,7 @@ public class RandomToys implements ModInitializer {
 	public void onInitialize() {
 		ModBlocks.registerBlocks();
 		ModEntities.registerEntities();
+		ModDataComponents.registerDataComponents();
 		ModItems.registerItems();
 		ModGamerules.registerGamerules();
 		ModBlockEntities.registerBlockEntities();
