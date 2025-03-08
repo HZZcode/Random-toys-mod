@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "random-toys:zz_island": {
+    "texture": "random-toys:textures/structure/zz_island.png",
+    "name": "ZZ Island"
+  },
+  "random-toys:maze_core": {
+    "texture": "random-toys:textures/structure/maze_core.png",
+    "name": "Maze"
+  }
+}

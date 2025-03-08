@@ -24,9 +24,9 @@ public class PlayerTickMixin {
                     player.getAbilities().flying = false;
                     return;
                 }
-                if (player.getAbilities().flying) return;
                 if (player.getWorld().getTime() % 20 == 0)
                     stack.set(ModDataComponents.GAS_REMAINING, Math.max(0, JetpackItem.getRemainingGas(stack) - 1));
+                if (player.getAbilities().flying) return;
                 player.getAbilities().setFlySpeed(player.getMovementSpeed());
                 player.getAbilities().flying = true;
             } else player.getAbilities().flying = false;
