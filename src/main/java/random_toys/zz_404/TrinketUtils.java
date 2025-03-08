@@ -19,6 +19,11 @@ public class TrinketUtils {
     }
 
     public static ArrayList<ItemStack> findInTrinkets(PlayerEntity player, Item item) {
+        return getTrinkets(player).stream().filter(slot -> slot.isOf(item))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public static ArrayList<ItemStack> getTrinkets(PlayerEntity player) {
         try {
             Class<?> trinketsApiClass = Class.forName("dev.emi.trinkets.api.TrinketsApi");
             Method getTrinketComponent = trinketsApiClass.getMethod("getTrinketComponent", LivingEntity.class);
@@ -29,8 +34,7 @@ public class TrinketUtils {
                 Method getAllEquipped = trinketComponentClass.getMethod("getAllEquipped");
                 @SuppressWarnings("unchecked") //Of course this is fine
                 List<Pair<?, ItemStack>> slots = (List<Pair<?, ItemStack>>) getAllEquipped.invoke(components);
-                return slots.stream().filter(slot -> slot.getRight().getItem() == item)
-                        .map(Pair::getRight).collect(Collectors.toCollection(ArrayList::new));
+                return slots.stream().map(Pair::getRight).collect(Collectors.toCollection(ArrayList::new));
             }
         }
         catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException

@@ -1,17 +1,17 @@
 package random_toys.zz_404;
 
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JetpackItem extends ArmorItem {
     public JetpackItem(Settings settings) {
@@ -46,18 +46,11 @@ public class JetpackItem extends ArmorItem {
                 String.format("%02d", minutes), String.format("%02d", seconds)));
     }
 
-    @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (entity instanceof PlayerEntity player) {
-            if (getRemainingGas(stack) == 0 || player.isOnGround()) {
-                player.getAbilities().flying = false;
-                return;
-            }
-            if (world.getTime() % 20 == 0)
-                stack.set(ModDataComponents.GAS_REMAINING, Math.max(0, getRemainingGas(stack) - 1));
-            player.getAbilities().setFlySpeed(player.getMovementSpeed());
-            player.getAbilities().flying = true;
-        }
-        //TODO: how to make it work in trinkets?
+    public static ArrayList<ItemStack> getRemainingWearingStacks(PlayerEntity player) {
+        ArrayList<ItemStack> jetpacks = TrinketUtils.findInTrinkets(player, ModItems.JETPACKS);
+        if (player.getInventory().armor.get(2).isOf(ModItems.JETPACKS))
+            jetpacks.add(player.getInventory().armor.get(2));
+        return jetpacks.stream().filter(stack -> getRemainingGas(stack) != 0)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

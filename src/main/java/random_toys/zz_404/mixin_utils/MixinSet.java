@@ -10,10 +10,6 @@ public class MixinSet<T> {
         set = new HashSet<>();
     }
 
-    public MixinSet(HashSet<T> set) {
-        this.set = set;
-    }
-
     public void add(T t) {
         set.add(t);
     }
