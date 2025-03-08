@@ -54,6 +54,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.HOPPER, ModBlocks.TRANSFER);
         fabricItemGroupEntries.addAfter(Blocks.FURNACE, ModBlocks.DISENCHANTMENTOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
+        fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
     }
 
     private static void addNaturalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -123,5 +124,6 @@ public class ModItems {
                         entries.add(ModBlocks.IMITATOR);
                         entries.add(ModItems.GLASSES);
                         entries.add(ModItems.JETPACKS);
+                        entries.add(ModBlocks.BELT);
                     }).build());
 }

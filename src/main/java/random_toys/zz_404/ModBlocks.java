@@ -33,6 +33,7 @@ public class ModBlocks {
     public static final Block VANISHING_DOOR = register("vanishing_door", new VanishingDoorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
     public static final Block IMITATOR = register("imitator", new ImitatorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
     public static final Block MAZE_CORE = register("maze_core", new MazeCoreBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
+    public static final Block BELT = register("belt", new BeltBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);
@@ -63,6 +64,7 @@ public class ModBlocks {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EXPERIENCE_COLLECTOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.VANISHING_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.IMITATOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BELT, RenderLayer.getCutout());
 
         EndCrystalPlacingBlocks.add(BLACK_BEDROCK);
         BeaconBlockSpecialCaseBlocks.add(BLACK_BEDROCK);

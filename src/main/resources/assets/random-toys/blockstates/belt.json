@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "horizontal_direction=north,powered=false": {
+      "model": "random-toys:block/belt/belt_north"
+    },
+    "horizontal_direction=south,powered=false": {
+      "model": "random-toys:block/belt/belt_south"
+    },
+    "horizontal_direction=west,powered=false": {
+      "model": "random-toys:block/belt/belt_west"
+    },
+    "horizontal_direction=east,powered=false": {
+      "model": "random-toys:block/belt/belt_east"
+    },
+    "horizontal_direction=north,powered=true": {
+      "model": "random-toys:block/belt/belt_north_on"
+    },
+    "horizontal_direction=south,powered=true": {
+      "model": "random-toys:block/belt/belt_south_on"
+    },
+    "horizontal_direction=west,powered=true": {
+      "model": "random-toys:block/belt/belt_west_on"
+    },
+    "horizontal_direction=east,powered=true": {
+      "model": "random-toys:block/belt/belt_east_on"
+    }
+  }
+}

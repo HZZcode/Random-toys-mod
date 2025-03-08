@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/belt/belt",
+    "east": "random-toys:block/belt/belt",
+    "north": "random-toys:block/belt/belt",
+    "particle": "random-toys:block/belt/belt",
+    "south": "random-toys:block/belt/belt",
+    "west": "random-toys:block/belt/belt",
+    "up": "random-toys:block/belt/belt_west"
+  }
+}
