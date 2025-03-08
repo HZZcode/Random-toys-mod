@@ -410,7 +410,7 @@ public class MazeGenerator {
             compressor.inventory.set(4, new ItemStack(ModBlocks.BLACK_BEDROCK));
             compressor.inventory.set(12, new ItemStack(ModBlocks.BLACK_BEDROCK));
             compressor.inventory.set(14, new ItemStack(ModBlocks.BLACK_BEDROCK));
-            compressor.inventory.set(22, new ItemStack(ModBlocks.BLACK_BEDROCK));
+            compressor.inventory.set(22, new ItemStack(ModItems.JETPACKS));
         }
     }
 

@@ -5,7 +5,8 @@
   "mixins": [
     "BeaconBlockSpecialCaseMixin",
     "EndCrystalPlacingMixin",
-    "EndermanStarringMixin"
+    "EndermanStarringMixin",
+    "PlayerTickMixin"
   ],
   "injectors": {
     "defaultRequire": 1

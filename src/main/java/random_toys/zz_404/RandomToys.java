@@ -32,6 +32,7 @@ public class RandomToys implements ModInitializer {
 	public void onInitialize() {
 		ModBlocks.registerBlocks();
 		ModEntities.registerEntities();
+		ModDataComponents.registerDataComponents();
 		ModItems.registerItems();
 		ModGamerules.registerGamerules();
 		ModBlockEntities.registerBlockEntities();
@@ -46,5 +47,6 @@ public class RandomToys implements ModInitializer {
 		Random random = new Random();
 		if(random.nextInt(64 * 64) == 0)
 			error("This is a random message from RandomToys! You're lucky today!");
+		//TODO: belt? freezer?
 	}
 }

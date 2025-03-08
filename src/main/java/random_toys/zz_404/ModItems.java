@@ -26,7 +26,8 @@ public class ModItems {
     public static final Item ZZ_CORE = registerItems("zz_core", new ZZCoreItem(new Item.Settings().fireproof()));
     public static final Item ENDER_LINKER_CONFIGURATOR = registerItems("ender_linker_configurator", new EnderLinkerConfiguratorItem(new Item.Settings()));
     public static final Item HELPER = registerItems("helper", new HelperItem(new Item.Settings()));
-    public static final Item GLASSES = registerItems("glasses", new GlassesItem(new Item.Settings()));
+    public static final Item GLASSES = registerItems("glasses", new GlassesItem(new Item.Settings().maxCount(1)));
+    public static final Item JETPACKS = registerItems("jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0)));
 
     private static Item registerItems(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
@@ -44,7 +45,6 @@ public class ModItems {
 
         RandomToys.log("Registering Items");
     }
-
     private static void addRedstoneGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OBSERVER, ModBlocks.BUD);
         fabricItemGroupEntries.addAfter(Blocks.REDSTONE_BLOCK, ModBlocks.RANDOMIZER);
@@ -69,6 +69,8 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.BLACKSTONE_CRYSTAL);
+        fabricItemGroupEntries.addAfter(Items.TURTLE_HELMET, ModItems.GLASSES);
+        fabricItemGroupEntries.addAfter(Items.TURTLE_HELMET, ModItems.JETPACKS);
     }
 
     private static void addFunctionalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -118,5 +120,7 @@ public class ModItems {
                         entries.add(ModItems.ENDER_LINKER_CONFIGURATOR);
                         entries.add(ModBlocks.OXIDIZER);
                         entries.add(ModBlocks.VANISHING_DOOR);
+                        entries.add(ModItems.GLASSES);
+                        entries.add(ModItems.JETPACKS);
                     }).build());
 }

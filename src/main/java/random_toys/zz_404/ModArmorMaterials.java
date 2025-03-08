@@ -22,6 +22,11 @@ public class ModArmorMaterials {
                     map -> map.put(ArmorItem.Type.HELMET, 1)),
             3, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F,
             () -> Ingredient.ofItems(Items.GLASS));
+    public static final RegistryEntry<ArmorMaterial> JETPACK = register("jetpack",
+            Util.make(new EnumMap<>(ArmorItem.Type.class),
+                    map -> map.put(ArmorItem.Type.CHESTPLATE, 1)),
+            3, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, 0.0F,
+            () -> Ingredient.ofItems(Items.GLASS));
 
     private static RegistryEntry<ArmorMaterial> register(String id,
             EnumMap<ArmorItem.Type, Integer> defense,

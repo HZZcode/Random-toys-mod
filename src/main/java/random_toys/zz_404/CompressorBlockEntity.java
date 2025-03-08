@@ -147,6 +147,15 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
                     swapStack(i + 1, j);
             }
         }
+        for (int i = 0; i < count; i++) {
+            if (inventory.get(i).getItem() == ModItems.JETPACKS) {
+                ItemStack jetpack = inventory.get(i).copy();
+                jetpack.set(ModDataComponents.GAS_REMAINING,
+                        Math.min(JetpackItem.getMaxGas(),
+                                JetpackItem.getRemainingGas(jetpack) + world.random.nextInt(5)));
+                inventory.set(i, jetpack);
+            }
+        }
     }
 
     public record CompressingResult(ItemStack in, ItemStack out) { }
