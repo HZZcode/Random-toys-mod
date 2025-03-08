@@ -113,5 +113,6 @@
   "entity.random-toys.zz": "ZZ",
   "entity.random-toys.thrown_blackstone": "黑石晶体",
   "entity.random-toys.thrown_gilded_blackstone": "镶金黑石晶体",
-  "entity.random-toys.thrown_enchanted_gilded_blackstone": "附魔镶金黑石晶体"
+  "entity.random-toys.thrown_enchanted_gilded_blackstone": "附魔镶金黑石晶体",
+  "key.jetpacks.activate": "激活喷气背包"
 }

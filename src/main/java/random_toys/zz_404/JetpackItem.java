@@ -34,8 +34,8 @@ public class JetpackItem extends ArmorItem {
 
     @Override
     public int getItemBarColor(ItemStack stack) {
-        Vec3d min = new Vec3d(93, 143, 194);
-        Vec3d max = new Vec3d(212, 229, 247);
+        final Vec3d min = new Vec3d(93, 143, 194);
+        final Vec3d max = new Vec3d(212, 229, 247);
         double rate = (float)getRemainingGas(stack) / (float)getMaxGas();
         Vec3d result = min.multiply(1 - rate).add(max.multiply(rate));
         return ColorHelper.Argb.getArgb((int) result.x, (int) result.y, (int) result.z);
