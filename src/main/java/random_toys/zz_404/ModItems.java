@@ -120,6 +120,7 @@ public class ModItems {
                         entries.add(ModItems.ENDER_LINKER_CONFIGURATOR);
                         entries.add(ModBlocks.OXIDIZER);
                         entries.add(ModBlocks.VANISHING_DOOR);
+                        entries.add(ModBlocks.IMITATOR);
                         entries.add(ModItems.GLASSES);
                         entries.add(ModItems.JETPACKS);
                     }).build());
