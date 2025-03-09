@@ -13,7 +13,6 @@ import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -23,7 +22,6 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -31,7 +29,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class BeltBlock extends BlockWithEntity {
     public static final MapCodec<BeltBlock> CODEC = createCodec(BeltBlock::new);
@@ -119,39 +119,30 @@ public class BeltBlock extends BlockWithEntity {
         return state.with(POWERED, powered);
     }
 
-    @Override
-    protected void neighborUpdate(BlockState state, @NotNull World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        if (!world.isClient) {
-            boolean powered = isPowered(world, pos, state);
-            if (powered != state.get(POWERED)) {
-                world.setBlockState(pos, state.cycle(POWERED), NOTIFY_ALL);
-            }
+    public static boolean isPowered(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state) {
+        if (!(world.getBlockEntity(pos) instanceof BeltBlockEntity belt)) return false;
+        BlockPos[] nears = {pos.north(), pos.south(), pos.west(), pos.east()};
+        if (belt.powerSource != null) {
+            if (world.getReceivedRedstonePower(belt.powerSource) != 0) return true;
+            else belt.powerSource = null;
         }
-    }
-
-    private boolean isPowered(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state) {
-        BlockState[] nears = {
-                world.getBlockState(pos.north()),
-                world.getBlockState(pos.south()),
-                world.getBlockState(pos.west()),
-                world.getBlockState(pos.east()),
-                world.getBlockState(pos.up()),
-                world.getBlockState(pos.down()),
-        };
-        boolean nearPowered = Arrays.stream(nears)
-                .anyMatch(blockState -> blockState.isOf(ModBlocks.BELT)
-                        && blockState.get(DIRECTION) == state.get(DIRECTION)
-                        && world.getBlockState(pos.subtract(blockState.get(DIRECTION).getVector())) == blockState
-                        //TODO: save power source in block entity, and delete the condition above
-                        && blockState.get(POWERED));
-        return world.getReceivedRedstonePower(pos) != 0 || nearPowered;
-    }
-
-    @Override
-    protected void scheduledTick(@NotNull BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (state.get(POWERED) && !isPowered(world, pos, state)) {
-            world.setBlockState(pos, state.cycle(POWERED), 2);
+        if (world.getReceivedRedstonePower(pos) != 0) {
+            belt.powerSource = pos;
+            return true;
         }
+        ArrayList<BlockPos> nearPowered = Arrays.stream(nears)
+                .filter(pos1 -> world.getBlockState(pos1).isOf(ModBlocks.BELT)
+                        && world.getBlockState(pos1).get(DIRECTION) == state.get(DIRECTION)
+                        && world.getBlockState(pos1).get(POWERED))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (!nearPowered.isEmpty()
+                && world.getBlockEntity(nearPowered.getFirst()) instanceof BeltBlockEntity near
+                && near.powerSource != null
+                && world.getReceivedRedstonePower(near.powerSource) != 0) {
+            belt.powerSource = near.powerSource.mutableCopy();
+            return true;
+        }
+        return false;
     }
 
     @Override
