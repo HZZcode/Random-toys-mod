@@ -55,8 +55,10 @@ public class BeltBlockEntity extends BlockEntity {
     /* TODO: Fix BUGs
     * Belts can move fluids (might not be fixed)
     * Neighbors of `from` pos are not updated properly (e.g. moving obsidian away from portal)
-    * Neighbors of `to` pos are not updated properly
-    * `to` pos it self is not updated properly (e.g. moving lever on air)
+    * `to` pos itself is not updated properly (e.g. moving lever on air)
+    * doesn't properly check connectivity to source
+    * moving scheduled ticks
+    * merging blocks (e.g. 2 halves of slabs / waterloggable -> water)
     * */
 
     public void tick(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state) {
@@ -104,7 +106,7 @@ public class BeltBlockEntity extends BlockEntity {
                 && world.getBlockEntity(from) != null) return;
         BlockState state = world.getBlockState(from);
         moved.add(new MovedBlockPos(pos, from, to));
-        world.setBlockState(to, state, Block.SKIP_DROPS | Block.FORCE_STATE | Block.MOVED);
+        world.setBlockState(to, state, Block.NOTIFY_ALL | Block.FORCE_STATE);
     }
 
     private void moveBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
@@ -132,6 +134,7 @@ public class BeltBlockEntity extends BlockEntity {
         world.getBlockState(pos).neighborUpdate(world, pos, world.getBlockState(by).getBlock(), by, true);
         Block.postProcessState(world.getBlockState(pos), world, pos);
         world.updateListeners(pos, Blocks.AIR.getDefaultState(), world.getBlockState(pos), Block.NOTIFY_ALL_AND_REDRAW);
+        world.setBlockState(pos, world.getBlockState(pos), Block.NOTIFY_ALL);
         world.updateNeighborsAlways(pos, world.getBlockState(pos).getBlock());
         world.updateComparators(pos, world.getBlockState(pos).getBlock());
     }
