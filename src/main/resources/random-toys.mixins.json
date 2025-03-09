@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "random_toys.zz_404.mixin",
+  "package": "random_toys.zz_404.mixin_utils.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BeaconBlockSpecialCaseMixin",

@@ -10,6 +10,7 @@ import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
+import random_toys.zz_404.reflection_utils.TrinketUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,7 @@
 package random_toys.zz_404;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -41,6 +38,7 @@ public class BeltBlock extends BlockWithEntity {
     protected static final VoxelShape COLLISION_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 15, 16);
     public static final BooleanProperty POWERED;
     public static final DirectionProperty DIRECTION;
+    public static final int speed = 5; //block per second
 
     public BeltBlock(Settings settings) {
         super(settings);
@@ -53,8 +51,13 @@ public class BeltBlock extends BlockWithEntity {
     }
 
     @Override
+    protected BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return null;
+        return new BeltBlockEntity(pos, state);
     }
 
     @Override
@@ -102,10 +105,11 @@ public class BeltBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, @NotNull World world, BlockPos pos, Entity entity) {
-        if (world.getBlockState(pos).get(POWERED) && hasEffects(entity)) {
-            entity.addVelocity(new Vec3d(state.get(DIRECTION).getUnitVector().mul(0.2f)));
-        }
+    protected void onEntityCollision(@NotNull BlockState state, @NotNull World world, BlockPos pos, Entity entity) {
+        var direction = new Vec3d(state.get(DIRECTION).getUnitVector());
+        if (world.getBlockState(pos).get(POWERED) && hasEffects(entity))
+            if (entity.getVelocity().dotProduct(direction) < speed)
+                entity.addVelocity(direction.multiply(0.2f));
     }
 
     public BlockState getPlacementState(ItemPlacementContext ctx) {

@@ -5,7 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import random_toys.zz_404.TrinketUtils;
+import random_toys.zz_404.reflection_utils.TrinketUtils;
 
 public class MixinSets {
     public static MixinSet<Block> EndCrystalPlacingBlocks = new MixinSet<>();
