@@ -6,10 +6,12 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.block.enums.SlabType;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -52,27 +54,18 @@ public class BeltBlockEntity extends BlockEntity {
         }
     }
 
-    /* TODO: Fix BUGs
-    * Belts can move fluids (might not be fixed)
-    * Neighbors of `from` pos are not updated properly (e.g. moving obsidian away from portal)
-    * `to` pos itself is not updated properly (e.g. moving lever on air)
-    * doesn't properly check connectivity to source
-    * moving scheduled ticks
-    * merging blocks (e.g. 2 halves of slabs / waterloggable -> water)
-    * */
-
-    public void tick(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state) {
+    public synchronized void tick(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state) {
         world.setBlockState(pos, state.with(BeltBlock.POWERED, BeltBlock.isPowered(world, pos, state)));
         Direction direction = state.get(BeltBlock.DIRECTION);
         BlockPos up = pos.up();
         long time = world.getTime();
         if (!world.isClient && time % (20 / BeltBlock.speed) == 0 && state.get(BeltBlock.POWERED)) {
             if (time > previousTick) moved.clear();
-            if (!world.getBlockState(up).isAir()) {
+            if (!world.getBlockState(up).isReplaceable()) {
                 ArrayList<BlockPos> froms = getStickingBlocks(up);
                 ArrayList<BlockPos> tos = froms.stream().map(from -> from.offset(direction))
                         .collect(Collectors.toCollection(ArrayList::new));
-                if (tos.stream().allMatch(to -> canMoveTo(to, froms))) {
+                if (tos.stream().allMatch(to -> canMoveTo(direction, to, froms))) {
                     froms.sort((pos1, pos2)
                             -> -Integer.compare(getDirectionComponent(pos1, direction),
                             getDirectionComponent(pos2, direction)));
@@ -90,26 +83,58 @@ public class BeltBlockEntity extends BlockEntity {
                 + pos.getZ() * direction.getOffsetZ();
     }
 
-    private boolean canMoveTo(@NotNull BlockPos to, ArrayList<BlockPos> froms) {
+    private boolean canMoveTo(@NotNull Direction direction, @NotNull BlockPos to, ArrayList<BlockPos> froms) {
         return world != null && (world.getBlockState(to).isAir() || froms.contains(to)
-                || world.getBlockState(to).isReplaceable());
+                || world.getBlockState(to).isReplaceable() || canMerge(direction, to));
     }
 
-    private boolean isMoved(BlockPos from) {
+    private boolean canMerge(@NotNull Direction direction, @NotNull BlockPos to) {
+        if (world == null) return false;
+        BlockPos from = to.offset(direction.getOpposite());
+        BlockState fromState = world.getBlockState(from);
+        BlockState toState = world.getBlockState(to);
+        if (fromState.getBlock() instanceof Waterloggable && toState.isOf(Blocks.WATER))
+            return true;
+        if (toState.getBlock() instanceof Waterloggable && fromState.isOf(Blocks.WATER))
+            return true;
+        return fromState.getBlock() == toState.getBlock() && fromState.getBlock() instanceof SlabBlock
+                && ((fromState.get(SlabBlock.TYPE) == SlabType.BOTTOM
+                && toState.get(SlabBlock.TYPE) == SlabType.TOP)
+                || (fromState.get(SlabBlock.TYPE) == SlabType.TOP
+                && toState.get(SlabBlock.TYPE) == SlabType.BOTTOM));
+    }
+
+    private synchronized boolean isMoved(BlockPos from) {
         return moved.stream().anyMatch(movedBlockPos
                 -> movedBlockPos.to.equals(from) && !movedBlockPos.by.equals(pos));
     }
 
-    private void copyBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
+    private synchronized void copyBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
         if (isMoved(from)) return;
         if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)
                 && world.getBlockEntity(from) != null) return;
         BlockState state = world.getBlockState(from);
         moved.add(new MovedBlockPos(pos, from, to));
-        world.setBlockState(to, state, Block.NOTIFY_ALL | Block.FORCE_STATE);
+        BlockState toState = world.getBlockState(to);
+        boolean slab = state.getBlock() instanceof SlabBlock && toState.getBlock() instanceof SlabBlock;
+        boolean fromWater = state.isOf(Blocks.WATER) && toState.getBlock() instanceof Waterloggable;
+        boolean toWater = toState.isOf(Blocks.WATER) && state.getBlock() instanceof Waterloggable;
+        boolean waterlogged = fromWater || toWater;
+        if (!fromWater) world.setBlockState(to, state, Block.NOTIFY_ALL | Block.FORCE_STATE);
+        try {
+            if (waterlogged)
+                world.setBlockState(to, world.getBlockState(to).with(Properties.WATERLOGGED, true),
+                        Block.NOTIFY_ALL | Block.FORCE_STATE);
+            if (slab) {
+                world.setBlockState(to, world.getBlockState(to).with(SlabBlock.TYPE, SlabType.DOUBLE),
+                        Block.NOTIFY_ALL | Block.FORCE_STATE);
+                world.setBlockState(to, world.getBlockState(to).with(SlabBlock.WATERLOGGED, false),
+                        Block.NOTIFY_ALL | Block.FORCE_STATE);
+            }
+        } catch (IllegalArgumentException ignored) {}
     }
 
-    private void moveBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
+    private synchronized void moveBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
         if (isMoved(from)) return;
         if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)
                 && world.getBlockEntity(from) != null) return;
@@ -177,7 +202,8 @@ public class BeltBlockEntity extends BlockEntity {
 
     private boolean isSticking(BlockPos pos1, BlockPos pos2) {
         if (world == null) return false;
-        if (world.getBlockState(pos1).isAir() || world.getBlockState(pos2).isAir()) return false;
+        if (world.getBlockState(pos1).isReplaceable() || world.getBlockState(pos2).isReplaceable())
+            return false;
         return isSticking(world.getBlockState(pos1).getBlock(), world.getBlockState(pos2).getBlock());
     }
 
