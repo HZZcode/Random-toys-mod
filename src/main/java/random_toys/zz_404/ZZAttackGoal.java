@@ -75,7 +75,6 @@ public class ZZAttackGoal extends MeleeAttackGoal {
 
     private void performAttack(LivingEntity target) {
         this.resetAttackCooldown();
-//        this.mob.swingHand(Hand.MAIN_HAND);
         if (this.mob.tryAttack(target))
             target.damage(target.getDamageSources().mobAttack(this.zz), getDamage());
     }

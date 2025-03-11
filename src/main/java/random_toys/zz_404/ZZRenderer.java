@@ -5,6 +5,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public class ZZRenderer extends MobEntityRenderer<ZZEntity, ZZModel<ZZEntity>> {
     public static final Identifier TEXTURE = Identifier.of(RandomToys.MOD_ID, "textures/entity/zz.png");
@@ -19,7 +20,7 @@ public class ZZRenderer extends MobEntityRenderer<ZZEntity, ZZModel<ZZEntity>> {
     }
 
     @Override
-    public void render(ZZEntity livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(ZZEntity livingEntity, float f, float g, @NotNull MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.scale(1.0F, 1.0F, 1.0F);
         super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }

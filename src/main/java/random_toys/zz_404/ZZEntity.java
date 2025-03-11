@@ -279,15 +279,15 @@ public class ZZEntity extends HostileEntity implements Angerable {
     //Has weird BUG here, but I don't want to waste time to fix it
     //Particles are not important, are they?
     private Status currentStatus() {
-        return Status.SHOOTING;
-//        Status current;
-//        if (dizzyCooldownTime == 0 && shootingCooldownTime == 0) return previousStatus;
-//        if (getTarget() == null && previousStatus == Status.NO_GOAL) current = Status.NO_GOAL;
-//        else if (dizzyCooldownTime > 0) current = Status.DIZZY;
-//        else if (shootingCooldownTime > 0) current = Status.SHOOTING;
-//        else current = Status.RESTING;
-//        previousStatus = current;
-//        return current;
+//        return Status.SHOOTING;
+        Status current;
+        if (dizzyCooldownTime == 0 && shootingCooldownTime == 0) return previousStatus;
+        if (getTarget() == null && previousStatus == Status.NO_GOAL) current = Status.NO_GOAL;
+        else if (dizzyCooldownTime > 0) current = Status.DIZZY;
+        else if (shootingCooldownTime > 0) current = Status.SHOOTING;
+        else current = Status.RESTING;
+        previousStatus = current;
+        return current;
     }
 
     private @NotNull ParticleEffect currentParticle() {
@@ -316,6 +316,7 @@ public class ZZEntity extends HostileEntity implements Angerable {
         if (this.angryAt != null) {
             nbt.putUuid("AngryAt", this.angryAt);
         }
+        nbt.putString("Status", this.previousStatus.name);
     }
 
     @Override
@@ -335,6 +336,11 @@ public class ZZEntity extends HostileEntity implements Angerable {
         }
         if (nbt.contains("AngryAt")) {
             this.angryAt = nbt.getUuid("AngryAt");
+        }
+        if (nbt.contains("Status")) {
+            try {
+                this.previousStatus = Status.valueOf(nbt.getString("Status"));
+            } catch (IllegalArgumentException ignored) {}
         }
     }
 
