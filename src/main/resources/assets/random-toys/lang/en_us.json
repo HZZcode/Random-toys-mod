@@ -111,6 +111,7 @@
   "1.tooltip.random-toys.jetpacks": "Add gas by compressors.",
   "0.tooltip.random-toys.belt": "Transport entities and blocks, even those blocks cannot be transported by pistons.",
   "1.tooltip.random-toys.belt": "Check gamerules to find out 3 of them that controls its behaviours.",
+  "0.tooltip.random-toys.miner": "Miners!",
   "gamerule.category.random-toys": "Random Toys Mod Gamerules",
   "gamerule.dispenserHarvestCrops": "Dispenser harvests some crops with shears (including apple leaves, nether warts, sweet berry bushes)",
   "gamerule.dispenserHarvestCropDamageTool": "Shears damages when used by dispensers",

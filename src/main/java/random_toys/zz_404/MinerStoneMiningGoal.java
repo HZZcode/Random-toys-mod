@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class MinerStoneMiningGoal extends Goal {
     public final MinerEntity miner;
-    public BlockPos blockPos = null;
 
     private static final int maxCooldown = 3;
     private static final int minCooldown = 2;
@@ -19,7 +18,7 @@ public class MinerStoneMiningGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        return blockPos == null;
+        return miner.miningPos == null;
     }
 
     @Override
@@ -45,8 +44,8 @@ public class MinerStoneMiningGoal extends Goal {
         if (miner.canMine(near) && miner.getWorld().getBlockState(near).isIn(ModTags.MINER_STONES))
             miner.mineBlock(near);
 
-        if (blockPos == null) return;
-        if (miner.getWorld().getBlockState(blockPos).isAir()) blockPos = null;
-        if (miner.canMine(blockPos)) miner.mineBlock(blockPos);
+        if (miner.miningPos == null) return;
+        if (miner.getWorld().getBlockState(miner.miningPos).isAir()) miner.miningPos = null;
+        if (miner.canMine(miner.miningPos)) miner.mineBlock(miner.miningPos);
     }
 }

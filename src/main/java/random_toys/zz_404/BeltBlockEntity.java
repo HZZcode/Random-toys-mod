@@ -8,12 +8,15 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +58,10 @@ public class BeltBlockEntity extends BlockEntity {
     }
 
     public synchronized void tick(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockState state) {
+        for (Entity entity : world.getEntitiesByClass(Entity.class, Box.from(Vec3d.of(pos)).expand(3),
+                entity -> BeltBlock.isStepping(pos, entity)))
+            BeltBlock.moveEntity(state, world, pos, entity);
+
         world.setBlockState(pos, state.with(BeltBlock.POWERED, BeltBlock.isPowered(world, pos, state)));
         Direction direction = state.get(BeltBlock.DIRECTION);
         BlockPos up = pos.up();

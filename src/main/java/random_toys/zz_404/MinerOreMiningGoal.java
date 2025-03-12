@@ -77,7 +77,7 @@ public class MinerOreMiningGoal extends Goal {
             miner.getNavigation().stop();
         }
         else {
-            miner.miningHelper.blockPos = miner.blockingBlock(orePos);
+            miner.miningPos = miner.blockingBlock(orePos);
             miner.getLookControl().lookAt(Vec3d.of(orePos));
             miner.getNavigation()
                     .startMovingTo(orePos.getX(), orePos.getY(), orePos.getZ(), 1, 1);

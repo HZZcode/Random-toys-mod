@@ -22,9 +22,6 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +32,6 @@ import java.util.stream.Collectors;
 
 public class BeltBlock extends BlockWithEntity {
     public static final MapCodec<BeltBlock> CODEC = createCodec(BeltBlock::new);
-    protected static final VoxelShape COLLISION_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 15, 16);
     public static final BooleanProperty POWERED;
     public static final DirectionProperty DIRECTION;
     public static final int speed = 5; //block per second
@@ -67,26 +63,6 @@ public class BeltBlock extends BlockWithEntity {
     }
 
     @Override
-    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return COLLISION_SHAPE;
-    }
-
-    @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.fullCube();
-    }
-
-    @Override
-    protected VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
-        return VoxelShapes.fullCube();
-    }
-
-    @Override
-    protected VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.fullCube();
-    }
-
-    @Override
     protected boolean canPathfindThrough(BlockState state, NavigationType type) {
         return true;
     }
@@ -104,8 +80,11 @@ public class BeltBlock extends BlockWithEntity {
                 || entity instanceof TntEntity || entity instanceof BoatEntity || entity instanceof ItemEntity;
     }
 
-    @Override
-    protected void onEntityCollision(@NotNull BlockState state, @NotNull World world, BlockPos pos, Entity entity) {
+    public static boolean isStepping(BlockPos pos, @NotNull Entity entity) {
+        return entity.getSteppingPos().equals(pos);
+    }
+
+    public static void moveEntity(@NotNull BlockState state, @NotNull World world, BlockPos pos, Entity entity) {
         var direction = new Vec3d(state.get(DIRECTION).getUnitVector());
         if (world.getBlockState(pos).get(POWERED) && hasEffects(entity))
             if (entity.getVelocity().dotProduct(direction) < speed)
