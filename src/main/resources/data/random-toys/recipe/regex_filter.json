@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    ".": {
+      "item": "minecraft:diamond"
+    },
+    "#": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    ".#."
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:regex_filter"
+  }
+}

@@ -75,7 +75,7 @@ public class MinerEntity extends TameableEntity implements InventoryOwner {
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
 
-        this.targetSelector.add(1, (new RevengeGoal(this)).setGroupRevenge());
+        this.targetSelector.add(1, new RevengeGoal(this).setGroupRevenge());
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, ZombieEntity.class, true));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, AbstractSkeletonEntity.class, true));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, CreeperEntity.class, true));

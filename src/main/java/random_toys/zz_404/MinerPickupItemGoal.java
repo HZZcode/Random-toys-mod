@@ -1,9 +1,7 @@
 package random_toys.zz_404;
 
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.item.ItemStack;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -18,16 +16,16 @@ class MinerPickupItemGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        List<ItemEntity> list = miner.getWorld().getEntitiesByClass(ItemEntity.class, miner.getBoundingBox().expand(8.0, 8.0, 8.0), MinerEntity.PICKABLE_DROP_FILTER);
-        return !list.isEmpty() && miner.getEquippedStack(EquipmentSlot.MAINHAND).isEmpty();
+        List<ItemEntity> list = miner.getWorld().getEntitiesByClass(ItemEntity.class,
+                miner.getBoundingBox().expand(8.0, 8.0, 8.0), MinerEntity.PICKABLE_DROP_FILTER);
+        return !list.isEmpty() && miner.inventory.isEmpty();
     }
 
     @Override
     public void tick() {
-        List<ItemEntity> list = miner.getWorld()
-                .getEntitiesByClass(ItemEntity.class, miner.getBoundingBox().expand(8.0, 8.0, 8.0), MinerEntity.PICKABLE_DROP_FILTER);
-        ItemStack itemStack = miner.getEquippedStack(EquipmentSlot.MAINHAND);
-        if (itemStack.isEmpty() && !list.isEmpty()) {
+        List<ItemEntity> list = miner.getWorld().getEntitiesByClass(ItemEntity.class,
+                miner.getBoundingBox().expand(8.0, 8.0, 8.0), MinerEntity.PICKABLE_DROP_FILTER);
+        if (miner.inventory.isEmpty() && !list.isEmpty()) {
             miner.getNavigation().startMovingTo(list.getFirst(), 1.2F);
         }
     }

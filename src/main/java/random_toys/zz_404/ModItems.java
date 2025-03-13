@@ -29,6 +29,7 @@ public class ModItems {
     public static final Item GLASSES = registerItem("glasses", new GlassesItem(new Item.Settings().maxCount(1)));
     public static final Item JETPACKS = registerItem("jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0)));
     public static final Item MINER_SPAWN_EGG = registerItem("miner_spawn_egg", new SpawnEggItem(ModEntities.MINER, 0x00a4a4, 0x9b6349, new Item.Settings()));
+    public static final Item REGEX_FILTER = registerItem("regex_filter", new RegexFilterItem(new Item.Settings().maxCount(1)));
 
     private static Item registerItem(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
@@ -128,5 +129,6 @@ public class ModItems {
                         entries.add(ModItems.JETPACKS);
                         entries.add(ModBlocks.BELT);
                         entries.add(ModItems.MINER_SPAWN_EGG);
+                        entries.add(ModItems.REGEX_FILTER);
                     }).build());
 }
