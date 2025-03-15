@@ -121,7 +121,7 @@ public class ImitatorBlock extends BlockWithEntity {
                 && imitator.block == null) {
             imitator.block = blockItem.getBlock();
             imitator.updateListeners();
-            return ItemActionResult.SUCCESS;
+            return ItemActionResult.CONSUME;
         }
         return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
     }

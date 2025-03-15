@@ -13,6 +13,7 @@
     "random-toys:oxidizer",
     "random-toys:vanishing_door",
     "random-toys:imitator",
-    "random-toys:belt"
+    "random-toys:belt",
+    "random-toys:solid_lava"
   ]
 }

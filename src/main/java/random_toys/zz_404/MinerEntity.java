@@ -81,6 +81,7 @@ public class MinerEntity extends TameableEntity implements InventoryOwner {
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, CreeperEntity.class, true));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, SpiderEntity.class, true));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, WitchEntity.class, true));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, SlimeEntity.class, true));
         this.targetSelector.add(2, new ActiveTargetGoal<>(this, SilverfishEntity.class, true));
     }
 

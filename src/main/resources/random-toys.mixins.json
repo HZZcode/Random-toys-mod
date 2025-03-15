@@ -6,6 +6,7 @@
     "BeaconBlockSpecialCaseMixin",
     "EndCrystalPlacingMixin",
     "EndermanStarringMixin",
+    "FluidTransformationMixin",
     "PlayerTickMixin"
   ],
   "injectors": {

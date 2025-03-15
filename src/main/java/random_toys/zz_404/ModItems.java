@@ -62,6 +62,7 @@ public class ModItems {
     private static void addNaturalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OAK_LEAVES, ModBlocks.APPLE_LEAVES);
         fabricItemGroupEntries.addAfter(Blocks.BEDROCK, ModBlocks.BLACK_BEDROCK);
+        fabricItemGroupEntries.addAfter(Blocks.MAGMA_BLOCK, ModBlocks.SOLID_LAVA);
     }
 
     private static void addIngredientsGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -130,5 +131,6 @@ public class ModItems {
                         entries.add(ModBlocks.BELT);
                         entries.add(ModItems.MINER_SPAWN_EGG);
                         entries.add(ModItems.REGEX_FILTER);
+                        entries.add(ModBlocks.SOLID_LAVA);
                     }).build());
 }

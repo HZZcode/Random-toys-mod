@@ -1,9 +1,12 @@
 package random_toys.zz_404.mixin_utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
-public class MixinSet<T> {
+public class MixinSet<T> implements Iterable<T> {
     private final HashSet<T> set;
 
     public MixinSet() {
@@ -20,5 +23,10 @@ public class MixinSet<T> {
 
     public boolean anyMatch(Predicate<T> predicate) {
         return set.stream().anyMatch(predicate);
+    }
+
+    @Override
+    public @NotNull Iterator<T> iterator() {
+        return set.iterator();
     }
 }
