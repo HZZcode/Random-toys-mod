@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class RandomToys implements ModInitializer {
 	public static final String MOD_ID = "random-toys";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static void log(String format, Object... objects) {
 		LOGGER.info(String.format("[RandomToys] %s", format), objects);
@@ -49,6 +49,6 @@ public class RandomToys implements ModInitializer {
 		Random random = new Random();
 		if(random.nextInt(64 * 64) == 0)
 			error("This is a random message from RandomToys! You're lucky today!");
-		//TODO: block that mines the block above it
+		//TODO: block that drops all items in it
 	}
 }

@@ -25,6 +25,7 @@ public class ModBlockEntities {
     public static final BlockEntityType<ImitatorBlockEntity> IMITATOR = create("imitator", BlockEntityType.Builder.create(ImitatorBlockEntity::new, ModBlocks.IMITATOR));
     public static final BlockEntityType<MazeCoreBlockEntity> MAZE_CORE = create("maze_core", BlockEntityType.Builder.create(MazeCoreBlockEntity::new, ModBlocks.MAZE_CORE));
     public static final BlockEntityType<BeltBlockEntity> BELT = create("belt", BlockEntityType.Builder.create(BeltBlockEntity::new, ModBlocks.BELT));
+    public static final BlockEntityType<DestroyerBlockEntity> DESTROYER = create("destroyer", BlockEntityType.Builder.create(DestroyerBlockEntity::new, ModBlocks.DESTROYER));
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.@NotNull Builder<T> builder) {
         Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, id);

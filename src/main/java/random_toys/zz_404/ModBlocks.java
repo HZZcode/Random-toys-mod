@@ -36,6 +36,7 @@ public class ModBlocks {
     public static final Block MAZE_CORE = register("maze_core", new MazeCoreBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
     public static final Block BELT = register("belt", new BeltBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
     public static final Block SOLID_LAVA = register("solid_lava", new SolidLavaBlock(AbstractBlock.Settings.copy(Blocks.MAGMA_BLOCK).luminance(state -> 7).strength(0.5F).allowsSpawning((state, world, pos, type) -> type.isFireImmune())));
+    public static final Block DESTROYER = register("destroyer", new DestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.DESTROYER));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

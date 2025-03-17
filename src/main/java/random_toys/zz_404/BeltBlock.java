@@ -87,7 +87,7 @@ public class BeltBlock extends BlockWithEntity {
     public static void moveEntity(@NotNull BlockState state, @NotNull World world, BlockPos pos, Entity entity) {
         var direction = new Vec3d(state.get(DIRECTION).getUnitVector());
         if (world.getBlockState(pos).get(POWERED) && hasEffects(entity))
-            if (entity.getVelocity().dotProduct(direction) < speed)
+            if (entity.getVelocity().dotProduct(direction) < speed && !entity.isSpectator())
                 entity.addVelocity(direction.multiply(0.2f));
     }
 

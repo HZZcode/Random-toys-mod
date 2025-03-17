@@ -3,6 +3,7 @@ package random_toys.zz_404;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.Item;
@@ -15,6 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Clearable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -53,12 +55,24 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
                         ItemStack stack = input.get(i);
                         if (stack == null) continue;
                         if (match(stack) && !stack.isEmpty()) {
-                            RandomToys.log("filter={}, {}->{}, item={}",
-                                    getItem().getName().getString(),
-                                    i, space.orElseThrow(),
-                                    stack.getItem().getName().getString());
                             output.set(space.orElseThrow(), stack.copy());
                             input.set(i, ItemStack.EMPTY);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        else if (world.getBlockState(pos.down()).isAir()) {
+            for (BlockEntity in : inputs) {
+                if (in instanceof TransferableBlockEntity input) {
+                    for (int i = 0; i < 27; i++) {
+                        ItemStack stack = input.get(i);
+                        if (stack == null) continue;
+                        if (match(stack) && stack.getCount() >= stack.getMaxCount()) {
+                            input.set(i, ItemStack.EMPTY);
+                            Vec3d down = pos.down().toCenterPos();
+                            world.spawnEntity(new ItemEntity(world, down.x, down.y, down.z, stack.copy()));
                             return;
                         }
                     }
