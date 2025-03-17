@@ -10,9 +10,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import random_toys.zz_404.RandomToys;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import random_toys.zz_404.mixin_utils.FluidTransformationRule;
 import random_toys.zz_404.mixin_utils.MixinSets;
 
@@ -24,12 +25,8 @@ public abstract class FluidTransformationMixin {
 
     @Shadow protected abstract void playExtinguishSound(WorldAccess world, BlockPos pos);
 
-    /**
-     * @author ZZ_404
-     * @reason Provide a public API for fluid transformation
-     */
-    @Overwrite
-    private boolean receiveNeighborFluids(World world, BlockPos pos, BlockState state) {
+    @Inject(at = @At("HEAD"), method = "receiveNeighborFluids", cancellable = true)
+    private void receiveNeighborFluids(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {
         for (FluidTransformationRule rule : MixinSets.FluidTransformationRules) {
             if (rule.checkOriginalFluid(world.getFluidState(pos)) && rule.checkFluid(fluid)
                     && rule.checkBelowBlock(world.getBlockState(pos.down()))
@@ -40,11 +37,11 @@ public abstract class FluidTransformationMixin {
                             || rule.checkNearBlock(world.getBlockState(blockPos))) {
                         world.setBlockState(pos, rule.transformBlock.getDefaultState());
                         playExtinguishSound(world, pos);
-                        return false;
+                        cir.setReturnValue(false);
+                        cir.cancel();
                     }
                 }
             }
         }
-        return true;
     }
 }
