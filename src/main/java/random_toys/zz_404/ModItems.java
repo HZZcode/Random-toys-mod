@@ -57,6 +57,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.FURNACE, ModBlocks.DISENCHANTMENTOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
+        fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.DESTROYER);
     }
 
     private static void addNaturalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -132,5 +133,6 @@ public class ModItems {
                         entries.add(ModItems.MINER_SPAWN_EGG);
                         entries.add(ModItems.REGEX_FILTER);
                         entries.add(ModBlocks.SOLID_LAVA);
+                        entries.add(ModBlocks.DESTROYER);
                     }).build());
 }
