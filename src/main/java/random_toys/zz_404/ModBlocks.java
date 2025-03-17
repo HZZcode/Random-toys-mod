@@ -9,11 +9,12 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.block.Blocks;
+import random_toys.zz_404.mixin_utils.FluidTransformationRule;
 
-import static random_toys.zz_404.mixin_utils.MixinSets.BeaconBlockSpecialCaseBlocks;
-import static random_toys.zz_404.mixin_utils.MixinSets.EndCrystalPlacingBlocks;
+import static random_toys.zz_404.mixin_utils.MixinSets.*;
 
 public class ModBlocks {
     public static final Block BUD = register("bud", new BUDBlock(AbstractBlock.Settings.copy(Blocks.OBSERVER)));
@@ -33,6 +34,9 @@ public class ModBlocks {
     public static final Block VANISHING_DOOR = register("vanishing_door", new VanishingDoorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
     public static final Block IMITATOR = register("imitator", new ImitatorBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
     public static final Block MAZE_CORE = register("maze_core", new MazeCoreBlock(AbstractBlock.Settings.copy(Blocks.GLASS).strength(50.0F, 1200.0F)));
+    public static final Block BELT = register("belt", new BeltBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+    public static final Block SOLID_LAVA = register("solid_lava", new SolidLavaBlock(AbstractBlock.Settings.copy(Blocks.MAGMA_BLOCK).luminance(state -> 7).strength(0.5F).allowsSpawning((state, world, pos, type) -> type.isFireImmune())));
+    public static final Block DESTROYER = register("destroyer", new DestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.DESTROYER));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);
@@ -63,9 +67,15 @@ public class ModBlocks {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.EXPERIENCE_COLLECTOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.VANISHING_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.IMITATOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BELT, RenderLayer.getCutout());
 
         EndCrystalPlacingBlocks.add(BLACK_BEDROCK);
         BeaconBlockSpecialCaseBlocks.add(BLACK_BEDROCK);
+        FluidTransformationRules.add(FluidTransformationRule.create()
+                .fromFluid(fluid -> fluid.getDefaultState().isIn(FluidTags.LAVA))
+                .nearBlock(state -> state.isOf(Blocks.POWDER_SNOW))
+                .underBlock(state -> state.isOf(Blocks.BLUE_ICE))
+                .transformTo(SOLID_LAVA));
 
         RandomToys.log("Registering Blocks");
     }

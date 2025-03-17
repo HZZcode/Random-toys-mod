@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/destroyer_axis",
+    "east": "random-toys:block/destroyer",
+    "north": "random-toys:block/destroyer",
+    "particle": "random-toys:block/destroyer_axis",
+    "south": "random-toys:block/destroyer",
+    "west": "random-toys:block/destroyer",
+    "up": "random-toys:block/destroyer_axis"
+  }
+}

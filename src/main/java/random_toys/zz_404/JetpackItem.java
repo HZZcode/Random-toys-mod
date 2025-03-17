@@ -6,8 +6,11 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
+import random_toys.zz_404.reflection_utils.TrinketUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,15 @@ public class JetpackItem extends ArmorItem {
     public int getItemBarStep(@NotNull ItemStack stack) {
         return MathHelper.clamp(Math.round((float)getRemainingGas(stack)
                 * 13.0F / (float)getMaxGas()), 0, 13);
+    }
+
+    @Override
+    public int getItemBarColor(ItemStack stack) {
+        final Vec3d min = new Vec3d(93, 143, 194);
+        final Vec3d max = new Vec3d(212, 229, 247);
+        double rate = (float)getRemainingGas(stack) / (float)getMaxGas();
+        Vec3d result = min.multiply(1 - rate).add(max.multiply(rate));
+        return ColorHelper.Argb.getArgb((int) result.x, (int) result.y, (int) result.z);
     }
 
     public static int getRemainingGas(@NotNull ItemStack stack) {

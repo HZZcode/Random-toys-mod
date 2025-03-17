@@ -1,4 +1,4 @@
-package random_toys.zz_404;
+package random_toys.zz_404.reflection_utils;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

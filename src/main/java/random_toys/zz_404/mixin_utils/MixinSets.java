@@ -5,12 +5,13 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import random_toys.zz_404.TrinketUtils;
+import random_toys.zz_404.reflection_utils.TrinketUtils;
 
 public class MixinSets {
     public static MixinSet<Block> EndCrystalPlacingBlocks = new MixinSet<>();
     public static MixinSet<Item> EndermanAvoidStarringItems = new MixinSet<>();
     public static MixinSet<Block> BeaconBlockSpecialCaseBlocks = new MixinSet<>();
+    public static MixinSet<FluidTransformationRule> FluidTransformationRules = new MixinSet<>();
 
     public static boolean isEndermanAvoidable(PlayerEntity player) {
         return EndermanAvoidStarringItems.anyMatch(item -> TrinketUtils.isInTrinkets(player, item))

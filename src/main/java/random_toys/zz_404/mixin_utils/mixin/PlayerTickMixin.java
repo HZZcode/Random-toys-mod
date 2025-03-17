@@ -1,4 +1,4 @@
-package random_toys.zz_404.mixin;
+package random_toys.zz_404.mixin_utils.mixin;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import random_toys.zz_404.JetpackItem;
 import random_toys.zz_404.ModDataComponents;
+import random_toys.zz_404.ModKeyBindings;
 
 import java.util.ArrayList;
 
@@ -20,7 +21,8 @@ public class PlayerTickMixin {
             ArrayList<ItemStack> stacks = JetpackItem.getRemainingWearingStacks(player);
             if (!stacks.isEmpty()) {
                 ItemStack stack = stacks.getFirst();
-                if (JetpackItem.getRemainingGas(stack) == 0 || player.isOnGround()) {
+                if (JetpackItem.getRemainingGas(stack) == 0 || player.isOnGround()
+                        || !ModKeyBindings.JETPACK_ACTIVATE.isPressed()) {
                     player.getAbilities().flying = false;
                     return;
                 }

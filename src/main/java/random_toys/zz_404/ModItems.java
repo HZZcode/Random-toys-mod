@@ -14,22 +14,24 @@ import org.jetbrains.annotations.NotNull;
 import static random_toys.zz_404.mixin_utils.MixinSets.EndermanAvoidStarringItems;
 
 public class ModItems {
-    public static final Item DICE = registerItems("dice", new RandomizerItem(new Item.Settings()));
-    public static final Item CALC_CORE = registerItems("calc_core", new Item(new Item.Settings()));
-    public static final Item RANDOMIZER1 = registerItems("randomizer1", new RandomizerItem(new Item.Settings(), 1));
-    public static final Item RANDOMIZER2 = registerItems("randomizer2", new RandomizerItem(new Item.Settings(), 2));
-    public static final Item RANDOMIZER3 = registerItems("randomizer3", new RandomizerItem(new Item.Settings(), 3));
-    public static final Item ZZ_SPAWN_EGG = registerItems("zz_spawn_egg", new SpawnEggItem(ModEntities.ZZ, 0x20131c, 0xfcee4b, new Item.Settings()));
-    public static final Item BLACKSTONE_CRYSTAL = registerItems("blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_BLACKSTONE, new Item.Settings()));
-    public static final Item GILDED_BLACKSTONE_CRYSTAL = registerItems("gilded_blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_GILDED_BLACKSTONE, new Item.Settings().fireproof()));
-    public static final Item ENCHANTED_GILDED_BLACKSTONE_CRYSTAL = registerItems("enchanted_gilded_blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_ENCHANTED_GILDED_BLACKSTONE, new Item.Settings().fireproof().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
-    public static final Item ZZ_CORE = registerItems("zz_core", new ZZCoreItem(new Item.Settings().fireproof()));
-    public static final Item ENDER_LINKER_CONFIGURATOR = registerItems("ender_linker_configurator", new EnderLinkerConfiguratorItem(new Item.Settings()));
-    public static final Item HELPER = registerItems("helper", new HelperItem(new Item.Settings()));
-    public static final Item GLASSES = registerItems("glasses", new GlassesItem(new Item.Settings().maxCount(1)));
-    public static final Item JETPACKS = registerItems("jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0)));
+    public static final Item DICE = registerItem("dice", new RandomizerItem(new Item.Settings()));
+    public static final Item CALC_CORE = registerItem("calc_core", new Item(new Item.Settings()));
+    public static final Item RANDOMIZER1 = registerItem("randomizer1", new RandomizerItem(new Item.Settings(), 1));
+    public static final Item RANDOMIZER2 = registerItem("randomizer2", new RandomizerItem(new Item.Settings(), 2));
+    public static final Item RANDOMIZER3 = registerItem("randomizer3", new RandomizerItem(new Item.Settings(), 3));
+    public static final Item ZZ_SPAWN_EGG = registerItem("zz_spawn_egg", new SpawnEggItem(ModEntities.ZZ, 0x20131c, 0xfcee4b, new Item.Settings()));
+    public static final Item BLACKSTONE_CRYSTAL = registerItem("blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_BLACKSTONE, new Item.Settings()));
+    public static final Item GILDED_BLACKSTONE_CRYSTAL = registerItem("gilded_blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_GILDED_BLACKSTONE, new Item.Settings().fireproof()));
+    public static final Item ENCHANTED_GILDED_BLACKSTONE_CRYSTAL = registerItem("enchanted_gilded_blackstone_crystal", new ThrowableItem<>(ModEntities.THROWN_ENCHANTED_GILDED_BLACKSTONE, new Item.Settings().fireproof().component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
+    public static final Item ZZ_CORE = registerItem("zz_core", new ZZCoreItem(new Item.Settings().fireproof()));
+    public static final Item ENDER_LINKER_CONFIGURATOR = registerItem("ender_linker_configurator", new EnderLinkerConfiguratorItem(new Item.Settings()));
+    public static final Item HELPER = registerItem("helper", new HelperItem(new Item.Settings()));
+    public static final Item GLASSES = registerItem("glasses", new GlassesItem(new Item.Settings().maxCount(1)));
+    public static final Item JETPACKS = registerItem("jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0)));
+    public static final Item MINER_SPAWN_EGG = registerItem("miner_spawn_egg", new SpawnEggItem(ModEntities.MINER, 0x00a4a4, 0x9b6349, new Item.Settings()));
+    public static final Item REGEX_FILTER = registerItem("regex_filter", new RegexFilterItem(new Item.Settings().maxCount(1)));
 
-    private static Item registerItems(String id, Item item){
+    private static Item registerItem(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
     }
 
@@ -54,11 +56,14 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.HOPPER, ModBlocks.TRANSFER);
         fabricItemGroupEntries.addAfter(Blocks.FURNACE, ModBlocks.DISENCHANTMENTOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
+        fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
+        fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.DESTROYER);
     }
 
     private static void addNaturalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OAK_LEAVES, ModBlocks.APPLE_LEAVES);
         fabricItemGroupEntries.addAfter(Blocks.BEDROCK, ModBlocks.BLACK_BEDROCK);
+        fabricItemGroupEntries.addAfter(Blocks.MAGMA_BLOCK, ModBlocks.SOLID_LAVA);
     }
 
     private static void addIngredientsGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -87,6 +92,7 @@ public class ModItems {
     private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.add(ModItems.ZZ_SPAWN_EGG);
         fabricItemGroupEntries.addAfter(Items.SPAWNER, ModBlocks.DISPOSABLE_SPAWNER);
+        fabricItemGroupEntries.add(ModItems.MINER_SPAWN_EGG);
     }
 
     public static final ItemGroup RandomToys_GROUP = Registry.register(Registries.ITEM_GROUP, Identifier.of(RandomToys.MOD_ID, "random-toys"),
@@ -120,7 +126,13 @@ public class ModItems {
                         entries.add(ModItems.ENDER_LINKER_CONFIGURATOR);
                         entries.add(ModBlocks.OXIDIZER);
                         entries.add(ModBlocks.VANISHING_DOOR);
+                        entries.add(ModBlocks.IMITATOR);
                         entries.add(ModItems.GLASSES);
                         entries.add(ModItems.JETPACKS);
+                        entries.add(ModBlocks.BELT);
+                        entries.add(ModItems.MINER_SPAWN_EGG);
+                        entries.add(ModItems.REGEX_FILTER);
+                        entries.add(ModBlocks.SOLID_LAVA);
+                        entries.add(ModBlocks.DESTROYER);
                     }).build());
 }

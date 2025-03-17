@@ -6,7 +6,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -50,14 +49,13 @@ public class TransferringBlock extends BlockWithEntity {
     @Override
     protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, @NotNull PlayerEntity player, BlockHitResult hit) {
         ItemStack stack = player.getMainHandStack();
-        Item item = stack.getItem();
         if (world.getBlockEntity(pos) instanceof TransferringBlockEntity transfer) {
             if (stack.isEmpty() && !transfer.isEmpty()){
                 transfer.clearItem();
                 return ActionResult.SUCCESS;
             }
-            if (!stack.isEmpty() && !transfer.getStack().isOf(stack.getItem())){
-                transfer.setItem(item);
+            if (!stack.isEmpty()){
+                transfer.setItem(stack);
                 return ActionResult.SUCCESS;
             }
             return ActionResult.PASS;

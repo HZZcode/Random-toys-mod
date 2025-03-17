@@ -4,16 +4,16 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
 public class ZZModel<T extends ZZEntity> extends SinglePartEntityModel<T> {
     private final ModelPart bb_main;
 
-    public ZZModel(ModelPart root) {
+    public ZZModel(@NotNull ModelPart root) {
         this.bb_main = root.getChild("bb_main");
     }
 
-    public static TexturedModelData getTexturedModelData() {
+    public static @NotNull TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
         ModelPartData bb_main = modelPartData.addChild("bb_main", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, -46.0F, -8.0F, 16.0F, 16.0F, 16.0F, new Dilation(0.0F))

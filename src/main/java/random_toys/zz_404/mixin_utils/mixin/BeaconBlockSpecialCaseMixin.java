@@ -1,4 +1,4 @@
-package random_toys.zz_404.mixin;
+package random_toys.zz_404.mixin_utils.mixin;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

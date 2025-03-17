@@ -3,6 +3,7 @@ package random_toys.zz_404;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.Item;
@@ -15,6 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Clearable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -52,9 +54,26 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
                     for (int i = 0; i < 27; i++) {
                         ItemStack stack = input.get(i);
                         if (stack == null) continue;
-                        if ((isEmpty() || stack.isOf(getItem())) && !stack.isEmpty()) {
+                        if (match(stack) && !stack.isEmpty()) {
                             output.set(space.orElseThrow(), stack.copy());
                             input.set(i, ItemStack.EMPTY);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        else if (world.getBlockState(pos.down()).isAir()) {
+            for (BlockEntity in : inputs) {
+                if (in instanceof TransferableBlockEntity input) {
+                    for (int i = 0; i < 27; i++) {
+                        ItemStack stack = input.get(i);
+                        if (stack == null) continue;
+                        if (match(stack) && stack.getCount() >= stack.getMaxCount()) {
+                            input.set(i, ItemStack.EMPTY);
+                            Vec3d down = pos.down().toCenterPos();
+                            world.spawnEntity(new ItemEntity(world, down.x, down.y, down.z, stack.copy()));
+                            return;
                         }
                     }
                 }
@@ -92,8 +111,19 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
         return inventory.getFirst().getItem();
     }
 
+    public boolean match(ItemStack stack) {
+        if (isEmpty()) return true;
+        if (getItem() == ModItems.REGEX_FILTER)
+            return RegexFilterItem.match(inventory.getFirst(), stack);
+        return stack.isOf(getItem());
+    }
+
     public void setItem(Item item) {
         inventory.set(0, new ItemStack(item));
+    }
+
+    public void setItem(@NotNull ItemStack stack) {
+        inventory.set(0, stack.copy());
     }
 
     public void clearItem() {
@@ -113,8 +143,8 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if (nbt.contains("FilterItem", 10)) inventory.set(0,
-                ItemStack.fromNbt(registryLookup, nbt.getCompound("FilterItem")).orElse(ItemStack.EMPTY));
+        if (nbt.contains("FilterItem", 10)) inventory.set(0, ItemStack.fromNbt(registryLookup,
+                nbt.getCompound("FilterItem")).orElse(ItemStack.EMPTY));
         else inventory.set(0, ItemStack.EMPTY);
     }
 

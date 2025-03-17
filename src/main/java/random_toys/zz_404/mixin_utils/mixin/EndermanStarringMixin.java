@@ -1,4 +1,4 @@
-package random_toys.zz_404.mixin;
+package random_toys.zz_404.mixin_utils.mixin;
 
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
