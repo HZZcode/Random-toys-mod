@@ -73,7 +73,6 @@ public class ModBlocks {
         FluidTransformationRules.add(FluidTransformationRule.create()
                 .fromFluid(fluid -> fluid.getDefaultState().isIn(FluidTags.LAVA))
                 .nearBlock(state -> state.isOf(Blocks.POWDER_SNOW))
-                .onBlock(state -> state.isOf(Blocks.BLUE_ICE))
                 .underBlock(state -> state.isOf(Blocks.BLUE_ICE))
                 .transformTo(SOLID_LAVA));
 
