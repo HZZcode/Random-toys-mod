@@ -16,6 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Clearable;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +52,7 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
             for (BlockEntity in : inputs) {
                 if (in instanceof TransferableBlockEntity input) {
                     if (input == output) continue;
-                    for (int i = 0; i < 27; i++) {
+                    for (int i = 0; i < input.size(); i++) {
                         ItemStack stack = input.get(i);
                         if (stack == null) continue;
                         if (match(stack) && !stack.isEmpty()) {
@@ -63,10 +64,11 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
                 }
             }
         }
-        else if (world.getBlockState(pos.down()).isAir()) {
+        else if (world.getBlockState(pos.down()).getCollisionShape(world, pos.down())
+                .getMax(Direction.Axis.Y) <= 0.5) {
             for (BlockEntity in : inputs) {
                 if (in instanceof TransferableBlockEntity input) {
-                    for (int i = 0; i < 27; i++) {
+                    for (int i = 0; i < input.size(); i++) {
                         ItemStack stack = input.get(i);
                         if (stack == null) continue;
                         if (match(stack) && stack.getCount() >= stack.getMaxCount()) {

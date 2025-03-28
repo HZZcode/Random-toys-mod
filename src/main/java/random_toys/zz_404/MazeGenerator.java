@@ -216,7 +216,7 @@ public class MazeGenerator {
             else if (x < 10) {
                 setBlock(center, ModBlocks.COMPRESSOR.getDefaultState().with(CompressorBlock.POWERED, false));
                 if (world.getBlockEntity(center) instanceof CompressorBlockEntity compressor)
-                    for (int i = 0; i < 27; i++)
+                    for (int i = 0; i < compressor.size(); i++)
                         compressor.inventory.set(i, new ItemStack(Items.GOLD_NUGGET, 64));
                 ArrayList<BlockPos> available = new ArrayList<>(centers);
                 available.addAll(empties);
@@ -406,12 +406,17 @@ public class MazeGenerator {
         setBlock(pos.up(), ModBlocks.COMPRESSOR.getDefaultState().with(CompressorBlock.POWERED, true));
         setBlock(pos, Blocks.REDSTONE_TORCH.getDefaultState());
         if (world.getBlockEntity(pos.up()) instanceof CompressorBlockEntity compressor) {
-            compressor.inventory.set(13, new ItemStack(Items.BEACON));
-            compressor.inventory.set(4, new ItemStack(ModBlocks.BLACK_BEDROCK));
-            compressor.inventory.set(12, new ItemStack(ModBlocks.BLACK_BEDROCK));
-            compressor.inventory.set(14, new ItemStack(ModBlocks.BLACK_BEDROCK));
-            compressor.inventory.set(22, new ItemStack(ModItems.JETPACKS));
+            compressor.inventory.set(4, new ItemStack(Items.BEACON));
+            compressor.inventory.set(12, getCenterBedrockLoot());
+            compressor.inventory.set(22, getCenterBedrockLoot());
+            compressor.inventory.set(14, getCenterBedrockLoot());
+            compressor.inventory.set(13, new ItemStack(ModItems.JETPACKS));
         }
+    }
+
+    @Contract(" -> new")
+    private @NotNull ItemStack getCenterBedrockLoot() {
+        return new ItemStack(world.random.nextBoolean() ? Blocks.BEDROCK : ModBlocks.BLACK_BEDROCK);
     }
 
     private void placeFloorAndCeiling() {

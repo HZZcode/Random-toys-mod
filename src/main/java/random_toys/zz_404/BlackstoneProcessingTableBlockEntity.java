@@ -35,15 +35,7 @@ public class BlackstoneProcessingTableBlockEntity extends BlockEntity implements
     private int progress = 0;
     private int maxProgress = 72;
 
-    public static final ArrayList<Recipe> recipes = getRecipes();
-
-    private static ArrayList<Recipe> getRecipes() {
-        ArrayList<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe(Items.BLACKSTONE, ModItems.BLACKSTONE_CRYSTAL));
-        for (int i = 0; i < 19; i++) recipes.add(new Recipe(Items.GILDED_BLACKSTONE, ModItems.GILDED_BLACKSTONE_CRYSTAL));
-        recipes.add(new Recipe(Items.GILDED_BLACKSTONE, ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL));
-        return recipes;
-    }
+    public static final ArrayList<Recipe> recipes = new ArrayList<>();
 
     public BlackstoneProcessingTableBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.BLACKSTONE_PROCESSING_TABLE, pos, state);
@@ -211,6 +203,11 @@ public class BlackstoneProcessingTableBlockEntity extends BlockEntity implements
         return slot == OUTPUT_SLOT;
     }
 
-    public record Recipe(Item input, Item output) {
+    public record Recipe(Item input, Item output) {}
+
+    static {
+        recipes.add(new Recipe(Items.BLACKSTONE, ModItems.BLACKSTONE_CRYSTAL));
+        for (int i = 0; i < 19; i++) recipes.add(new Recipe(Items.GILDED_BLACKSTONE, ModItems.GILDED_BLACKSTONE_CRYSTAL));
+        recipes.add(new Recipe(Items.GILDED_BLACKSTONE, ModItems.ENCHANTED_GILDED_BLACKSTONE_CRYSTAL));
     }
 }

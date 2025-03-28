@@ -131,6 +131,16 @@ public class BeltBlock extends BlockWithEntity {
                         -> beltBlockEntity.tick(world, pos, state));
     }
 
+    @Override
+    protected boolean hasComparatorOutput(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getComparatorOutput(@NotNull BlockState state, World world, BlockPos pos) {
+        return state.get(POWERED) ? 15 : 0;
+    }
+
     static {
         POWERED = Properties.POWERED;
         DIRECTION = DirectionProperty.of("horizontal_direction",

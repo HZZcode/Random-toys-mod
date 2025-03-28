@@ -49,6 +49,8 @@ public class RandomToys implements ModInitializer {
 		Random random = new Random();
 		if(random.nextInt(64 * 64) == 0)
 			error("This is a random message from RandomToys! You're lucky today!");
-		//TODO: block that drops all items in it
+		//TODO: transporting blocks/entities vertically
+		//TODO: a block used to clear chunks?
+		//TODO: hook to grab block?
 	}
 }
