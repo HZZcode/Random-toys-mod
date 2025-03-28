@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
@@ -26,7 +27,8 @@ public class ThrownGildedBlackstoneEntity extends AbstractThrownBlackstoneEntity
         Entity owner = getOwner();
         DamageSource damageSource = getDamageSources().indirectMagic(owner, owner);
         entity.damage(damageSource, 10.0f / (distance + 1));
-        if (entity instanceof LivingEntity livingEntity) {
+        if (entity instanceof LivingEntity livingEntity
+                && !(entity instanceof PlayerEntity player && BlackBedrockArmorItem.isWearingAll(player))) {
             livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS,
                     (int) (100 / (distance + 1)), 2));
             livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS,

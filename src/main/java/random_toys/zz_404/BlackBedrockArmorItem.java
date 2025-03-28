@@ -53,10 +53,11 @@ public class BlackBedrockArmorItem extends ArmorItem {
                         player.getInventory().getArmorStack(j).damage(1, player, EquipmentSlots[j]);
                     }
                 }
+            player.removeStatusEffect(StatusEffects.DARKNESS);
         }
     }
 
-    ArrayList<Type> getWearings(@NotNull PlayerEntity player) {
+    private static @NotNull ArrayList<Type> getWearings(@NotNull PlayerEntity player) {
         ArrayList<Type> ans = new ArrayList<>();
         if (player.getInventory().getArmorStack(3)
                 .isOf(ModItems.BLACK_BEDROCK_HELMET)) ans.add(Type.HELMET);
@@ -67,5 +68,9 @@ public class BlackBedrockArmorItem extends ArmorItem {
         if (player.getInventory().getArmorStack(0)
                 .isOf(ModItems.BLACK_BEDROCK_BOOTS)) ans.add(Type.BOOTS);
         return ans;
+    }
+
+    public static boolean isWearingAll(@NotNull PlayerEntity player) {
+        return getWearings(player).size() >= 4;
     }
 }
