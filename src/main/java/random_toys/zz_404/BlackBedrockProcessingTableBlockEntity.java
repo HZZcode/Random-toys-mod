@@ -78,13 +78,13 @@ public class BlackBedrockProcessingTableBlockEntity extends BlockEntity {
                     .map(recipe -> recipe.output).findFirst().orElseThrow();
             ArrayList<Pattern> patterns = getPattern(server);
             if (IntStream.range(0, 5).allMatch(i -> patterns.get(i).size == TimerBlock.getPower(timer.get(i)))) {
+                output.set(outputSlot, in.copyComponentsToNewStack(outputItem, 1));
                 in.decrement(1);
-                output.set(outputSlot, new ItemStack(outputItem));
                 ingredients.forEach(stack -> stack.decrement(1));
             }
             else {
                 if (!(world.getBlockEntity(pos.down().down()) instanceof TimerBlockEntity down)
-                        || !down.inventory.stream().allMatch(ItemStack::isEmpty)
+                        || !down.inventory.stream().allMatch(itemStack -> itemStack.isOf(Items.DIAMOND_BLOCK))
                         || timer.inventory.stream().allMatch(ItemStack::isEmpty)) return;
                 ArrayList<Pattern> inputs = timer.inventory.stream().map(TimerBlock::getPower)
                         .map(Pattern::getPatternBySize).collect(Collectors.toCollection(ArrayList::new));

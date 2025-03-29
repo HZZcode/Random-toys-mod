@@ -5,21 +5,30 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.provider.EnchantmentProviders;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.loot.context.LootContextParameterSet;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class BlackBedrockProcessingTableBlock extends BlockWithEntity {
@@ -93,22 +102,43 @@ public class BlackBedrockProcessingTableBlock extends BlockWithEntity {
         }
     }
 
+    private void destroy(@NotNull ServerWorld world, @NotNull BlockPos pos) {
+        BlockState blockState = world.getBlockState(pos);
+        ItemStack itemStack = new ItemStack(Items.DIAMOND_AXE);
+        EnchantmentHelper.applyEnchantmentProvider(itemStack, world.getRegistryManager(),
+                EnchantmentProviders.ENDERMAN_LOOT_DROP, world.getLocalDifficulty(pos), world.random);
+        List<ItemStack> drops = blockState.getDroppedStacks(new LootContextParameterSet.Builder(world)
+                .add(LootContextParameters.ORIGIN, Vec3d.of(pos))
+                .add(LootContextParameters.TOOL, itemStack));
+        for (ItemStack drop : drops) {
+            Vec3d up = pos.toCenterPos();
+            world.spawnEntity(new ItemEntity(world, up.x, up.y, up.z, drop.copy()));
+        }
+    }
+    
+    private void setBlock(@NotNull ServerWorld world, @NotNull BlockPos pos, BlockState state) {
+        destroy(world, pos);
+        world.setBlockState(pos, state);
+    }
+
     public void buildStructure(@NotNull World world, @NotNull BlockPos pos) {
-        world.setBlockState(pos.north().west().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.north().east().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.south().west().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.south().east().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.north().west().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.north().east().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.south().west().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.south().east().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
-        world.setBlockState(pos.up(), ModBlocks.COMPRESSOR.getDefaultState());
-        world.setBlockState(pos.down(), ModBlocks.COMPRESSOR.getDefaultState());
-        world.setBlockState(pos.north(), ModBlocks.COMPRESSOR.getDefaultState());
-        world.setBlockState(pos.south(), ModBlocks.COMPRESSOR.getDefaultState());
-        world.setBlockState(pos.west(), ModBlocks.COMPRESSOR.getDefaultState());
-        world.setBlockState(pos.east(), ModBlocks.COMPRESSOR.getDefaultState());
-        world.setBlockState(pos.up().up(), ModBlocks.TIMER.getDefaultState());
-        world.setBlockState(pos.down().down(), ModBlocks.TIMER.getDefaultState());
+        if (world instanceof ServerWorld server) {
+            setBlock(server, pos.north().west().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.north().east().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.south().west().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.south().east().up(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.north().west().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.north().east().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.south().west().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.south().east().down(), ModBlocks.BLACK_BEDROCK.getDefaultState());
+            setBlock(server, pos.up(), ModBlocks.COMPRESSOR.getDefaultState());
+            setBlock(server, pos.down(), ModBlocks.COMPRESSOR.getDefaultState());
+            setBlock(server, pos.north(), ModBlocks.COMPRESSOR.getDefaultState());
+            setBlock(server, pos.south(), ModBlocks.COMPRESSOR.getDefaultState());
+            setBlock(server, pos.west(), ModBlocks.COMPRESSOR.getDefaultState());
+            setBlock(server, pos.east(), ModBlocks.COMPRESSOR.getDefaultState());
+            setBlock(server, pos.up().up(), ModBlocks.TIMER.getDefaultState());
+            setBlock(server, pos.down().down(), ModBlocks.TIMER.getDefaultState());
+        }
     }
 }

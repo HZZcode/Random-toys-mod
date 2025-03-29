@@ -142,7 +142,7 @@
   "1.tooltip.random-toys.black_bedrock_processing_table": "You'll need to prepare 8 black bedrocks, 6 compressors and 2 timers...",
   "2.tooltip.random-toys.black_bedrock_processing_table": "With these in your inventory, right-click the table with a pickaxe.",
   "3.tooltip.random-toys.black_bedrock_processing_table": "Put netherite armor in the top compressor and black bedrock in the 4 beside it...",
-  "4.tooltip.random-toys.black_bedrock_processing_table": "Put some items in the top timer and leave the bottom timer empty...",
+  "4.tooltip.random-toys.black_bedrock_processing_table": "Put some items in the top timer and put diamond blocks in the bottom timer...",
   "5.tooltip.random-toys.black_bedrock_processing_table": "The bottom timer would give you a clue about what you'll need to put in the top one.",
   "6.tooltip.random-toys.black_bedrock_processing_table": "Tip: think about the wordle game!",
   "0.tooltip.random-toys.timer": "Put items in it, input redstone power and output with comparator.",
