@@ -125,6 +125,6 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
 
     @Override
     public int size() {
-        return 0;
+        return getLinked() == null ? 0 : getLinked().size();
     }
 }

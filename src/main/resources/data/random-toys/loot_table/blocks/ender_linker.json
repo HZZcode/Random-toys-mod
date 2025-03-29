@@ -20,11 +20,11 @@
               "source": "block_entity"
             }
           ],
-          "name": "random-toys:transfer"
+          "name": "random-toys:ender_linker"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "random-toys:blocks/transfer"
+  "random_sequence": "random-toys:blocks/ender_linker"
 }
