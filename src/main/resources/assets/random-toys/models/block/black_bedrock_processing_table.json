@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/black_bedrock",
+    "east": "random-toys:block/black_bedrock_processing_table",
+    "north": "random-toys:block/black_bedrock_processing_table",
+    "south": "random-toys:block/black_bedrock_processing_table",
+    "up": "random-toys:block/black_bedrock",
+    "west": "random-toys:block/black_bedrock_processing_table",
+    "particle": "random-toys:block/black_bedrock"
+  }
+}

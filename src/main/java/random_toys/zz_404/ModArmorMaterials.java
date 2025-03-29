@@ -27,6 +27,15 @@ public class ModArmorMaterials {
                     map -> map.put(ArmorItem.Type.CHESTPLATE, 1)),
             3, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0F, 0.0F,
             () -> Ingredient.ofItems(Items.GLASS));
+    public static final RegistryEntry<ArmorMaterial> BLACK_BEDROCK = register("black_bedrock",
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+        map.put(ArmorItem.Type.BOOTS, 7);
+        map.put(ArmorItem.Type.LEGGINGS, 13);
+        map.put(ArmorItem.Type.CHESTPLATE, 17);
+        map.put(ArmorItem.Type.HELMET, 7);
+        map.put(ArmorItem.Type.BODY, 23);
+    }), 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 7.0F, 0.5F,
+            () -> Ingredient.ofItems(ModBlocks.BLACK_BEDROCK));
 
     private static RegistryEntry<ArmorMaterial> register(String id,
             EnumMap<ArmorItem.Type, Integer> defense,

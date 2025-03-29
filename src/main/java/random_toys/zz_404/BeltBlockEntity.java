@@ -61,7 +61,7 @@ public class BeltBlockEntity extends BlockEntity {
         for (Entity entity : world.getEntitiesByClass(Entity.class, Box.from(Vec3d.of(pos)).expand(3),
                 entity -> BeltBlock.isStepping(pos, entity)))
             BeltBlock.moveEntity(state, world, pos, entity);
-
+        world.updateComparators(pos, ModBlocks.BELT);
         world.setBlockState(pos, state.with(BeltBlock.POWERED, BeltBlock.isPowered(world, pos, state)));
         Direction direction = state.get(BeltBlock.DIRECTION);
         BlockPos up = pos.up();

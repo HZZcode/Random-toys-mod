@@ -70,7 +70,7 @@ public class DestroyerBlockEntity extends LootableContainerBlockEntity implement
 
     @Override
     public int size() {
-        return 27;
+        return inventory.size();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class DestroyerBlockEntity extends LootableContainerBlockEntity implement
                 return;
             }
             BlockState blockState = world.getBlockState(pos.up());
-            if (blockState == null || blockState.isAir()) return;
+            if (blockState == null || blockState.isAir() || blockState.getHardness(world, pos.up()) < 0) return;
             ItemStack itemStack = new ItemStack(Items.DIAMOND_AXE);
             EnchantmentHelper.applyEnchantmentProvider(itemStack, world.getRegistryManager(),
                     EnchantmentProviders.ENDERMAN_LOOT_DROP, world.getLocalDifficulty(pos), world.random);
@@ -114,7 +114,7 @@ public class DestroyerBlockEntity extends LootableContainerBlockEntity implement
             cooldown = MaxCooldown;
             drop:
             for (ItemStack drop : drops) {
-                for (int i = 0; i < 27; i++) {
+                for (int i = 0; i < size(); i++) {
                     if (inventory.get(i).isEmpty()) {
                         inventory.set(i, drop.copy());
                         continue drop;

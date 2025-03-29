@@ -11,7 +11,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 import static random_toys.zz_404.mixin_utils.MixinSets.EndermanAvoidStarringItems;
+import static random_toys.zz_404.mixin_utils.MixinSets.PlayerTickBehaviours;
 
 public class ModItems {
     public static final Item DICE = registerItem("dice", new RandomizerItem(new Item.Settings()));
@@ -30,23 +33,15 @@ public class ModItems {
     public static final Item JETPACKS = registerItem("jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0)));
     public static final Item MINER_SPAWN_EGG = registerItem("miner_spawn_egg", new SpawnEggItem(ModEntities.MINER, 0x00a4a4, 0x9b6349, new Item.Settings()));
     public static final Item REGEX_FILTER = registerItem("regex_filter", new RegexFilterItem(new Item.Settings().maxCount(1)));
+    public static final Item BLACK_BEDROCK_HELMET = registerItem("black_bedrock_helmet", new BlackBedrockArmorItem(ArmorItem.Type.HELMET));
+    public static final Item BLACK_BEDROCK_CHESTPLATE = registerItem("black_bedrock_chestplate", new BlackBedrockArmorItem(ArmorItem.Type.CHESTPLATE));
+    public static final Item BLACK_BEDROCK_LEGGINGS = registerItem("black_bedrock_leggings", new BlackBedrockArmorItem(ArmorItem.Type.LEGGINGS));
+    public static final Item BLACK_BEDROCK_BOOTS = registerItem("black_bedrock_boots", new BlackBedrockArmorItem(ArmorItem.Type.BOOTS));
 
     private static Item registerItem(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
     }
 
-    public static void registerItems(){
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModItems::addRedstoneGroupItems);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(ModItems::addNaturalGroupItems);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addCombatGroupItems);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addIngredientsGroupItems);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addFunctionalGroupItems);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addSpawnEggGroupItems);
-
-        EndermanAvoidStarringItems.add(GLASSES);
-
-        RandomToys.log("Registering Items");
-    }
     private static void addRedstoneGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
         fabricItemGroupEntries.addAfter(Blocks.OBSERVER, ModBlocks.BUD);
         fabricItemGroupEntries.addAfter(Blocks.REDSTONE_BLOCK, ModBlocks.RANDOMIZER);
@@ -55,6 +50,7 @@ public class ModItems {
         fabricItemGroupEntries.addBefore(Blocks.CHEST, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.HOPPER, ModBlocks.TRANSFER);
         fabricItemGroupEntries.addAfter(Blocks.FURNACE, ModBlocks.DISENCHANTMENTOR);
+        fabricItemGroupEntries.addAfter(Blocks.COMPARATOR, ModBlocks.TIMER);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
         fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.DESTROYER);
@@ -76,6 +72,10 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.TURTLE_HELMET, ModItems.GLASSES);
         fabricItemGroupEntries.addAfter(Items.TURTLE_HELMET, ModItems.JETPACKS);
+        fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_BOOTS);
+        fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_LEGGINGS);
+        fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_CHESTPLATE);
+        fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_HELMET);
     }
 
     private static void addFunctionalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -134,5 +134,44 @@ public class ModItems {
                         entries.add(ModItems.REGEX_FILTER);
                         entries.add(ModBlocks.SOLID_LAVA);
                         entries.add(ModBlocks.DESTROYER);
+                        entries.add(ModItems.BLACK_BEDROCK_HELMET);
+                        entries.add(ModItems.BLACK_BEDROCK_CHESTPLATE);
+                        entries.add(ModItems.BLACK_BEDROCK_LEGGINGS);
+                        entries.add(ModItems.BLACK_BEDROCK_BOOTS);
+                        entries.add(ModBlocks.BLACK_BEDROCK_PROCESSING_TABLE);
+                        entries.add(ModBlocks.TIMER);
                     }).build());
+
+    public static void registerItems(){
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModItems::addRedstoneGroupItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(ModItems::addNaturalGroupItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addCombatGroupItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addIngredientsGroupItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::addFunctionalGroupItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(ModItems::addSpawnEggGroupItems);
+
+        EndermanAvoidStarringItems.add(GLASSES);
+
+        PlayerTickBehaviours.add(player -> {
+            if (!player.isSpectator() && !player.isCreative()) {
+                ArrayList<ItemStack> stacks = JetpackItem.getRemainingWearingStacks(player);
+                if (!stacks.isEmpty()) {
+                    ItemStack stack = stacks.getFirst();
+                    if (JetpackItem.getRemainingGas(stack) == 0 || player.isOnGround()
+                            || !ModKeyBindings.JETPACK_ACTIVATE.isPressed()) {
+                        player.getAbilities().flying = false;
+                        return;
+                    }
+                    if (player.getWorld().getTime() % 20 == 0)
+                        stack.set(ModDataComponents.GAS_REMAINING, Math.max(0, JetpackItem.getRemainingGas(stack) - 1));
+                    if (player.getAbilities().flying) return;
+                    player.getAbilities().setFlySpeed(player.getMovementSpeed());
+                    player.getAbilities().flying = true;
+                }
+                else player.getAbilities().flying = false;
+            }
+        });
+
+        RandomToys.log("Registering Items");
+    }
 }

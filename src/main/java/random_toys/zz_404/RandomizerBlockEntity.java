@@ -145,5 +145,6 @@ public class RandomizerBlockEntity extends LootableContainerBlockEntity implemen
 
     public void tick(World world, BlockPos pos, BlockState state) {
         updateBlockState(world, pos, state);
+        world.updateComparators(pos, ModBlocks.RANDOMIZER);
     }
 }

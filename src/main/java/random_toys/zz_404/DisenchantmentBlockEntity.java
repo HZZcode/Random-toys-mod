@@ -68,7 +68,7 @@ public class DisenchantmentBlockEntity extends LootableContainerBlockEntity impl
 
     @Override
     public int size() {
-        return 27;
+        return inventory.size();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class DisenchantmentBlockEntity extends LootableContainerBlockEntity impl
             world.setBlockState(pos, state.with(TransferringBlock.POWERED,
                     world.getReceivedRedstonePower(pos) != 0));
             if (world.getReceivedRedstonePower(pos) != 0) return;
-            for (int i = 0; i < 27; i++) {
+            for (int i = 0; i < size(); i++) {
                 ItemStack item = inventory.get(i);
                 ExperienceOrbEntity.spawn(server, Vec3d.ofCenter(pos), getExperience(item));
                 var itemEnchantmentsComponent = EnchantmentHelper.apply(item,

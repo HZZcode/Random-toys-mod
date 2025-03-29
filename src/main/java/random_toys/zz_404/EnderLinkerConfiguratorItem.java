@@ -35,7 +35,7 @@ public class EnderLinkerConfiguratorItem extends Item {
         if (player == null) return ActionResult.FAIL;
         World world = player.getWorld();
         if (!world.isClient) {
-            if (player.isSneaking() && world.getBlockEntity(pos) instanceof EnderLinkerBlockEntity linker) {
+            if (player.isSneaking() && world.getBlockEntity(pos) instanceof EnderLinkerBlockEntity linker && linker.linked != null) {
                 RandomToys.msg(player, Text.translatable("message.random-toys.ender_linker_configurator.check",
                         linker.dimension.getValue().toString(),
                         linker.linked.getX(), linker.linked.getY(), linker.linked.getZ()));

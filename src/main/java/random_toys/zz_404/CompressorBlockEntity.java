@@ -65,7 +65,7 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
 
     @Override
     public int size() {
-        return 27;
+        return inventory.size();
     }
 
     @Override
@@ -125,7 +125,7 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
         world.setBlockState(pos, state.with(TransferringBlock.POWERED,
                 world.getReceivedRedstonePower(pos) != 0));
         if (world.getReceivedRedstonePower(pos) != 0) return;
-        int count = IntStream.range(0, 27).filter(i -> !inventory.get(i).isEmpty()).max().orElse(0) + 1;
+        int count = IntStream.range(0, size()).filter(i -> !inventory.get(i).isEmpty()).max().orElse(0) + 1;
         mergeStacks();
         for (int i = 0; i < count; i++) {
             var recipe = getCompressRecipe(inventory.get(i).getItem());

@@ -32,6 +32,7 @@ public class ZZShootingGoal extends Goal {
 
     @Override
     public void stop() {
+        super.stop();
     }
 
     @Override

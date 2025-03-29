@@ -49,8 +49,8 @@ public class BlackstoneProcessingTableBlock extends BlockWithEntity implements B
     protected void onStateReplaced(@NotNull BlockState state, World world, BlockPos pos, @NotNull BlockState newState, boolean moved) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof BlackstoneProcessingTableBlockEntity) {
-                ItemScatterer.spawn(world, pos, (BlackstoneProcessingTableBlockEntity) blockEntity);
+            if (blockEntity instanceof BlackstoneProcessingTableBlockEntity blackstoneProcessingTableBlockEntity) {
+                ItemScatterer.spawn(world, pos, blackstoneProcessingTableBlockEntity);
                 world.updateComparators(pos, this);
             }
             super.onStateReplaced(state, world, pos, newState, moved);

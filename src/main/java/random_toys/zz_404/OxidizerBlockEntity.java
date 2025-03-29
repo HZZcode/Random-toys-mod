@@ -67,7 +67,7 @@ public class OxidizerBlockEntity extends LootableContainerBlockEntity implements
 
     @Override
     public int size() {
-        return 27;
+        return inventory.size();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class OxidizerBlockEntity extends LootableContainerBlockEntity implements
         world.setBlockState(pos, state.with(TransferringBlock.POWERED,
                 world.getReceivedRedstonePower(pos) != 0));
         if (world.getReceivedRedstonePower(pos) != 0) return;
-        for (int i = 0; i < 27; i++) {
+        for (int i = 0; i < size(); i++) {
             ItemStack stack = inventory.get(i);
             if (stack.getItem() instanceof BlockItem item) {
                 Optional<Block> optional = Oxidizable.getIncreasedOxidationBlock(item.getBlock());

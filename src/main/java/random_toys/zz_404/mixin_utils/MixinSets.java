@@ -7,11 +7,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import random_toys.zz_404.reflection_utils.TrinketUtils;
 
+import java.util.function.Consumer;
+
 public class MixinSets {
     public static MixinSet<Block> EndCrystalPlacingBlocks = new MixinSet<>();
     public static MixinSet<Item> EndermanAvoidStarringItems = new MixinSet<>();
     public static MixinSet<Block> BeaconBlockSpecialCaseBlocks = new MixinSet<>();
     public static MixinSet<FluidTransformationRule> FluidTransformationRules = new MixinSet<>();
+    public static MixinSet<Consumer<PlayerEntity>> PlayerTickBehaviours = new MixinSet<>();
 
     public static boolean isEndermanAvoidable(PlayerEntity player) {
         return EndermanAvoidStarringItems.anyMatch(item -> TrinketUtils.isInTrinkets(player, item))

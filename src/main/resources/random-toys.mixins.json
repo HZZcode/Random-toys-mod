@@ -7,6 +7,7 @@
     "EndCrystalPlacingMixin",
     "EndermanStarringMixin",
     "FluidTransformationMixin",
+    "PlayerDamageMixin",
     "PlayerTickMixin"
   ],
   "injectors": {
