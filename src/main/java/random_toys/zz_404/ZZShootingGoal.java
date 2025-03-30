@@ -12,6 +12,9 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import random_toys.zz_404.reflection_utils.FireballEntityExplosionPowerUtils;
+
+import java.util.function.Consumer;
 
 public class ZZShootingGoal extends Goal {
     private final ZZEntity zz;
@@ -51,46 +54,36 @@ public class ZZShootingGoal extends Goal {
 
     private @Nullable Entity shootEntity(@NotNull World world, Vec3d pos, Vec3d direction) {
         int chooser = world.random.nextInt(10);
-        switch (chooser) {
-            case 0: {
-                WindChargeEntity entity = new WindChargeEntity(EntityType.WIND_CHARGE, world);
-                entity.setPosition(pos);
-                entity.setVelocity(direction);
-                entity.setOwner(this.zz);
-                return entity;
-            }
-            case 1: case 2: {
-                BreezeWindChargeEntity entity = new BreezeWindChargeEntity(EntityType.BREEZE_WIND_CHARGE, world);
-                entity.setPosition(pos);
-                entity.setVelocity(direction);
-                entity.setOwner(this.zz);
-                return entity;
-            }
-            case 3: case 4: {
-                SmallFireballEntity entity = new SmallFireballEntity(world, this.zz, direction);
-                entity.setPosition(pos);
-                return entity;
-            }
-            case 5: case 6: case 7: {
-                FireballEntity entity = new FireballEntity(world, this.zz, direction, 6);
-                entity.setPosition(pos);
-                return entity;
-            }
-            case 8: {
-                ThrownGildedBlackstoneEntity entity = new ThrownGildedBlackstoneEntity(ModEntities.THROWN_GILDED_BLACKSTONE, world);
-                entity.setPosition(pos);
-                entity.setVelocity(direction);
-                entity.setOwner(this.zz);
-                return entity;
-            }
-            default: {
-                ThrownEnchantedGildedBlackstoneEntity entity = new ThrownEnchantedGildedBlackstoneEntity(ModEntities.THROWN_GILDED_BLACKSTONE, world);
-                entity.setPosition(pos);
-                entity.setVelocity(direction);
-                entity.setOwner(this.zz);
-                return world.random.nextBoolean() ? entity : null;
-            }
-        }
+        boolean isStage2 = zz.getHealthPercentage() < 0.5;
+        boolean bl = isStage2 || world.random.nextInt(5) < 2;
+        return bl ? switch (chooser) {
+            case 0 -> getProjectile(EntityType.WIND_CHARGE, world, pos, direction);
+            case 1, 2 -> getProjectile(EntityType.BREEZE_WIND_CHARGE, world, pos, direction);
+            case 3, 4 -> getProjectile(EntityType.SMALL_FIREBALL, world, pos, direction);
+            case 5, 6, 7 -> getProjectile(EntityType.FIREBALL, world, pos, direction,fireball
+                    -> FireballEntityExplosionPowerUtils.trySetExplosionPower(fireball, 6));
+            case 8 -> getProjectile(ModEntities.THROWN_GILDED_BLACKSTONE, world, pos, direction);
+            default -> world.random.nextBoolean() || isStage2 ? null :
+                getProjectile(ModEntities.THROWN_ENCHANTED_GILDED_BLACKSTONE, world, pos, direction);
+        } : null;
+    }
+
+    private <T extends ProjectileEntity> ProjectileEntity getProjectile(@Nullable EntityType<T> type,
+                                           @NotNull World world, Vec3d pos, Vec3d direction) {
+        return getProjectile(type, world, pos, direction, t -> {});
+    }
+
+    private <T extends ProjectileEntity> ProjectileEntity getProjectile(@Nullable EntityType<T> type,
+                                           @NotNull World world, Vec3d pos, Vec3d direction,
+                                           Consumer<T> consumer) {
+        if (type == null) return null;
+        T entity = type.create(world);
+        if (entity == null) return null;
+        consumer.accept(entity);
+        entity.setPosition(pos);
+        entity.setVelocity(direction);
+        entity.setOwner(zz);
+        return entity;
     }
 
     private void shoot(@NotNull LivingEntity livingEntity, @NotNull World world) {

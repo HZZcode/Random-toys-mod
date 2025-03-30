@@ -231,9 +231,9 @@ public class ZZEntity extends HostileEntity implements Angerable {
         return damage(source, amount, true);
     }
 
-    public boolean damage(@NotNull DamageSource source, float amount, boolean canAvoid) {
+    public boolean damage(@NotNull DamageSource source, float amount, boolean needPostProcess) {
         Entity sourceEntity = source.getSource();
-        if (canAvoid && sourceEntity instanceof LivingEntity && !ENEMY_PREDICATE.test((LivingEntity) sourceEntity)
+        if (needPostProcess && sourceEntity instanceof LivingEntity && !ENEMY_PREDICATE.test((LivingEntity) sourceEntity)
                 && !(sourceEntity instanceof PlayerEntity && ((PlayerEntity) sourceEntity).isCreative()))
             return false;
         if (source.isOf(DamageTypes.FIREWORKS)) {
@@ -246,9 +246,13 @@ public class ZZEntity extends HostileEntity implements Angerable {
                 this.damage(newSource, newAmount, false);
             }
         }
-        if (canAvoid && damageCanBeImmunized(source))
+        if (needPostProcess && sourceEntity instanceof AbstractThrownBlackstoneEntity) {
+            float newAmount = amount * (3 + getEntityWorld().random.nextInt(2));
+            this.damage(source, newAmount, false);
+        }
+        if (needPostProcess && damageCanBeImmunized(source))
             return false;
-        if (canAvoid && isSelfDamage(sourceEntity))
+        if (needPostProcess && isSelfDamage(sourceEntity))
             return false;
         return super.damage(source, amount);
     }
@@ -358,10 +362,14 @@ public class ZZEntity extends HostileEntity implements Angerable {
         bossBar.setName(getDisplayName());
     }
 
+    public float getHealthPercentage() {
+        return getHealth() / getMaxHealth();
+    }
+
     @Override
     protected void mobTick() {
         super.mobTick();
-        float percent = getHealth() / getMaxHealth();
+        float percent = getHealthPercentage();
         bossBar.setPercent(percent);
         bossBar.setColor(percent > 0.5 ? BossBar.Color.PINK : BossBar.Color.RED);
         bossBar.setDarkenSky(percent <= 0.5);
