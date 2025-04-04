@@ -6,13 +6,11 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.BedPart;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.block.enums.SlabType;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -20,7 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import random_toys.zz_404.reflection_utils.BlockEntityMovingUtils;
+import random_toys.zz_404.reflection_utils.BlockMovingUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,23 +90,8 @@ public class BeltBlockEntity extends BlockEntity {
 
     private boolean canMoveTo(@NotNull Direction direction, @NotNull BlockPos to, ArrayList<BlockPos> froms) {
         return world != null && (world.getBlockState(to).isAir() || froms.contains(to)
-                || world.getBlockState(to).isReplaceable() || canMerge(direction, to));
-    }
-
-    private boolean canMerge(@NotNull Direction direction, @NotNull BlockPos to) {
-        if (world == null) return false;
-        BlockPos from = to.offset(direction.getOpposite());
-        BlockState fromState = world.getBlockState(from);
-        BlockState toState = world.getBlockState(to);
-        if (fromState.getBlock() instanceof Waterloggable && toState.isOf(Blocks.WATER))
-            return true;
-        if (toState.getBlock() instanceof Waterloggable && fromState.isOf(Blocks.WATER))
-            return true;
-        return fromState.getBlock() == toState.getBlock() && fromState.getBlock() instanceof SlabBlock
-                && ((fromState.get(SlabBlock.TYPE) == SlabType.BOTTOM
-                && toState.get(SlabBlock.TYPE) == SlabType.TOP)
-                || (fromState.get(SlabBlock.TYPE) == SlabType.TOP
-                && toState.get(SlabBlock.TYPE) == SlabType.BOTTOM));
+                || world.getBlockState(to).isReplaceable()
+                || BlockMovingUtils.canMerge(world, to.offset(direction.getOpposite()), to));
     }
 
     private synchronized boolean isMoved(BlockPos from) {
@@ -118,57 +101,17 @@ public class BeltBlockEntity extends BlockEntity {
 
     private synchronized void copyBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
         if (isMoved(from)) return;
-        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)
-                && world.getBlockEntity(from) != null) return;
-        BlockState state = world.getBlockState(from);
+        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)) return;
         moved.add(new MovedBlockPos(pos, from, to));
-        BlockState toState = world.getBlockState(to);
-        boolean slab = state.getBlock() instanceof SlabBlock && toState.getBlock() instanceof SlabBlock;
-        boolean fromWater = state.isOf(Blocks.WATER) && toState.getBlock() instanceof Waterloggable;
-        boolean toWater = toState.isOf(Blocks.WATER) && state.getBlock() instanceof Waterloggable;
-        boolean waterlogged = fromWater || toWater;
-        if (!fromWater) world.setBlockState(to, state, Block.NOTIFY_ALL | Block.FORCE_STATE);
-        try {
-            if (waterlogged)
-                world.setBlockState(to, world.getBlockState(to).with(Properties.WATERLOGGED, true),
-                        Block.NOTIFY_ALL | Block.FORCE_STATE);
-            if (slab) {
-                world.setBlockState(to, world.getBlockState(to).with(SlabBlock.TYPE, SlabType.DOUBLE),
-                        Block.NOTIFY_ALL | Block.FORCE_STATE);
-                world.setBlockState(to, world.getBlockState(to).with(SlabBlock.WATERLOGGED, false),
-                        Block.NOTIFY_ALL | Block.FORCE_STATE);
-            }
-        } catch (IllegalArgumentException ignored) {}
+        BlockMovingUtils.copyBlock(world, from, to);
     }
 
     private synchronized void moveBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
         if (isMoved(from)) return;
-        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)
-                && world.getBlockEntity(from) != null) return;
+        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)) return;
         boolean destroy = world.getGameRules().getBoolean(ModGamerules.BELT_DESTROY_BLOCK_ENTITY);
-        if (!destroy) {
-            boolean success = BlockEntityMovingUtils.tryMoveBlockEntity(world, from, to);
-            if (!success) {
-                RandomToys.error("Cannot move BlockEntity from {} to {}! Falling back to destroying",
-                        from.toShortString(), to.toShortString());
-                destroy = true;
-            }
-        }
-        if (moved.stream().noneMatch(movedBlockPos -> movedBlockPos.to.equals(from))) {
-            world.setBlockState(from, Blocks.AIR.getDefaultState(), Block.SKIP_DROPS | Block.FORCE_STATE| Block.MOVED);
-            if (destroy) world.removeBlockEntity(from);
-        }
-        updateAt(world, from, pos);
-        updateAt(world, to, pos);
-    }
-
-    private void updateAt(@NotNull World world, @NotNull BlockPos pos, @NotNull BlockPos by) {
-        world.getBlockState(pos).neighborUpdate(world, pos, world.getBlockState(by).getBlock(), by, true);
-        Block.postProcessState(world.getBlockState(pos), world, pos);
-        world.updateListeners(pos, Blocks.AIR.getDefaultState(), world.getBlockState(pos), Block.NOTIFY_ALL_AND_REDRAW);
-        world.setBlockState(pos, world.getBlockState(pos), Block.NOTIFY_ALL);
-        world.updateNeighborsAlways(pos, world.getBlockState(pos).getBlock());
-        world.updateComparators(pos, world.getBlockState(pos).getBlock());
+        BlockMovingUtils.moveBlock(world, from, to, pos, destroy,
+                moved.stream().noneMatch(movedBlockPos -> movedBlockPos.to.equals(from)));
     }
 
     @Contract("_ -> new")

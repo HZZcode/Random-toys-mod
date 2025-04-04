@@ -41,6 +41,12 @@ public class EnderLinkerConfiguratorItem extends Item {
                         linker.linked.getX(), linker.linked.getY(), linker.linked.getZ()));
                 return ActionResult.SUCCESS_NO_ITEM_USED;
             }
+            if (player.isSneaking() && world.getBlockEntity(pos) instanceof EnderHopperBlockEntity hopper && hopper.linked != null) {
+                RandomToys.msg(player, Text.translatable("message.random-toys.ender_linker_configurator.check",
+                        hopper.dimension.getValue().toString(),
+                        hopper.linked.getX(), hopper.linked.getY(), hopper.linked.getZ()));
+                return ActionResult.SUCCESS_NO_ITEM_USED;
+            }
             if (linked == null || dimension == null) {
                 linked = pos;
                 dimension = world.getRegistryKey();
@@ -53,6 +59,21 @@ public class EnderLinkerConfiguratorItem extends Item {
             if (world.getBlockEntity(pos) instanceof EnderLinkerBlockEntity linker) {
                 linker.linked = linked;
                 linker.dimension = dimension;
+                RandomToys.msg(player,
+                        Text.translatable("message.random-toys.ender_linker_configurator.set",
+                                dimension.getValue().toString(),
+                                linked.getX(), linked.getY(), linked.getZ()));
+                linked = null;
+                dimension = null;
+                return ActionResult.SUCCESS_NO_ITEM_USED;
+            }
+            if (world.getBlockEntity(pos) instanceof EnderHopperBlockEntity hopper) {
+                if (!(world.getBlockEntity(linked) instanceof EnderHopperBlockEntity hopper0)
+                        || hopper.getWorld() == null) return ActionResult.FAIL;
+                hopper.linked = linked;
+                hopper.dimension = dimension;
+                hopper0.linked = hopper.getPos();
+                hopper0.dimension = hopper.getWorld().getRegistryKey();
                 RandomToys.msg(player,
                         Text.translatable("message.random-toys.ender_linker_configurator.set",
                                 dimension.getValue().toString(),

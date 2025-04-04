@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/ender_hopper_bottom",
+    "east": "random-toys:block/ender_hopper",
+    "north": "random-toys:block/ender_hopper",
+    "particle": "random-toys:block/ender_hopper",
+    "south": "random-toys:block/ender_hopper",
+    "west": "random-toys:block/ender_hopper",
+    "up": "random-toys:block/ender_hopper_top"
+  }
+}
