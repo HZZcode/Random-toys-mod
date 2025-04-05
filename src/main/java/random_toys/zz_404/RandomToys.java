@@ -49,7 +49,6 @@ public class RandomToys implements ModInitializer {
 		Random random = new Random();
 		if(random.nextInt(64 * 64) == 0)
 			error("This is a random message from RandomToys! You're lucky today!");
-		//TODO: black bedrock sword
 		//TODO: hook to grab block?
 		//TODO: some block to print litematica?
 		//TODO: a way to create item shadow?

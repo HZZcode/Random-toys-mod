@@ -65,6 +65,7 @@
   "item.random-toys.black_bedrock_boots": "黑基岩靴子",
   "item.random-toys.ender_hopper": "末影漏斗",
   "item.random-toys.chunk_destroyer": "区块挖掘机",
+  "item.random-toys.black_bedrock_sword": "黑基岩剑",
   "biome.random-toys.apple_forest": "苹果树林",
   "container.random-toys.randomizer": "随机数方块",
   "container.random-toys.blackstone_processing_table": "黑石加工台",
@@ -143,10 +144,10 @@
   "1.tooltip.random-toys.solid_lava": "当熔岩流经细雪且在蓝冰之下时生成。",
   "0.tooltip.random-toys.destroyer": "充能时摧毁上方的方块。",
   "1.tooltip.random-toys.destroyer": "破坏方块具有精准采集效果。",
-  "0.tooltip.random-toys.black_bedrock_processing_table": "用于建造多方块结构以合成黑基岩护甲。",
+  "0.tooltip.random-toys.black_bedrock_processing_table": "用于建造多方块结构以合成黑基岩护甲和剑。",
   "1.tooltip.random-toys.black_bedrock_processing_table": "准备8块黑基岩、6个压缩器和2个脉冲器…",
   "2.tooltip.random-toys.black_bedrock_processing_table": "将这些放置于物品栏中并用镐右键。",
-  "3.tooltip.random-toys.black_bedrock_processing_table": "在顶部的压缩器中放入下界合金护甲，周围的4个压缩器中放入黑基岩…",
+  "3.tooltip.random-toys.black_bedrock_processing_table": "在顶部的压缩器中放入下界合金护甲或剑，周围的4个压缩器中放入黑基岩…",
   "4.tooltip.random-toys.black_bedrock_processing_table": "在顶部的脉冲器中放入一些物品，底部的脉冲器放入钻石块…",
   "5.tooltip.random-toys.black_bedrock_processing_table": "底部的脉冲器会提示你需要在顶部的脉冲器中放入什么。",
   "6.tooltip.random-toys.black_bedrock_processing_table": "提示：与wordle游戏相似！",
@@ -171,6 +172,7 @@
   "entity.random-toys.thrown_gilded_blackstone": "镶金黑石晶体",
   "entity.random-toys.thrown_enchanted_gilded_blackstone": "附魔镶金黑石晶体",
   "entity.random-toys.miner": "矿工",
+  "entity.random-toys.thrown_black_bedrock": "黑基岩晶体",
   "key.jetpacks.activate": "激活喷气背包",
   "enchantment.random-toys.head_looting": "猎头"
 }

@@ -17,6 +17,7 @@ public class ModEntities {
     public static EntityType<ThrownGildedBlackstoneEntity> THROWN_GILDED_BLACKSTONE;
     public static EntityType<ThrownEnchantedGildedBlackstoneEntity> THROWN_ENCHANTED_GILDED_BLACKSTONE;
     public static EntityType<MinerEntity> MINER;
+    public static EntityType<ThrownBlackBedrockEntity> THROWN_BLACK_BEDROCK;
 
     public static <T extends Entity> EntityType<T> registerEntities(String id, EntityType.@NotNull Builder<T> entityTypeBuilder) {
         return Registry.register(Registries.ENTITY_TYPE, Identifier.of(RandomToys.MOD_ID, id), entityTypeBuilder.build(id));
@@ -55,6 +56,12 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(MINER, MinerEntity.createMinerAttributes());
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.MINER, MinerModel::getTexturedModelData);
         EntityRendererRegistry.register(MINER, MinerRenderer::new);
+
+        THROWN_BLACK_BEDROCK = registerEntities("thrown_black_bedrock",
+                EntityType.Builder.create(ThrownBlackBedrockEntity::new, SpawnGroup.MISC)
+                        .dimensions(0.7f, 0.7f)
+        );
+        EntityRendererRegistry.register(THROWN_BLACK_BEDROCK, ThrownBlackstonesRenderer::new);
 
         RandomToys.log("Registering Entities");
     }
