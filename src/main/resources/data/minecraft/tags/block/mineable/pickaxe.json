@@ -17,6 +17,8 @@
     "random-toys:solid_lava",
     "random-toys:destroyer",
     "random-toys:black_bedrock_processing_table",
-    "random-toys:timer"
+    "random-toys:timer",
+    "random-toys:ender_hopper",
+    "random-toys:chunk_destroyer"
   ]
 }

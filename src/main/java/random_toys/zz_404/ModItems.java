@@ -53,6 +53,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.COMPARATOR, ModBlocks.TIMER);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
+        fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.CHUNK_DESTROYER);
         fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.DESTROYER);
     }
 
@@ -87,6 +88,8 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.GRINDSTONE, ModBlocks.DISENCHANTMENTOR);
         fabricItemGroupEntries.addBefore(Blocks.FURNACE, ModBlocks.OXIDIZER);
+        fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_HOPPER);
+        fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_LINKER);
     }
 
     private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -140,6 +143,8 @@ public class ModItems {
                         entries.add(ModItems.BLACK_BEDROCK_BOOTS);
                         entries.add(ModBlocks.BLACK_BEDROCK_PROCESSING_TABLE);
                         entries.add(ModBlocks.TIMER);
+                        entries.add(ModBlocks.ENDER_HOPPER);
+                        entries.add(ModBlocks.CHUNK_DESTROYER);
                     }).build());
 
     public static void registerItems(){

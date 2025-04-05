@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "o": {
+      "item": "random-toys:destroyer"
+    },
+    "|": {
+      "item": "minecraft:iron_ingot"
+    },
+    "#": {
+      "item": "minecraft:barrel"
+    }
+  },
+  "pattern": [
+    "|o|",
+    "|#|",
+    "|o|"
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:chunk_destroyer"
+  }
+}

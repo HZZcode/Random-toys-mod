@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/chunk_destroyer_axis",
+    "east": "random-toys:block/chunk_destroyer",
+    "north": "random-toys:block/chunk_destroyer",
+    "particle": "random-toys:block/chunk_destroyer_axis",
+    "south": "random-toys:block/chunk_destroyer",
+    "west": "random-toys:block/chunk_destroyer",
+    "up": "random-toys:block/chunk_destroyer_axis"
+  }
+}

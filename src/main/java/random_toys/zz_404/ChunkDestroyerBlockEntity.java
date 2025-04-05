@@ -15,18 +15,23 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
-public class DestroyerBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity {
-    public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Optional;
+
+public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity {
+    public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(54, ItemStack.EMPTY);
     private int cooldown = 0;
-    private static final int MaxCooldown = 20;
+    private static final int MaxCooldown = 4;
 
-    public DestroyerBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
+    public ChunkDestroyerBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
     }
 
-    public DestroyerBlockEntity(BlockPos blockPos, BlockState blockState) {
-        this(ModBlockEntities.DESTROYER, blockPos, blockState);
+    public ChunkDestroyerBlockEntity(BlockPos blockPos, BlockState blockState) {
+        this(ModBlockEntities.CHUNK_DESTROYER, blockPos, blockState);
     }
 
     @Override
@@ -41,7 +46,7 @@ public class DestroyerBlockEntity extends LootableContainerBlockEntity implement
 
     @Override
     public Text getContainerName() {
-        return Text.translatable("container.random-toys.destroyer");
+        return Text.translatable("container.random-toys.chunk_destroyer");
     }
 
     @Override
@@ -56,7 +61,7 @@ public class DestroyerBlockEntity extends LootableContainerBlockEntity implement
 
     @Override
     public ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, this);
+        return GenericContainerScreenHandler.createGeneric9x6(syncId, playerInventory, this);
     }
 
     @Override
@@ -86,16 +91,30 @@ public class DestroyerBlockEntity extends LootableContainerBlockEntity implement
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world == null) return;
         if (world instanceof ServerWorld server) {
-            world.setBlockState(pos, state.with(DestroyerBlock.POWERED,
-                    world.getReceivedRedstonePower(pos) != 0));
-            if (world.getReceivedRedstonePower(pos) == 0) return;
+            if (!state.get(ChunkDestroyerBlock.POWERED)) return;
             if (cooldown > 0) {
                 cooldown--;
                 return;
             }
-            DestroyerHelper.destroy(server, pos.up(), inventory);
+            Optional<BlockPos> destroyPos = nears(pos).stream()
+                    .filter(blockPos -> !blockPos.equals(pos))
+                    .filter(blockPos -> !world.getBlockState(blockPos).isOf(ModBlocks.CHUNK_DESTROYER))
+                    .filter(blockPos -> !world.getBlockState(blockPos).isOf(ModBlocks.DESTROYER))
+                    .filter(blockPos -> !DestroyerHelper.isNotBreakable(world, blockPos))
+                    .min(Comparator.comparingDouble(pos::getSquaredDistance));
+            destroyPos.ifPresent(blockPos -> DestroyerHelper.destroy(server, blockPos, inventory));
             mergeStacks();
             cooldown = MaxCooldown;
         }
+    }
+
+    private @NotNull ArrayList<BlockPos> nears(@NotNull BlockPos pos) {
+        int x = pos.getX() >> 4, z = pos.getZ() >> 4;
+        ArrayList<BlockPos> nears = new ArrayList<>();
+        for (int i = 16 * x; i < 16 * (x + 1); i++)
+            for (int j = 16 * z; j < 16 * (z + 1); j++)
+                for (int k = pos.getY() - 32; k <= pos.getY() + 32; k++)
+                    nears.add(new BlockPos(i, k, j));
+        return nears;
     }
 }
