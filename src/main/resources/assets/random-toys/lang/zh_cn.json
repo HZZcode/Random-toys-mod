@@ -171,5 +171,6 @@
   "entity.random-toys.thrown_gilded_blackstone": "镶金黑石晶体",
   "entity.random-toys.thrown_enchanted_gilded_blackstone": "附魔镶金黑石晶体",
   "entity.random-toys.miner": "矿工",
-  "key.jetpacks.activate": "激活喷气背包"
+  "key.jetpacks.activate": "激活喷气背包",
+  "enchantment.random-toys.head_looting": "猎头"
 }

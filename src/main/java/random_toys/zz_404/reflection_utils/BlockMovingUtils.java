@@ -4,7 +4,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.enums.SlabType;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.RandomToys;
@@ -26,7 +25,6 @@ public class BlockMovingUtils {
     }
 
     public static void copyBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
-        if (world.getBlockEntity(from) != null) return;
         BlockState state = world.getBlockState(from);
         BlockState toState = world.getBlockState(to);
         boolean slab = state.getBlock() instanceof SlabBlock && toState.getBlock() instanceof SlabBlock;
@@ -48,7 +46,6 @@ public class BlockMovingUtils {
     }
 
     public static void moveBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to, @NotNull BlockPos by, boolean destroy, boolean notMoved) {
-        if (world.getBlockEntity(from) != null) return;
         if (!destroy) {
             boolean success = BlockEntityMovingUtils.tryMoveBlockEntity(world, from, to);
             if (!success) {

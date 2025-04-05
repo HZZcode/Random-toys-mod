@@ -101,14 +101,16 @@ public class BeltBlockEntity extends BlockEntity {
 
     private synchronized void copyBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
         if (isMoved(from)) return;
-        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)) return;
+        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)
+                && world.getBlockEntity(from) != null) return;
         moved.add(new MovedBlockPos(pos, from, to));
         BlockMovingUtils.copyBlock(world, from, to);
     }
 
     private synchronized void moveBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
         if (isMoved(from)) return;
-        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)) return;
+        if (!world.getGameRules().getBoolean(ModGamerules.BELT_MOVE_BLOCK_ENTITY)
+                && world.getBlockEntity(from) != null) return;
         boolean destroy = world.getGameRules().getBoolean(ModGamerules.BELT_DESTROY_BLOCK_ENTITY);
         BlockMovingUtils.moveBlock(world, from, to, pos, destroy,
                 moved.stream().noneMatch(movedBlockPos -> movedBlockPos.to.equals(from)));

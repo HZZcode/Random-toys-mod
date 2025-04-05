@@ -71,7 +71,7 @@ public class EnderHopperBlockEntity extends BlockEntity {
         world.setBlockState(pos, state.with(EnderHopperBlock.POWERED,
                 world.getReceivedRedstonePower(pos) != 0));
         if (world.getBlockEntity(linked) instanceof EnderHopperBlockEntity hopper
-                && hopper.linked.equals(pos) && state.get(BeltBlock.POWERED)
+                && pos.equals(hopper.linked) && state.get(BeltBlock.POWERED)
                 && world instanceof ServerWorld) {
             if (world.getTime() % 4 == 0 && canMoveTo(pos.up(), linked.down())) {
                 copyBlock(world, pos.up(), linked.down());
@@ -94,12 +94,14 @@ public class EnderHopperBlockEntity extends BlockEntity {
     }
 
     private void copyBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
-        if (!world.getGameRules().getBoolean(ModGamerules.ENDER_HOPPER_MOVE_BLOCK_ENTITY)) return;
+        if (!world.getGameRules().getBoolean(ModGamerules.ENDER_HOPPER_MOVE_BLOCK_ENTITY)
+                && world.getBlockEntity(from) != null) return;
         BlockMovingUtils.copyBlock(world, from, to);
     }
 
     private void moveBlock(@NotNull World world, @NotNull BlockPos from, @NotNull BlockPos to) {
-        if (!world.getGameRules().getBoolean(ModGamerules.ENDER_HOPPER_MOVE_BLOCK_ENTITY)) return;
+        if (!world.getGameRules().getBoolean(ModGamerules.ENDER_HOPPER_MOVE_BLOCK_ENTITY)
+                && world.getBlockEntity(from) != null) return;
         boolean destroy = world.getGameRules().getBoolean(ModGamerules.ENDER_HOPPER_DESTROY_BLOCK_ENTITY);
         BlockMovingUtils.moveBlock(world, from, to, pos, destroy, true);
     }
