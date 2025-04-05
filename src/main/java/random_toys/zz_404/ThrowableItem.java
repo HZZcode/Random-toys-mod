@@ -22,14 +22,20 @@ public class ThrowableItem<T extends ThrownItemEntity> extends Item {
     public TypedActionResult<ItemStack> use(World world, @NotNull PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         itemStack.decrementUnlessCreative(1, user);
+        return spawn(entityType, world, user)
+                ? TypedActionResult.consume(itemStack)
+                : TypedActionResult.fail(itemStack);
+    }
+
+    public static <T extends ThrownItemEntity> boolean spawn(@NotNull EntityType<T> entityType, World world, @NotNull PlayerEntity user) {
         T entity = entityType.create(world);
-        if (entity == null) return TypedActionResult.fail(itemStack);
+        if (entity == null) return false;
         entity.setOwner(user);
         entity.setPosition(user.getEyePos());
         entity.setVelocity(user.getRotationVector().normalize().multiply(3.0f));
         entity.setPitch(user.getPitch());
         entity.setYaw(user.getYaw());
         world.spawnEntity(entity);
-        return TypedActionResult.consume(itemStack);
+        return true;
     }
 }
