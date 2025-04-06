@@ -49,6 +49,7 @@ dependencies {
 //	modImplementation "dev.emi:trinkets:3.10.0"
 //	modImplementation "curse.maven:supplementaries-412082:6028333"
 //	modImplementation "curse.maven:selene-499980:5983850"
+	modImplementation "curse.maven:spiky-spikes-666944:5731854"
 }
 
 processResources {
