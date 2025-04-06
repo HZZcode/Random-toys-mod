@@ -15,13 +15,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity {
     public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(54, ItemStack.EMPTY);
@@ -90,7 +88,6 @@ public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity impl
         nbt.putInt("Cooldown", cooldown);
     }
 
-    @SuppressWarnings("deprecation")
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world == null) return;
         if (world instanceof ServerWorld server) {
@@ -106,23 +103,46 @@ public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity impl
                     .filter(blockPos -> !DestroyerHelper.isNotBreakable(world, blockPos))
                     .min(Comparator.comparingDouble(pos::getSquaredDistance));
             destroyPos.ifPresent(blockPos -> DestroyerHelper.destroy(server, blockPos, inventory));
-            nears(pos).stream()
-                    .filter(blockPos -> world.getBlockState(blockPos).isLiquid())
-                    .filter(blockPos -> world.getFluidState(blockPos).isStill())
-                    .filter(blockPos ->  world.random.nextInt(3) == 0).toList()
-                    .forEach(blockPos -> world.setBlockState(blockPos, Blocks.AIR.getDefaultState()));
-            mergeStacks();
+            List<BlockPos> fluids = nears(pos).stream().filter(this::isFluid).toList();
+            if (!fluids.isEmpty()) {
+                BlockPos fluid = fluids.get(world.random.nextInt(fluids.size()));
+                List<BlockPos> fluidPart = connectedFluids(fluid);
+                fluidPart.forEach(blockPos -> world.setBlockState(blockPos, Blocks.AIR.getDefaultState()));
+                mergeStacks();
+            }
             cooldown = MaxCooldown;
         }
     }
 
-    private @NotNull ArrayList<BlockPos> nears(@NotNull BlockPos pos) {
+    @SuppressWarnings("deprecation")
+    private boolean isFluid(BlockPos blockPos) {
+        return world != null && world.getBlockState(blockPos).isLiquid()
+                && world.getFluidState(blockPos).isStill();
+    }
+
+    private @NotNull List<BlockPos> nears(@NotNull BlockPos pos) {
         int x = pos.getX() >> 4, z = pos.getZ() >> 4;
-        ArrayList<BlockPos> nears = new ArrayList<>();
+        List<BlockPos> nears = new ArrayList<>();
         for (int i = 16 * x; i < 16 * (x + 1); i++)
             for (int j = 16 * z; j < 16 * (z + 1); j++)
                 for (int k = pos.getY() - 32; k <= pos.getY() + 32; k++)
                     nears.add(new BlockPos(i, k, j));
         return nears;
+    }
+
+    private @NotNull List<BlockPos> connectedFluids(@NotNull BlockPos pos) {
+        List<BlockPos> fluids = new ArrayList<>();
+        findConnectedFluids(pos, fluids, new HashSet<>());
+        return fluids;
+    }
+
+    private void findConnectedFluids(@NotNull BlockPos pos, @NotNull List<BlockPos> fluids, @NotNull Set<BlockPos> visited) {
+        if (visited.contains(pos) || visited.size() >= 1000) return;
+        visited.add(pos);
+        if (isFluid(pos)) {
+            fluids.add(pos);
+            for (Direction direction : Direction.values())
+                findConnectedFluids(pos.offset(direction), fluids, visited);
+        }
     }
 }
