@@ -108,8 +108,8 @@ public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity impl
                 BlockPos fluid = fluids.get(world.random.nextInt(fluids.size()));
                 List<BlockPos> fluidPart = connectedFluids(fluid);
                 fluidPart.forEach(blockPos -> world.setBlockState(blockPos, Blocks.AIR.getDefaultState()));
-                mergeStacks();
             }
+            mergeStacks();
             cooldown = MaxCooldown;
         }
     }
