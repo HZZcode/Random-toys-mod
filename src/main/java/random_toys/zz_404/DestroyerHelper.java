@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DestroyerHelper {
@@ -23,7 +24,8 @@ public class DestroyerHelper {
     }
 
     public static boolean isNotBreakable(World world, BlockPos pos, BlockState blockState) {
-        return blockState == null || blockState.isAir() || blockState.getHardness(world, pos) < 0;
+        return blockState == null || blockState.isAir()
+                || (!blockState.isOf(ModBlocks.BLACK_BEDROCK) && blockState.getHardness(world, pos) < 0);
     }
 
     public static List<ItemStack> breakAndDrop(@NotNull ServerWorld world, BlockPos pos, @NotNull BlockState blockState) {
@@ -53,8 +55,15 @@ public class DestroyerHelper {
 
     public static void destroy(@NotNull ServerWorld world, BlockPos pos, DefaultedList<ItemStack> inventory) {
         BlockState blockState = world.getBlockState(pos);
-        if (DestroyerHelper.isNotBreakable(world, pos, blockState)) return;
-        List<ItemStack> drops = DestroyerHelper.breakAndDrop(world, pos, blockState);
-        DestroyerHelper.insertDrops(world, drops, pos, inventory);
+        if (blockState.isOf(ModBlocks.BLACK_BEDROCK) && world.random.nextBoolean()) {
+            world.breakBlock(pos, false);
+            List<ItemStack> drops = new ArrayList<>();
+            drops.add(new ItemStack(ModBlocks.BLACK_BEDROCK));
+            insertDrops(world, drops, pos, inventory);
+            return;
+        }
+        if (isNotBreakable(world, pos, blockState)) return;
+        List<ItemStack> drops = breakAndDrop(world, pos, blockState);
+        insertDrops(world, drops, pos, inventory);
     }
 }

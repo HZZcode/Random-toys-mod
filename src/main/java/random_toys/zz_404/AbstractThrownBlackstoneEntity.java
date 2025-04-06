@@ -13,6 +13,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -67,7 +68,7 @@ public abstract class AbstractThrownBlackstoneEntity extends ThrownItemEntity im
     }
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
+    protected void onBlockHit(@NotNull BlockHitResult blockHitResult) {
         super.onBlockHit(blockHitResult);
         World world = this.getWorld();
         BlockPos blockPos = blockHitResult.getBlockPos();
