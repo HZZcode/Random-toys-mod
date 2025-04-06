@@ -23,8 +23,9 @@ public class DestroyerHelper {
         return isNotBreakable(world, pos, world.getBlockState(pos));
     }
 
+    @SuppressWarnings("deprecation")
     public static boolean isNotBreakable(World world, BlockPos pos, BlockState blockState) {
-        return blockState == null || blockState.isAir()
+        return blockState == null || blockState.isAir() || blockState.isLiquid()
                 || (!blockState.isOf(ModBlocks.BLACK_BEDROCK) && blockState.getHardness(world, pos) < 0);
     }
 
