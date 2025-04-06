@@ -1,6 +1,7 @@
 package random_toys.zz_404;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity {
@@ -88,6 +90,7 @@ public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity impl
         nbt.putInt("Cooldown", cooldown);
     }
 
+    @SuppressWarnings("deprecation")
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world == null) return;
         if (world instanceof ServerWorld server) {
@@ -103,6 +106,11 @@ public class ChunkDestroyerBlockEntity extends LootableContainerBlockEntity impl
                     .filter(blockPos -> !DestroyerHelper.isNotBreakable(world, blockPos))
                     .min(Comparator.comparingDouble(pos::getSquaredDistance));
             destroyPos.ifPresent(blockPos -> DestroyerHelper.destroy(server, blockPos, inventory));
+            nears(pos).stream()
+                    .filter(blockPos -> world.getBlockState(blockPos).isLiquid())
+                    .filter(blockPos -> world.getFluidState(blockPos).isStill())
+                    .filter(blockPos ->  world.random.nextInt(3) == 0).toList()
+                    .forEach(blockPos -> world.setBlockState(blockPos, Blocks.AIR.getDefaultState()));
             mergeStacks();
             cooldown = MaxCooldown;
         }
