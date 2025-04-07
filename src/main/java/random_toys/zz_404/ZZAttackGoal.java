@@ -70,7 +70,7 @@ public class ZZAttackGoal extends MeleeAttackGoal {
     }
 
     private float getDamage() {
-        return 7.0f;
+        return 7.0f + zz.getWorld().random.nextFloat() * 3.0f;
     }
 
     private void performAttack(LivingEntity target) {

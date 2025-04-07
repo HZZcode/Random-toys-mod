@@ -3,15 +3,9 @@ package random_toys.zz_404;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.provider.EnchantmentProviders;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.context.LootContextParameterSet;
-import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.GenericContainerScreenHandler;
@@ -20,10 +14,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class DestroyerBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity {
     public DefaultedList<ItemStack> inventory = DefaultedList.ofSize(27, ItemStack.EMPTY);
@@ -95,35 +86,16 @@ public class DestroyerBlockEntity extends LootableContainerBlockEntity implement
     public void tick(World world, BlockPos pos, BlockState state) {
         if (world == null) return;
         if (world instanceof ServerWorld server) {
-            world.setBlockState(pos, state.with(TransferringBlock.POWERED,
+            world.setBlockState(pos, state.with(DestroyerBlock.POWERED,
                     world.getReceivedRedstonePower(pos) != 0));
             if (world.getReceivedRedstonePower(pos) == 0) return;
-            if (cooldown > 0){
+            if (cooldown > 0) {
                 cooldown--;
                 return;
             }
-            BlockState blockState = world.getBlockState(pos.up());
-            if (blockState == null || blockState.isAir() || blockState.getHardness(world, pos.up()) < 0) return;
-            ItemStack itemStack = new ItemStack(Items.DIAMOND_AXE);
-            EnchantmentHelper.applyEnchantmentProvider(itemStack, world.getRegistryManager(),
-                    EnchantmentProviders.ENDERMAN_LOOT_DROP, world.getLocalDifficulty(pos), world.random);
-            List<ItemStack> drops = blockState.getDroppedStacks(new LootContextParameterSet.Builder(server)
-                    .add(LootContextParameters.ORIGIN, Vec3d.of(pos))
-                    .add(LootContextParameters.TOOL, itemStack));
-            world.breakBlock(pos.up(), false);
-            cooldown = MaxCooldown;
-            drop:
-            for (ItemStack drop : drops) {
-                for (int i = 0; i < size(); i++) {
-                    if (inventory.get(i).isEmpty()) {
-                        inventory.set(i, drop.copy());
-                        continue drop;
-                    }
-                }
-                Vec3d up = pos.up().toCenterPos();
-                world.spawnEntity(new ItemEntity(world, up.x, up.y, up.z, drop.copy()));
-            }
+            DestroyerHelper.destroy(server, pos.up(), inventory);
             mergeStacks();
+            cooldown = MaxCooldown;
         }
     }
 }

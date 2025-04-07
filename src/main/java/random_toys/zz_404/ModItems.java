@@ -37,6 +37,7 @@ public class ModItems {
     public static final Item BLACK_BEDROCK_CHESTPLATE = registerItem("black_bedrock_chestplate", new BlackBedrockArmorItem(ArmorItem.Type.CHESTPLATE));
     public static final Item BLACK_BEDROCK_LEGGINGS = registerItem("black_bedrock_leggings", new BlackBedrockArmorItem(ArmorItem.Type.LEGGINGS));
     public static final Item BLACK_BEDROCK_BOOTS = registerItem("black_bedrock_boots", new BlackBedrockArmorItem(ArmorItem.Type.BOOTS));
+    public static final Item BLACK_BEDROCK_SWORD = registerItem("black_bedrock_sword", new BlackBedrockSwordItem(ModToolMaterials.BLACK_BEDROCK, new Item.Settings().fireproof().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.BLACK_BEDROCK, 3, -2.4f))));
 
     private static Item registerItem(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
@@ -53,6 +54,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.COMPARATOR, ModBlocks.TIMER);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
+        fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.CHUNK_DESTROYER);
         fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.DESTROYER);
     }
 
@@ -76,6 +78,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_LEGGINGS);
         fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_CHESTPLATE);
         fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_HELMET);
+        fabricItemGroupEntries.addAfter(Items.NETHERITE_SWORD, ModItems.BLACK_BEDROCK_SWORD);
     }
 
     private static void addFunctionalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -87,6 +90,8 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.GRINDSTONE, ModBlocks.DISENCHANTMENTOR);
         fabricItemGroupEntries.addBefore(Blocks.FURNACE, ModBlocks.OXIDIZER);
+        fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_HOPPER);
+        fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_LINKER);
     }
 
     private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -140,6 +145,9 @@ public class ModItems {
                         entries.add(ModItems.BLACK_BEDROCK_BOOTS);
                         entries.add(ModBlocks.BLACK_BEDROCK_PROCESSING_TABLE);
                         entries.add(ModBlocks.TIMER);
+                        entries.add(ModBlocks.ENDER_HOPPER);
+                        entries.add(ModBlocks.CHUNK_DESTROYER);
+                        entries.add(ModItems.BLACK_BEDROCK_SWORD);
                     }).build());
 
     public static void registerItems(){

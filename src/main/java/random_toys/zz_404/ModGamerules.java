@@ -28,6 +28,12 @@ public class ModGamerules {
     public static final GameRules.Key<GameRules.IntRule> BELT_MAX_BLOCK_COUNT =
             registerGamerules("beltMaxBlockCount",
                     GameRuleFactory.createIntRule(15, 1));
+    public static final GameRules.Key<GameRules.BooleanRule> ENDER_HOPPER_MOVE_BLOCK_ENTITY =
+            registerGamerules("enderHopperMoveBlockEntity",
+                    GameRuleFactory.createBooleanRule(true));
+    public static final GameRules.Key<GameRules.BooleanRule> ENDER_HOPPER_DESTROY_BLOCK_ENTITY =
+            registerGamerules("enderHopperDestroyBlockEntity",
+                    GameRuleFactory.createBooleanRule(true));
 
     public static <T extends GameRules.Rule<T>> GameRules.Key<T> registerGamerules(String name, GameRules.Type<T> gamerulesType) {
         return GameRuleRegistry.register(name, ModCategory, gamerulesType);

@@ -8,7 +8,13 @@
     "EndermanStarringMixin",
     "FluidTransformationMixin",
     "PlayerDamageMixin",
-    "PlayerTickMixin"
+    "PlayerTickMixin",
+    "head_lootings.CreeperHeadLootingMixin",
+    "head_lootings.EndermanHeadLootingMixin",
+    "head_lootings.PiglinHeadLootingMixin",
+    "head_lootings.SkeletonHeadLootingMixin",
+    "head_lootings.WitherSkeletonHeadLootingMixin",
+    "head_lootings.ZombieHeadLootingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

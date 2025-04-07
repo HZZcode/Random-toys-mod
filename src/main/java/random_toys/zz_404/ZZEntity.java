@@ -7,6 +7,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
@@ -24,7 +26,9 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.TimeHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -61,6 +65,7 @@ public class ZZEntity extends HostileEntity implements Angerable {
                 || (entity instanceof TameableEntity && ((TameableEntity) entity).isTamed());
     };
     Status previousStatus = Status.NO_GOAL;
+    private final ServerBossBar bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.RED, BossBar.Style.PROGRESS).setDarkenSky(true);
 
     @Override
     public boolean canUsePortals(boolean allowVehicles) {
@@ -226,9 +231,9 @@ public class ZZEntity extends HostileEntity implements Angerable {
         return damage(source, amount, true);
     }
 
-    public boolean damage(@NotNull DamageSource source, float amount, boolean canAvoid) {
+    public boolean damage(@NotNull DamageSource source, float amount, boolean needPostProcess) {
         Entity sourceEntity = source.getSource();
-        if (canAvoid && sourceEntity instanceof LivingEntity && !ENEMY_PREDICATE.test((LivingEntity) sourceEntity)
+        if (needPostProcess && sourceEntity instanceof LivingEntity && !ENEMY_PREDICATE.test((LivingEntity) sourceEntity)
                 && !(sourceEntity instanceof PlayerEntity && ((PlayerEntity) sourceEntity).isCreative()))
             return false;
         if (source.isOf(DamageTypes.FIREWORKS)) {
@@ -241,9 +246,13 @@ public class ZZEntity extends HostileEntity implements Angerable {
                 this.damage(newSource, newAmount, false);
             }
         }
-        if (canAvoid && damageCanBeImmunized(source))
+        if (needPostProcess && sourceEntity instanceof AbstractThrownBlackstoneEntity) {
+            float newAmount = amount * (3 + getEntityWorld().random.nextInt(2));
+            this.damage(source, newAmount, false);
+        }
+        if (needPostProcess && damageCanBeImmunized(source))
             return false;
-        if (canAvoid && isSelfDamage(sourceEntity))
+        if (needPostProcess && isSelfDamage(sourceEntity))
             return false;
         return super.damage(source, amount);
     }
@@ -342,6 +351,40 @@ public class ZZEntity extends HostileEntity implements Angerable {
                 this.previousStatus = Status.valueOf(nbt.getString("Status"));
             } catch (IllegalArgumentException ignored) {}
         }
+        if (hasCustomName()) {
+            bossBar.setName(getDisplayName());
+        }
+    }
+
+    @Override
+    public void setCustomName(@Nullable Text name) {
+        super.setCustomName(name);
+        bossBar.setName(getDisplayName());
+    }
+
+    public float getHealthPercentage() {
+        return getHealth() / getMaxHealth();
+    }
+
+    @Override
+    protected void mobTick() {
+        super.mobTick();
+        float percent = getHealthPercentage();
+        bossBar.setPercent(percent);
+        bossBar.setColor(percent > 0.5 ? BossBar.Color.PINK : BossBar.Color.RED);
+        bossBar.setDarkenSky(percent <= 0.5);
+    }
+
+    @Override
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
+        super.onStartedTrackingBy(player);
+        bossBar.addPlayer(player);
+    }
+
+    @Override
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+        super.onStoppedTrackingBy(player);
+        bossBar.removePlayer(player);
     }
 
     static {

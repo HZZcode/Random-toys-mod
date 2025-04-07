@@ -39,6 +39,8 @@ public class ModBlocks {
     public static final Block DESTROYER = register("destroyer", new DestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.DESTROYER));
     public static final Block BLACK_BEDROCK_PROCESSING_TABLE = register("black_bedrock_processing_table", new BlackBedrockProcessingTableBlock(AbstractBlock.Settings.copy(Blocks.OBSIDIAN)));
     public static final Block TIMER = register("timer", new TimerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.TIMER));
+    public static final Block ENDER_HOPPER = register("ender_hopper", new EnderHopperBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+    public static final Block CHUNK_DESTROYER = register("chunk_destroyer", new ChunkDestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.CHUNK_DESTROYER));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

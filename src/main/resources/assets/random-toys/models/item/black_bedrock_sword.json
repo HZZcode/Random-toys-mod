@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "random-toys:item/black_bedrock_sword"
+  }
+}

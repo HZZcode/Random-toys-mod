@@ -28,6 +28,8 @@ public class ModBlockEntities {
     public static final BlockEntityType<DestroyerBlockEntity> DESTROYER = create("destroyer", BlockEntityType.Builder.create(DestroyerBlockEntity::new, ModBlocks.DESTROYER));
     public static final BlockEntityType<BlackBedrockProcessingTableBlockEntity> BLACK_BEDROCK_PROCESSING_TABLE = create("black_bedrock_processing_table", BlockEntityType.Builder.create(BlackBedrockProcessingTableBlockEntity::new, ModBlocks.BLACK_BEDROCK_PROCESSING_TABLE));
     public static final BlockEntityType<TimerBlockEntity> TIMER = create("timer", BlockEntityType.Builder.create(TimerBlockEntity::new, ModBlocks.TIMER));
+    public static final BlockEntityType<EnderHopperBlockEntity> ENDER_HOPPER = create("ender_hopper", BlockEntityType.Builder.create(EnderHopperBlockEntity::new, ModBlocks.ENDER_HOPPER));
+    public static final BlockEntityType<ChunkDestroyerBlockEntity> CHUNK_DESTROYER = create("chunk_destroyer", BlockEntityType.Builder.create(ChunkDestroyerBlockEntity::new, ModBlocks.CHUNK_DESTROYER));
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.@NotNull Builder<T> builder) {
         Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, id);

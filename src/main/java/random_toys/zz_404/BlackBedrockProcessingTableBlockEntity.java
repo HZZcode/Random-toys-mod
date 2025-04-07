@@ -179,5 +179,6 @@ public class BlackBedrockProcessingTableBlockEntity extends BlockEntity {
         recipes.add(new Recipe(Items.NETHERITE_CHESTPLATE, ModItems.BLACK_BEDROCK_CHESTPLATE));
         recipes.add(new Recipe(Items.NETHERITE_LEGGINGS, ModItems.BLACK_BEDROCK_LEGGINGS));
         recipes.add(new Recipe(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_BOOTS));
+        recipes.add(new Recipe(Items.NETHERITE_SWORD, ModItems.BLACK_BEDROCK_SWORD));
     }
 }
