@@ -41,6 +41,7 @@ public class BlackBedrockSwordItem extends SwordItem {
                 entity.setPosition(target.getPos().add(0, 5, 0));
                 entity.setVelocity(new Vec3d(0, 0, 0));
                 entity.setOwner(attacker);
+                entity.blockReplacing = false;
                 world.spawnEntity(entity);
             }
         }

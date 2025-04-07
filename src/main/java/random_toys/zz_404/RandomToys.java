@@ -52,5 +52,6 @@ public class RandomToys implements ModInitializer {
 		//TODO: hook to grab block?
 		//TODO: some block to print litematica?
 		//TODO: a way to create item shadow?
+		//TODO: a block to place blocks
 	}
 }

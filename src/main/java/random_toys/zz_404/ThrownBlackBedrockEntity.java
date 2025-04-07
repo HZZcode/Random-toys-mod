@@ -9,6 +9,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -18,6 +19,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class ThrownBlackBedrockEntity extends AbstractThrownBlackstoneEntity {
+    public boolean blockReplacing = true;
+
     public ThrownBlackBedrockEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -49,10 +52,11 @@ public class ThrownBlackBedrockEntity extends AbstractThrownBlackstoneEntity {
     protected void onBlockHit(@NotNull BlockHitResult blockHitResult) {
         World world = this.getWorld();
         BlockPos blockPos = blockHitResult.getBlockPos();
-        for (BlockPos pos : transformPos(blockPos))
-            if (world.getBlockState(pos).isIn(BlockTags.SCULK_REPLACEABLE))
-                if (world.random.nextInt(3) == 0)
-                    world.setBlockState(pos, ModBlocks.BLACK_BEDROCK.getDefaultState());
+        if (blockReplacing)
+            for (BlockPos pos : transformPos(blockPos))
+                if (world.getBlockState(pos).isIn(BlockTags.SCULK_REPLACEABLE))
+                    if (world.random.nextInt(3) == 0)
+                        world.setBlockState(pos, ModBlocks.BLACK_BEDROCK.getDefaultState());
         super.onBlockHit(blockHitResult);
     }
 
@@ -63,5 +67,18 @@ public class ThrownBlackBedrockEntity extends AbstractThrownBlackstoneEntity {
                 for (int z = pos.getZ() - 1; z <= pos.getZ() + 1; z++)
                     ans.add(new BlockPos(x, y, z));
         return ans;
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("blockReplacing", blockReplacing);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        if (nbt.contains("blockReplacing"))
+            blockReplacing = nbt.getBoolean("blockReplacing");
     }
 }
