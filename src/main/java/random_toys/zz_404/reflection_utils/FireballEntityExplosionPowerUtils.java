@@ -3,7 +3,6 @@ package random_toys.zz_404.reflection_utils;
 import net.minecraft.entity.projectile.FireballEntity;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 public class FireballEntityExplosionPowerUtils {
     public static void trySetExplosionPower(FireballEntity fireball, int explosionPower) {

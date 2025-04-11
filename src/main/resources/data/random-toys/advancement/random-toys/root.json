@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "random-toys:textures/gui/advancements/backgrounds/random-toys.png",
+    "description": {
+      "translate": "advancements.random-toys.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:gilded_blackstone"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.random-toys.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "crafting_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

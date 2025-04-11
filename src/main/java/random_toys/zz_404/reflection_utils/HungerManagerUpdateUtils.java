@@ -4,7 +4,7 @@ import net.minecraft.entity.player.HungerManager;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
 import org.jetbrains.annotations.NotNull;
-import random_toys.zz_404.MinerEntity;
+import random_toys.zz_404.entity.MinerEntity;
 
 import java.lang.reflect.Field;
 

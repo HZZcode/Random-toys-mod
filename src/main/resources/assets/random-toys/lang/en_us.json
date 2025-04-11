@@ -178,5 +178,9 @@
   "entity.random-toys.thrown_black_bedrock": "Black Bedrock Crystal",
   "entity.random-toys.miner": "Miner",
   "key.jetpacks.activate": "Activate Jetpacks",
-  "enchantment.random-toys.head_looting": "Head Looting"
+  "enchantment.random-toys.head_looting": "Head Looting",
+  "advancements.random-toys.root.title": "Random Toys",
+  "advancements.random-toys.root.description": "Random Toys Advancements",
+  "advancements.gilded_blackstone.root.title": "Gilded?",
+  "advancements.gilded_blackstone.root.description": "Get a piece of gilded blackstone"
 }

@@ -1,0 +1,33 @@
+{
+  "parent": "random-toys:story/root",
+  "criteria": {
+    "gilded_blackstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:gilded_blackstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.story.gilded_blackstone.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:gilded_blackstone"
+    },
+    "title": {
+      "translate": "advancements.story.gilded_blackstone.title"
+    }
+  },
+  "requirements": [
+    [
+      "gilded_blackstone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

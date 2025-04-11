@@ -8,6 +8,8 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import random_toys.zz_404.misc.DispenserShearsHarvestBehavior;
+import random_toys.zz_404.registry.*;
 
 import java.util.Random;
 
