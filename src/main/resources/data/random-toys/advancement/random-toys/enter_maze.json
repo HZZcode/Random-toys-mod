@@ -1,26 +1,26 @@
 {
   "parent": "random-toys:random-toys/enter_gilded",
   "criteria": {
-    "find_zz": {
+    "enter_maze": {
       "conditions": {},
-      "trigger": "random-toys:find_zz"
+      "trigger": "random-toys:enter_maze"
     }
   },
   "display": {
     "description": {
-      "translate": "advancements.random-toys.find_zz.description"
+      "translate": "advancements.random-toys.enter_maze.description"
     },
     "icon": {
       "count": 1,
-      "id": "random-toys:enchanted_gilded_blackstone_crystal"
+      "id": "minecraft:spawner"
     },
     "title": {
-      "translate": "advancements.random-toys.find_zz.title"
+      "translate": "advancements.random-toys.enter_maze.title"
     }
   },
   "requirements": [
     [
-      "find_zz"
+      "enter_maze"
     ]
   ],
   "sends_telemetry_event": true

@@ -1,0 +1,33 @@
+{
+  "parent": "random-toys:random-toys/solve_maze",
+  "criteria": {
+    "black_bedrock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:black_bedrock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.black_bedrock.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:black_bedrock"
+    },
+    "title": {
+      "translate": "advancements.random-toys.black_bedrock.title"
+    }
+  },
+  "requirements": [
+    [
+      "black_bedrock"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

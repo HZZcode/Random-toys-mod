@@ -206,5 +206,13 @@
   "advancements.random-toys.kill_zz.title": "Free the Gilded",
   "advancements.random-toys.kill_zz.description": "Kill ZZ! (Tip: it's afraid of fire crackers)",
   "advancements.random-toys.blackstone_processing.title": "Blackstone Processing",
-  "advancements.random-toys.blackstone_processing.description": "Get a blackstone processing table by using ZZ core."
+  "advancements.random-toys.blackstone_processing.description": "Get a blackstone processing table by using ZZ core.",
+  "advancements.random-toys.enter_maze.title": "Enter the Maze",
+  "advancements.random-toys.enter_maze.description": "Find a maze!",
+  "advancements.random-toys.solve_maze.title": "Solve the Maze",
+  "advancements.random-toys.solve_maze.description": "Get to the center of the maze!",
+  "advancements.random-toys.black_bedrock.title": "Unbreakable!",
+  "advancements.random-toys.black_bedrock.description": "Get some black bedrock.",
+  "advancements.random-toys.jetpacks.title": "Fly in the sky!",
+  "advancements.random-toys.jetpacks.description": "Get jetpacks."
 }

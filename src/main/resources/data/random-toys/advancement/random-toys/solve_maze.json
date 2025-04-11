@@ -1,0 +1,27 @@
+{
+  "parent": "random-toys:random-toys/enter_maze",
+  "criteria": {
+    "solve_maze": {
+      "conditions": {},
+      "trigger": "random-toys:solve_maze"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.solve_maze.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:beacon"
+    },
+    "title": {
+      "translate": "advancements.random-toys.solve_maze.title"
+    }
+  },
+  "requirements": [
+    [
+      "solve_maze"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

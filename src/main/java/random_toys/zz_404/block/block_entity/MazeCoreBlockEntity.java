@@ -10,12 +10,16 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.registry.ModBlockEntities;
+import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModGamerules;
+
+import java.util.List;
 
 public class MazeCoreBlockEntity extends BlockEntity {
     private boolean activated = false;
@@ -42,14 +46,19 @@ public class MazeCoreBlockEntity extends BlockEntity {
         MazeGenerator generator = new MazeGenerator(world, pos);
         if (world.isClient) return;
         if (activated) {
-            if (world.getTime() % 240 == 0 && world.getGameRules().getBoolean(ModGamerules.MAZE_MINING_FATIGUE)) {
-                for (PlayerEntity player : world.getEntitiesByClass(PlayerEntity.class, generator.getRangeBox(),
-                        player -> !player.isCreative() && !player.isSpectator()))
+            for (PlayerEntity player : world.getEntitiesByClass(PlayerEntity.class, generator.getRangeBox(),
+                    player -> true)) {
+                if (!player.isCreative() && !player.isSpectator() && world.getTime() % 240 == 0
+                        && world.getGameRules().getBoolean(ModGamerules.MAZE_MINING_FATIGUE))
                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE,
                             300, 2, false, false));
+                if (player instanceof ServerPlayerEntity serverPlayer)
+                    ModCriteria.ENTER_MAZE.trigger(serverPlayer);
             }
-            if (!world.getEntitiesByClass(PlayerEntity.class, new Box(pos).expand(10, 4, 10),
-                    player -> !player.isCreative() && !player.isSpectator()).isEmpty()) {
+            List<ServerPlayerEntity> corePlayers = world.getEntitiesByClass(ServerPlayerEntity.class,
+                    new Box(pos).expand(10, 4, 10), player -> !player.isSpectator());
+            if (!corePlayers.isEmpty()) {
+                corePlayers.forEach(ModCriteria.SOLVE_MAZE::trigger);
                 world.setBlockState(pos, Blocks.BEACON.getDefaultState());
                 for (int i = -1; i <= 1; i++)
                     for (int j = -1; j <= 1; j++)

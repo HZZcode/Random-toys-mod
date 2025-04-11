@@ -1,0 +1,33 @@
+{
+  "parent": "random-toys:random-toys/solve_maze",
+  "criteria": {
+    "jetpacks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:jetpacks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.jetpacks.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:jetpacks"
+    },
+    "title": {
+      "translate": "advancements.random-toys.jetpacks.title"
+    }
+  },
+  "requirements": [
+    [
+      "jetpacks"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
