@@ -47,6 +47,7 @@ public class RandomToys implements ModInitializer {
 		ModArmorMaterials.registerArmorMaterials();
 		ModFeatures.registerFeatures();
 		ModModelPredicates.registerModModelPredicates();
+		ModCriteria.registerCriteria();
 		DispenserBlock.registerBehavior(Items.SHEARS, new DispenserShearsHarvestBehavior());
 
 		log("Hello from RandomToys.ZZ_404!");

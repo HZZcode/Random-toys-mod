@@ -48,13 +48,6 @@
     "biome_source": {
       "type": "fixed",
       "biome": "random-toys:black_void"
-    },
-    "settings_deprecated": {
-      "biome": "random-toys:black_void",
-      "lakes": false,
-      "features": true,
-      "layers": [],
-      "structure_overrides": []
     }
   }
 }

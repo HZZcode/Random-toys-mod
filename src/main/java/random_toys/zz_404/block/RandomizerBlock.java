@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import random_toys.zz_404.registry.ModBlockEntities;
+import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModItems;
 import random_toys.zz_404.item.RandomizerItemType;
 import random_toys.zz_404.block.block_entity.RandomizerBlockEntity;
@@ -105,7 +106,10 @@ public class RandomizerBlock extends AbstractChestBlock<RandomizerBlockEntity> {
     @Override
     protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
         RandomizerBlockEntity randomizerBlockEntity = (RandomizerBlockEntity) world.getBlockEntity(pos);
-        return randomizerBlockEntity != null ? randomizerBlockEntity.getRandomNumber() : 0;
+        if (randomizerBlockEntity == null) return 0;
+        if (!randomizerBlockEntity.getStack().isEmpty())
+            ModCriteria.triggerPlayers(world, pos, 6, ModCriteria.GET_RANDOM::trigger);
+        return randomizerBlockEntity.getRandomNumber();
     }
 
     @Override

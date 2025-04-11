@@ -1,0 +1,27 @@
+{
+  "parent": "random-toys:random-toys/dice",
+  "criteria": {
+    "randomize": {
+      "conditions": {},
+      "trigger": "random-toys:get_random"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.randomize.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:randomizer_block"
+    },
+    "title": {
+      "translate": "advancements.random-toys.randomize.title"
+    }
+  },
+  "requirements": [
+    [
+      "randomize"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

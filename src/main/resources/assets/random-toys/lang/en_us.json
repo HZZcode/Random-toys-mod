@@ -181,6 +181,18 @@
   "enchantment.random-toys.head_looting": "Head Looting",
   "advancements.random-toys.root.title": "Random Toys",
   "advancements.random-toys.root.description": "Random Toys Advancements",
-  "advancements.gilded_blackstone.root.title": "Gilded?",
-  "advancements.gilded_blackstone.root.description": "Get a piece of gilded blackstone"
+  "advancements.random-toys.gilded_blackstone.title": "Gilded?",
+  "advancements.random-toys.gilded_blackstone.description": "Get a piece of gilded blackstone.",
+  "advancements.random-toys.helper.title": "Help!!!",
+  "advancements.random-toys.helper.description": "Craft an helper to help you explore this mod.",
+  "advancements.random-toys.dice.title": "The Gambler",
+  "advancements.random-toys.dice.description": "Craft a dice.",
+  "advancements.random-toys.randomize.title": "Randomize",
+  "advancements.random-toys.randomize.description": "Get random number with a randomizer.",
+  "advancements.random-toys.bud_strobe.title": "BUD Strobe",
+  "advancements.random-toys.bud_strobe.description": "Make a BUD block strobe every tick.",
+  "advancements.random-toys.apple_tree.title": "Newton's Apple Tree",
+  "advancements.random-toys.apple_tree.description": "Find an apple tree in the meadows.",
+  "advancements.random-toys.copperize.title": "Copperize",
+  "advancements.random-toys.copperize.description": "Craft coppered redstone."
 }

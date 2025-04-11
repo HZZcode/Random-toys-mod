@@ -14,10 +14,17 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import random_toys.zz_404.registry.ModCriteria;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BUDBlock extends Block {
     public static final MapCodec<BUDBlock> CODEC = createCodec(BUDBlock::new);
     public static final BooleanProperty POWERED;
+    private static final long StrobeTimeSpan = 60;
+    private static List<StrobeData> strobes = new ArrayList<>();
 
     public MapCodec<BUDBlock> getCodec() {
         return CODEC;
@@ -35,7 +42,7 @@ public class BUDBlock extends Block {
     @Override
     protected void neighborUpdate(BlockState state, @NotNull World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         if (!world.isClient) {
-            world.setBlockState(pos, state.with(POWERED, true));
+            setPowered(world, pos, state, true);
             world.scheduleBlockTick(pos, this, 2);
         }
         super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
@@ -43,7 +50,7 @@ public class BUDBlock extends Block {
 
     @Override
     protected void scheduledTick(@NotNull BlockState state, @NotNull ServerWorld world, BlockPos pos, Random random) {
-        world.setBlockState(pos, state.with(POWERED, false));
+        setPowered(world, pos, state, false);
         this.updateNeighbors(world, pos);
     }
 
@@ -71,6 +78,19 @@ public class BUDBlock extends Block {
         }
         return 0;
     }
+
+    private void setPowered(@NotNull World world, BlockPos pos, @NotNull BlockState state, boolean powered) {
+        long time = world.getTime();
+        if (powered) strobes.add(new StrobeData(pos, time));
+        strobes = strobes.stream().filter(strobeData -> time - strobeData.time <= StrobeTimeSpan)
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (strobes.stream().filter(strobeData -> strobeData.pos.equals(pos))
+                .toList().size() >= StrobeTimeSpan / 2)
+            ModCriteria.triggerPlayers(world, pos, 6, ModCriteria.BUD_STROBE::trigger);
+        world.setBlockState(pos, state.with(POWERED, powered));
+    }
+
+    private record StrobeData(BlockPos pos, long time) {}
 
     static {
         POWERED = Properties.POWERED;

@@ -1,11 +1,11 @@
 {
   "parent": "random-toys:random-toys/root",
   "criteria": {
-    "gilded_blackstone": {
+    "helper": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:gilded_blackstone"
+            "items": "random-toys:helper"
           }
         ]
       },
@@ -14,19 +14,19 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.random-toys.gilded_blackstone.description"
+      "translate": "advancements.random-toys.helper.description"
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:gilded_blackstone"
+      "id": "random-toys:helper"
     },
     "title": {
-      "translate": "advancements.random-toys.gilded_blackstone.title"
+      "translate": "advancements.random-toys.helper.title"
     }
   },
   "requirements": [
     [
-      "gilded_blackstone"
+      "helper"
     ]
   ],
   "sends_telemetry_event": true

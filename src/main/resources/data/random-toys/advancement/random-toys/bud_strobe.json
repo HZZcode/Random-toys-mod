@@ -1,0 +1,27 @@
+{
+  "parent": "random-toys:random-toys/root",
+  "criteria": {
+    "bud_strobe": {
+      "conditions": {},
+      "trigger": "random-toys:bud_strobe"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.bud_strobe.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:bud"
+    },
+    "title": {
+      "translate": "advancements.random-toys.bud_strobe.title"
+    }
+  },
+  "requirements": [
+    [
+      "bud_strobe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
