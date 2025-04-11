@@ -42,16 +42,20 @@ public class RandomToys implements ModInitializer {
 		ModModelLayers.registerModelLayers();
 		ModDimensions.registerDimensions();
 		ModKeyBindings.registerKeyBindings();
+		ModArmorMaterials.registerArmorMaterials();
+		ModFeatures.registerFeatures();
+		ModModelPredicates.registerModModelPredicates();
 		DispenserBlock.registerBehavior(Items.SHEARS, new DispenserShearsHarvestBehavior());
 
 		log("Hello from RandomToys.ZZ_404!");
 
 		Random random = new Random();
-		if(random.nextInt(64 * 64) == 0)
+		if (random.nextInt(64 * 64) == 0)
 			error("This is a random message from RandomToys! You're lucky today!");
-		//TODO: hook to grab block?
+		//TODO: add advancements!
 		//TODO: some block to print litematica?
 		//TODO: a way to create item shadow?
 		//TODO: a block to place blocks
+		//TODO: item imitator?
 	}
 }

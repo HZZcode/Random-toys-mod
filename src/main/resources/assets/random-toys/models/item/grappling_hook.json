@@ -1,0 +1,14 @@
+{
+    "parent": "item/handheld_rod",
+    "textures": {
+        "layer0": "random-toys:item/grappling_hook"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "random-toys:cast": 1
+            },
+            "model": "random-toys:item/grappling_hook_cast"
+        }
+    ]
+}

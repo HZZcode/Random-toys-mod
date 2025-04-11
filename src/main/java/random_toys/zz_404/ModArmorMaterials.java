@@ -71,4 +71,8 @@ public class ModArmorMaterials {
                 new ArmorMaterial(enumMap, enchantability, equipSound, repairIngredient, layers, toughness, knockbackResistance)
         );
     }
+
+    public static void registerArmorMaterials() {
+        RandomToys.log("Registering Armor Materials");
+    }
 }

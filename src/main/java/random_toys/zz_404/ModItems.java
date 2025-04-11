@@ -38,6 +38,7 @@ public class ModItems {
     public static final Item BLACK_BEDROCK_LEGGINGS = registerItem("black_bedrock_leggings", new BlackBedrockArmorItem(ArmorItem.Type.LEGGINGS));
     public static final Item BLACK_BEDROCK_BOOTS = registerItem("black_bedrock_boots", new BlackBedrockArmorItem(ArmorItem.Type.BOOTS));
     public static final Item BLACK_BEDROCK_SWORD = registerItem("black_bedrock_sword", new BlackBedrockSwordItem(ModToolMaterials.BLACK_BEDROCK, new Item.Settings().fireproof().attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.BLACK_BEDROCK, 3, -2.4f))));
+    public static final Item GRAPPLING_HOOK = registerItem("grappling_hook", new GrapplingHookItem(new Item.Settings().maxDamage(256).component(ModDataComponents.HOOK_UUID, null)));
 
     private static Item registerItem(String id, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), item);
@@ -92,6 +93,7 @@ public class ModItems {
         fabricItemGroupEntries.addBefore(Blocks.FURNACE, ModBlocks.OXIDIZER);
         fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_HOPPER);
         fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_LINKER);
+        fabricItemGroupEntries.addAfter(Items.FISHING_ROD, ModItems.GRAPPLING_HOOK);
     }
 
     private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -148,6 +150,7 @@ public class ModItems {
                         entries.add(ModBlocks.ENDER_HOPPER);
                         entries.add(ModBlocks.CHUNK_DESTROYER);
                         entries.add(ModItems.BLACK_BEDROCK_SWORD);
+                        entries.add(ModItems.GRAPPLING_HOOK);
                     }).build());
 
     public static void registerItems(){

@@ -66,12 +66,13 @@ public class DispenserShearsHarvestBehavior extends ShearsDispenserBehavior {
         if (stack.isOf(Items.SHEARS)) {
             World world = pointer.world();
             BlockPos pos = pointer.pos().offset(pointer.state().get(DispenserBlock.FACING));
-            if (!world.getGameRules().getBoolean(ModGamerules.DISPENSER_HARVEST_CROPS)) return stack;
-            if (useShears(world, pos)) {
-                ServerWorld serverWorld = pointer.world();
-                if (world.getGameRules().getBoolean(ModGamerules.DISPENSER_HARVEST_CROP_DAMAGE_TOOL))
-                    stack.damage(1, serverWorld, null, (item) -> {});
-                return stack;
+            if (world.getGameRules().getBoolean(ModGamerules.DISPENSER_HARVEST_CROPS)) {
+                if (useShears(world, pos)) {
+                    ServerWorld serverWorld = pointer.world();
+                    if (world.getGameRules().getBoolean(ModGamerules.DISPENSER_HARVEST_CROP_DAMAGE_TOOL))
+                        stack.damage(1, serverWorld, null, item -> {});
+                    return stack;
+                }
             }
         }
         return super.dispenseSilently(pointer, stack);

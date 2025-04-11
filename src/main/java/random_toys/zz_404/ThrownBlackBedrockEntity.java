@@ -1,5 +1,6 @@
 package random_toys.zz_404;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -54,7 +55,8 @@ public class ThrownBlackBedrockEntity extends AbstractThrownBlackstoneEntity {
         BlockPos blockPos = blockHitResult.getBlockPos();
         if (blockReplacing)
             for (BlockPos pos : transformPos(blockPos))
-                if (world.getBlockState(pos).isIn(BlockTags.SCULK_REPLACEABLE))
+                if (world.getBlockState(pos).isIn(BlockTags.SCULK_REPLACEABLE)
+                        || world.getBlockState(pos).isOf(Blocks.BEDROCK))
                     if (world.random.nextInt(3) == 0)
                         world.setBlockState(pos, ModBlocks.BLACK_BEDROCK.getDefaultState());
         super.onBlockHit(blockHitResult);

@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fishing_rod": {
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:fishing_rod"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_lead": {
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:lead"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_coppered_redstone_block": {
+      "conditions": {
+        "items": [
+          {
+            "item": "random-toys:coppered_redstone_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "random-toys:grappling_hook"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fishing_rod",
+      "has_lead",
+      "has_coppered_redstone_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "random-toys:grappling_hook"
+    ]
+  }
+}

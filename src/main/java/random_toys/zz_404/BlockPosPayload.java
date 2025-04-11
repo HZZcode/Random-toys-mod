@@ -66,6 +66,7 @@ public interface BlockPosPayload {
         return (T) blockEntity;
     }
 
+    @SuppressWarnings("unchecked")
     default <T extends BlockEntity> T getBlockEntity(Class<T> baseClass, PlayerEntity player) {
         if (!isWithinDistance(player, 64)) {
             throw new IllegalStateException("Player cannot use this block entity as its too far away");
@@ -77,7 +78,6 @@ public interface BlockPosPayload {
             throw new IllegalStateException("Block entity is not of the correct class");
         }
 
-        //noinspection unchecked
         return (T) blockEntity;
     }
 

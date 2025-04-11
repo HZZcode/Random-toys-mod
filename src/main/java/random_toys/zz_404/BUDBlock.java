@@ -34,7 +34,7 @@ public class BUDBlock extends Block {
 
     @Override
     protected void neighborUpdate(BlockState state, @NotNull World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        if(!world.isClient) {
+        if (!world.isClient) {
             world.setBlockState(pos, state.with(POWERED, true));
             world.scheduleBlockTick(pos, this, 2);
         }
@@ -44,10 +44,10 @@ public class BUDBlock extends Block {
     @Override
     protected void scheduledTick(@NotNull BlockState state, @NotNull ServerWorld world, BlockPos pos, Random random) {
         world.setBlockState(pos, state.with(POWERED, false));
-        this.updateNeighbors(world, pos, state);
+        this.updateNeighbors(world, pos);
     }
 
-    protected void updateNeighbors(@NotNull World world, BlockPos pos, BlockState state){
+    protected void updateNeighbors(@NotNull World world, BlockPos pos) {
         world.updateNeighbors(pos, this);
     }
 

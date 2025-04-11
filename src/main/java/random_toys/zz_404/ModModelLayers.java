@@ -6,10 +6,10 @@ import net.minecraft.util.Identifier;
 public class ModModelLayers {
     public static final EntityModelLayer ZZ =
             new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "zz"), "main");
-    public static final EntityModelLayer GILDED_BLACKSTONE_SCRAP =
-            new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "gilded_blackstone_scrap"), "main");
     public static final EntityModelLayer MINER =
             new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "miner"), "main");
+    public static final EntityModelLayer GRAPPLING_HOOK =
+            new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "grappling_hook"), "main");
 
     public static void registerModelLayers() {
         RandomToys.log("Registering Model Layers");

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:fishing_rod"
+    },
+    "|": {
+      "item": "minecraft:lead"
+    },
+    "x": {
+      "item": "random-toys:coppered_redstone_block"
+    }
+  },
+  "pattern": [
+    "#  ",
+    " | ",
+    "  x"
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:grappling_hook"
+  }
+}
