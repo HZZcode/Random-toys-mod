@@ -1,0 +1,29 @@
+{
+  "parent": "random-toys:random-toys/gilded_blackstone",
+  "criteria": {
+    "entered_gilded": {
+      "conditions": {
+        "to": "random-toys:the_gilded"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.entered_gilded.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:blackstone_crystal"
+    },
+    "title": {
+      "translate": "advancements.random-toys.entered_gilded.title"
+    }
+  },
+  "requirements": [
+    [
+      "entered_gilded"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

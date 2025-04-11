@@ -1,0 +1,27 @@
+{
+  "parent": "random-toys:random-toys/apple_tree",
+  "criteria": {
+    "apple_picking": {
+      "conditions": {},
+      "trigger": "random-toys:apple_picking"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.apple_picking.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:apple"
+    },
+    "title": {
+      "translate": "advancements.random-toys.apple_picking.title"
+    }
+  },
+  "requirements": [
+    [
+      "apple_picking"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

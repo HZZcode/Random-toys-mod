@@ -1,0 +1,37 @@
+{
+  "parent": "random-toys:random-toys/find_zz",
+  "criteria": {
+    "kill_zz": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "random-toys:zz"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.kill_zz.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:zz_core"
+    },
+    "title": {
+      "translate": "advancements.random-toys.kill_zz.title"
+    }
+  },
+  "requirements": [
+    [
+      "kill_zz"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

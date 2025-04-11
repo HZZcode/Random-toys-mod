@@ -163,7 +163,7 @@
   "0.tooltip.random-toys.grappling_hook": "Shoots hook like fishing rod to stick on blocks or entities.",
   "1.tooltip.random-toys.grappling_hook": "Retract the hook to pull yourself; pull hooked entity by shifting.",
   "gamerule.category.random-toys": "Random Toys Mod Gamerules",
-  "gamerule.dispenserHarvestCrops": "Dispenser harvests some crops with shears (including apple leaves, nether warts, sweet berry bushes)",
+  "gamerule.dispenserHarvestCrops": "Dispenser harvests some crops with shears (including apple leaves, nether warts, sweet berry bushes and glow berries)",
   "gamerule.dispenserHarvestCropDamageTool": "Shears damages when used by dispensers",
   "gamerule.mazeMiningFatigue": "Players get mining fatigue effect in mazes",
   "gamerule.beltMoveBlockEntity": "Belts are able to move blocks with block entities.",
@@ -194,5 +194,17 @@
   "advancements.random-toys.apple_tree.title": "Newton's Apple Tree",
   "advancements.random-toys.apple_tree.description": "Find an apple tree in the meadows.",
   "advancements.random-toys.copperize.title": "Copperize",
-  "advancements.random-toys.copperize.description": "Craft coppered redstone."
+  "advancements.random-toys.copperize.description": "Craft coppered redstone.",
+  "advancements.random-toys.apple_picking.title": "Apple Picking",
+  "advancements.random-toys.apple_picking.description": "Pick apples from an apple tree.",
+  "advancements.random-toys.shears_harvest.title": "Harvest with Shears",
+  "advancements.random-toys.shears_harvest.description": "Harvest some crops with shears in dispensers (including apple leaves, nether warts, sweet berry bushes and glow berries).",
+  "advancements.random-toys.entered_gilded.title": "Enter the Gilded",
+  "advancements.random-toys.entered_gilded.description": "Build the portal with gilded blackstone and light with lava.",
+  "advancements.random-toys.find_zz.title": "Find ZZ",
+  "advancements.random-toys.find_zz.description": "A mysterious entity found in the gilded.",
+  "advancements.random-toys.kill_zz.title": "Free the Gilded",
+  "advancements.random-toys.kill_zz.description": "Kill ZZ! (Tip: it's afraid of fire crackers)",
+  "advancements.random-toys.blackstone_processing.title": "Blackstone Processing",
+  "advancements.random-toys.blackstone_processing.description": "Get a blackstone processing table by using ZZ core."
 }

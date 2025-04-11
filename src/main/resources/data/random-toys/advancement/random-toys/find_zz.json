@@ -1,0 +1,27 @@
+{
+  "parent": "random-toys:random-toys/enter_gilded",
+  "criteria": {
+    "find_zz": {
+      "conditions": {},
+      "trigger": "random-toys:find_zz"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.find_zz.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:gilded_blackstone_crystal"
+    },
+    "title": {
+      "translate": "advancements.random-toys.find_zz.title"
+    }
+  },
+  "requirements": [
+    [
+      "find_zz"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

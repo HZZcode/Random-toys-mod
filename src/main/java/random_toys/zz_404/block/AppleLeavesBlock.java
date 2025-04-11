@@ -8,6 +8,7 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -20,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
+import random_toys.zz_404.registry.ModCriteria;
 
 public class AppleLeavesBlock extends LeavesBlock implements Fertilizable {
     public static final MapCodec<AppleLeavesBlock> CODEC = createCodec(AppleLeavesBlock::new);
@@ -63,8 +65,10 @@ public class AppleLeavesBlock extends LeavesBlock implements Fertilizable {
 
     @Override
     protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if(!world.isClient) {
-            if(state.get(APPLES)) {
+        if (!world.isClient) {
+            if (state.get(APPLES)) {
+                if (player instanceof ServerPlayerEntity serverPlayer)
+                    ModCriteria.APPLE_PICKING.trigger(serverPlayer);
                 dropApples(state, world, pos);
                 return ActionResult.SUCCESS;
             }

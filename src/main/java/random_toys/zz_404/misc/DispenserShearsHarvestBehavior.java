@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.block.AppleLeavesBlock;
+import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModGamerules;
 
 import static net.minecraft.block.Block.dropStack;
@@ -66,13 +67,13 @@ public class DispenserShearsHarvestBehavior extends ShearsDispenserBehavior {
     @Override
     public ItemStack dispenseSilently(BlockPointer pointer, @NotNull ItemStack stack) {
         if (stack.isOf(Items.SHEARS)) {
-            World world = pointer.world();
+            ServerWorld world = pointer.world();
             BlockPos pos = pointer.pos().offset(pointer.state().get(DispenserBlock.FACING));
             if (world.getGameRules().getBoolean(ModGamerules.DISPENSER_HARVEST_CROPS)) {
                 if (useShears(world, pos)) {
-                    ServerWorld serverWorld = pointer.world();
                     if (world.getGameRules().getBoolean(ModGamerules.DISPENSER_HARVEST_CROP_DAMAGE_TOOL))
-                        stack.damage(1, serverWorld, null, item -> {});
+                        stack.damage(1, world, null, item -> {});
+                    ModCriteria.triggerPlayers(world, pos, 6, ModCriteria.SHEARS_HARVEST::trigger);
                     return stack;
                 }
             }

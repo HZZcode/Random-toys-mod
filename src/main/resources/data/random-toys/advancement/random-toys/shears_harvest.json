@@ -1,26 +1,26 @@
 {
   "parent": "random-toys:random-toys/root",
   "criteria": {
-    "apple_tree": {
+    "shears_harvest": {
       "conditions": {},
-      "trigger": "random-toys:find_apple_leaves"
+      "trigger": "random-toys:shears_harvest"
     }
   },
   "display": {
     "description": {
-      "translate": "advancements.random-toys.apple_tree.description"
+      "translate": "advancements.random-toys.shears_harvest.description"
     },
     "icon": {
       "count": 1,
-      "id": "random-toys:apple_leaves"
+      "id": "minecraft:shears"
     },
     "title": {
-      "translate": "advancements.random-toys.apple_tree.title"
+      "translate": "advancements.random-toys.shears_harvest.title"
     }
   },
   "requirements": [
     [
-      "apple_tree"
+      "shears_harvest"
     ]
   ],
   "sends_telemetry_event": true

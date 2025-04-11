@@ -39,6 +39,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModParticles;
 
 import java.util.UUID;
@@ -374,6 +375,7 @@ public class ZZEntity extends HostileEntity implements Angerable {
         bossBar.setPercent(percent);
         bossBar.setColor(percent > 0.5 ? BossBar.Color.PINK : BossBar.Color.RED);
         bossBar.setDarkenSky(percent <= 0.5);
+        ModCriteria.triggerPlayers(getWorld(), getBlockPos(), 64, ModCriteria.FIND_ZZ::trigger);
     }
 
     @Override
