@@ -26,6 +26,7 @@ public class ModCriteria {
     public static final ShearsHarvestCriterion SHEARS_HARVEST = register("shears_harvest", new ShearsHarvestCriterion());
     public static final FindEntityCriterion FIND_ZZ = register("find_zz", new FindEntityCriterion());
     public static final UseItemOnBlockCriterion BLACKSTONE_PROCESSING = register("blackstone_processing", new UseItemOnBlockCriterion());
+    public static final UseItemOnBlockCriterion BLACK_BEDROCK_PROCESSING = register("black_bedrock_processing", new UseItemOnBlockCriterion());
     public static final EnterMazeCriterion ENTER_MAZE = register("enter_maze", new EnterMazeCriterion());
     public static final SolveMazeCriterion SOLVE_MAZE = register("solve_maze", new SolveMazeCriterion());
 

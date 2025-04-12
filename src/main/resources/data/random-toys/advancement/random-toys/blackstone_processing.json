@@ -4,6 +4,16 @@
     "blackstone_processing": {
       "conditions": {},
       "trigger": "random-toys:blackstone_processing"
+    },
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:blackstone_processing_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -20,7 +30,8 @@
   },
   "requirements": [
     [
-      "blackstone_processing"
+      "blackstone_processing",
+      "has_item"
     ]
   ],
   "sends_telemetry_event": true

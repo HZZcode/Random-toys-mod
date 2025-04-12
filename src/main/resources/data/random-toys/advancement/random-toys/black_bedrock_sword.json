@@ -1,0 +1,33 @@
+{
+  "parent": "random-toys:random-toys/black_bedrock_processing",
+  "criteria": {
+    "black_bedrock_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:black_bedrock_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.black_bedrock_sword.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:black_bedrock_sword"
+    },
+    "title": {
+      "translate": "advancements.random-toys.black_bedrock_sword.title"
+    }
+  },
+  "requirements": [
+    [
+      "black_bedrock_sword"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

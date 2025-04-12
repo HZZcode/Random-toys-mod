@@ -1,0 +1,38 @@
+{
+  "parent": "random-toys:random-toys/black_bedrock",
+  "criteria": {
+    "black_bedrock_processing": {
+      "conditions": {},
+      "trigger": "random-toys:black_bedrock_processing"
+    },
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:black_bedrock_processing_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.black_bedrock_processing.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:black_bedrock_processing_table"
+    },
+    "title": {
+      "translate": "advancements.random-toys.black_bedrock_processing.title"
+    }
+  },
+  "requirements": [
+    [
+      "black_bedrock_processing",
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

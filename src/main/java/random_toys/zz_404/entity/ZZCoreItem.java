@@ -37,6 +37,8 @@ public class ZZCoreItem extends Item {
         }
         if (world.getBlockState(pos).isOf(ModBlocks.BLACKSTONE_PROCESSING_TABLE)
                 && world.getBlockState(pos.down()).isOf(ModBlocks.BLACK_BEDROCK)) {
+            if (player instanceof ServerPlayerEntity serverPlayer)
+                ModCriteria.BLACK_BEDROCK_PROCESSING.trigger(serverPlayer);
             stack.decrementUnlessCreative(1, player);
             world.setBlockState(pos, ModBlocks.BLACK_BEDROCK_PROCESSING_TABLE.getDefaultState());
             world.setBlockState(pos.down(), Blocks.AIR.getDefaultState());

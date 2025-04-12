@@ -1,0 +1,29 @@
+{
+  "parent": "random-toys:random-toys/black_bedrock",
+  "criteria": {
+    "enter_black_void": {
+      "conditions": {
+        "to": "random-toys:black_void"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.entered_black_void.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:black_bedrock"
+    },
+    "title": {
+      "translate": "advancements.random-toys.entered_black_void.title"
+    }
+  },
+  "requirements": [
+    [
+      "enter_black_void"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

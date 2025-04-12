@@ -1,0 +1,66 @@
+{
+  "parent": "random-toys:random-toys/black_bedrock_processing",
+  "criteria": {
+    "black_bedrock_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:black_bedrock_helmet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "black_bedrock_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:black_bedrock_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "black_bedrock_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:black_bedrock_leggings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "black_bedrock_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:black_bedrock_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.black_bedrock_armor.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:black_bedrock_chestplate"
+    },
+    "title": {
+      "translate": "advancements.random-toys.black_bedrock_armor.title"
+    }
+  },
+  "requirements": [
+    [
+      "black_bedrock_helmet",
+      "black_bedrock_chestplate",
+      "black_bedrock_leggings",
+      "black_bedrock_boots"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
