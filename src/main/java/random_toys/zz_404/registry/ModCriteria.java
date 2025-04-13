@@ -29,6 +29,11 @@ public class ModCriteria {
     public static final UseItemOnBlockCriterion BLACK_BEDROCK_PROCESSING = register("black_bedrock_processing", new UseItemOnBlockCriterion());
     public static final EnterMazeCriterion ENTER_MAZE = register("enter_maze", new EnterMazeCriterion());
     public static final SolveMazeCriterion SOLVE_MAZE = register("solve_maze", new SolveMazeCriterion());
+    public static final DestroyBlockCriterion DESTROY_BLACK_BEDROCK = register("destroy_black_bedrock", new DestroyBlockCriterion());
+    public static final BlockTransferringCriterion BLACK_BEDROCK_TRANSFER = register("black_bedrock_transfer", new BlockTransferringCriterion());
+    public static final TransferAllXpCriterion TRANSFER_ALL_XP = register("transfer_all_xp", new TransferAllXpCriterion());
+    public static final ImitatorCriterion IMITATOR = register("imitator", new ImitatorCriterion());
+    //TODO: challenge for travelling long distance with ender hopper
 
     public static <T extends Criterion<?>> T register(String id, T criterion) {
         return Registry.register(Registries.CRITERION, Identifier.of(RandomToys.MOD_ID, id), criterion);
@@ -41,7 +46,8 @@ public class ModCriteria {
         RandomToys.log("Registering Criteria");
     }
 
-    public static void triggerPlayers(@NotNull World world, BlockPos pos, double range, Consumer<ServerPlayerEntity> consumer) {
+    public static void triggerPlayers(@NotNull World world, BlockPos pos, double range,
+                                      Consumer<ServerPlayerEntity> consumer) {
         world.getEntitiesByClass(ServerPlayerEntity.class,
                         new Box(pos).expand(range), player -> true).forEach(consumer);
     }

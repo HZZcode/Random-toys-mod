@@ -28,6 +28,5 @@
     [
       "black_bedrock"
     ]
-  ],
-  "sends_telemetry_event": true
+  ]
 }

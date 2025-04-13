@@ -22,6 +22,5 @@
     [
       "bud_strobe"
     ]
-  ],
-  "sends_telemetry_event": true
+  ]
 }

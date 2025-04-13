@@ -8,12 +8,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.registry.ModBlockEntities;
 import random_toys.zz_404.block.ExperienceCollectorBlock;
+import random_toys.zz_404.registry.ModCriteria;
 
 import java.util.Arrays;
 
@@ -80,6 +82,8 @@ public class ExperienceCollectorBlockEntity extends BlockEntity {
             int xp = min(player.totalExperience, amount, max - experience);
             player.addExperience(-xp);
             experience += xp;
+            if (player.totalExperience == 0 && player instanceof ServerPlayerEntity serverPlayer)
+                ModCriteria.TRANSFER_ALL_XP.trigger(serverPlayer);
         }
         if (amount < 0) {
             int xp = min(-amount, experience);

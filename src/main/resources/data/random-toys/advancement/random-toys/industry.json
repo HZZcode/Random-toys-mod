@@ -1,0 +1,142 @@
+{
+  "parent": "random-toys:random-toys/root",
+  "criteria": {
+    "compressor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:compressor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "experience_collector": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:experience_collector"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "transfer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:transfer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "disenchantmentor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:disenchantmentor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ender_linker": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:ender_linker"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "oxidizer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:oxidizer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "belt": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:belt"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "destroyer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:destroyer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "timer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:timer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ender_hopper": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:ender_hopper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "chunk_destroyer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:chunk_destroyer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.industry.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:compressor"
+    },
+    "title": {
+      "translate": "advancements.random-toys.industry.title"
+    }
+  },
+  "requirements": [
+    [
+      "compressor",
+      "experience_collector",
+      "transfer",
+      "disenchantmentor",
+      "ender_linker",
+      "oxidizer",
+      "belt",
+      "destroyer",
+      "timer",
+      "ender_hopper",
+      "chunk_destroyer"
+    ]
+  ]
+}

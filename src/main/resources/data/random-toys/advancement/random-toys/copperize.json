@@ -28,6 +28,5 @@
     [
       "coppered_redstone_dust"
     ]
-  ],
-  "sends_telemetry_event": true
+  ]
 }

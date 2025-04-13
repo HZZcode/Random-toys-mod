@@ -12,12 +12,14 @@ import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.item.BlackBedrockArmorItem;
 import random_toys.zz_404.registry.ModBlocks;
+import random_toys.zz_404.registry.ModCriteria;
 
 import java.util.ArrayList;
 
@@ -59,8 +61,11 @@ public class ThrownBlackBedrockEntity extends AbstractThrownBlackstoneEntity {
             for (BlockPos pos : transformPos(blockPos))
                 if (world.getBlockState(pos).isIn(BlockTags.SCULK_REPLACEABLE)
                         || world.getBlockState(pos).isOf(Blocks.BEDROCK))
-                    if (world.random.nextInt(3) == 0)
+                    if (world.random.nextInt(3) == 0) {
+                        if (getOwner() instanceof ServerPlayerEntity player)
+                            ModCriteria.BLACK_BEDROCK_TRANSFER.trigger(player);
                         world.setBlockState(pos, ModBlocks.BLACK_BEDROCK.getDefaultState());
+                    }
         super.onBlockHit(blockHitResult);
     }
 

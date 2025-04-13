@@ -222,5 +222,15 @@
   "advancements.random-toys.black_bedrock_sword.title": "Sword Unbreakable",
   "advancements.random-toys.black_bedrock_sword.description": "Obtain black bedrock sword.",
   "advancements.random-toys.black_bedrock_armor.title": "Armor Unbreakable",
-  "advancements.random-toys.black_bedrock_armor.description": "Obtain black bedrock armor."
+  "advancements.random-toys.black_bedrock_armor.description": "Obtain black bedrock armor.",
+  "advancements.random-toys.industry.title": "Industry?",
+  "advancements.random-toys.industry.description": "Never judge an industry mod by its cover...?",
+  "advancements.random-toys.destroy_black_bedrock.title": "...Unbreakable?",
+  "advancements.random-toys.destroy_black_bedrock.description": "Break black bedrock with destroyer.",
+  "advancements.random-toys.black_bedrock_transfer.title": "Black-Bedrock-ize",
+  "advancements.random-toys.black_bedrock_transfer.description": "Transfer blocks into black bedrock.",
+  "advancements.random-toys.transfer_all_xp.title": "Experience-less",
+  "advancements.random-toys.transfer_all_xp.description": "Transfer all your xp into experience collector.",
+  "advancements.random-toys.imitator.title": "Imitator Imitates Imitator",
+  "advancements.random-toys.imitator.description": "java.lang.StackOverflowError: Unexpected error\nat knot//random_toys.zz_404.block.ImitatorBlock.getOutlineShape(ImitatorBlock.java:59)"
 }

@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import random_toys.zz_404.registry.ModBlockEntities;
 import random_toys.zz_404.registry.ModBlocks;
 import random_toys.zz_404.block.block_entity.ImitatorBlockEntity;
+import random_toys.zz_404.registry.ModCriteria;
 
 public class ImitatorBlock extends BlockWithEntity {
     public static final MapCodec<ImitatorBlock> CODEC = createCodec(ImitatorBlock::new);
@@ -122,6 +124,8 @@ public class ImitatorBlock extends BlockWithEntity {
         if (world != null && !world.isClient && stack.getItem() instanceof BlockItem blockItem
                 && world.getBlockEntity(pos) instanceof ImitatorBlockEntity imitator
                 && imitator.block == null) {
+            if (stack.isOf(ModBlocks.IMITATOR.asItem()) && player instanceof ServerPlayerEntity serverPlayer)
+                ModCriteria.IMITATOR.trigger(serverPlayer);
             imitator.block = blockItem.getBlock();
             imitator.updateListeners();
             return ItemActionResult.CONSUME;

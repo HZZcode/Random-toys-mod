@@ -49,7 +49,7 @@ public class MinerEntity extends TameableEntity implements InventoryOwner {
 
     public Predicate<ItemStack> neededItems = stack -> false;
 
-    static final Predicate<ItemEntity> PICKABLE_DROP_FILTER
+    public static final Predicate<ItemEntity> PICKABLE_DROP_FILTER
             = item -> !item.cannotPickup() && item.isAlive();
 
     @Override

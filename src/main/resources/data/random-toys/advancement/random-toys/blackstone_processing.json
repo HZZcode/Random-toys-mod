@@ -33,6 +33,5 @@
       "blackstone_processing",
       "has_item"
     ]
-  ],
-  "sends_telemetry_event": true
+  ]
 }

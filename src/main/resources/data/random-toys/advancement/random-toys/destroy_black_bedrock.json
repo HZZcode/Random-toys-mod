@@ -1,0 +1,28 @@
+{
+  "parent": "random-toys:random-toys/industry",
+  "criteria": {
+    "destroy_black_bedrock": {
+      "conditions": {},
+      "trigger": "random-toys:destroy_black_bedrock"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.destroy_black_bedrock.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:destroyer"
+    },
+    "title": {
+      "translate": "advancements.random-toys.destroy_black_bedrock.title"
+    },
+    "frame": "goal",
+    "hidden": true
+  },
+  "requirements": [
+    [
+      "destroy_black_bedrock"
+    ]
+  ]
+}

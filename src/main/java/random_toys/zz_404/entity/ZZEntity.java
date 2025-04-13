@@ -52,7 +52,7 @@ public class ZZEntity extends HostileEntity implements Angerable {
     public int teleportCooldownTime;
     public int shootingCooldownTime;
     public int crystalCooldownTime;
-    Vec3d previousPos;
+    public Vec3d previousPos;
     @Nullable private UUID angryAt;
     private static final UniformIntProvider ANGER_TIME_RANGE;
     public static final TrackedData<Boolean> IS_ATTACKING =

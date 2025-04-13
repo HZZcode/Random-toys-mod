@@ -7,7 +7,7 @@ import random_toys.zz_404.entity.MinerEntity;
 import java.util.EnumSet;
 import java.util.List;
 
-class MinerPickupItemGoal extends Goal {
+public class MinerPickupItemGoal extends Goal {
     private final MinerEntity miner;
 
     public MinerPickupItemGoal(MinerEntity miner) {

@@ -15,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.registry.ModBlocks;
+import random_toys.zz_404.registry.ModCriteria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ public class DestroyerHelper {
     }
 
     public static List<ItemStack> breakAndDrop(@NotNull ServerWorld world, BlockPos pos, @NotNull BlockState blockState) {
+        if (blockState.isOf(ModBlocks.BLACK_BEDROCK))
+            ModCriteria.triggerPlayers(world, pos, 6, ModCriteria.DESTROY_BLACK_BEDROCK::trigger);
         ItemStack itemStack = new ItemStack(Items.DIAMOND_AXE);
         EnchantmentHelper.applyEnchantmentProvider(itemStack, world.getRegistryManager(),
                 EnchantmentProviders.ENDERMAN_LOOT_DROP, world.getLocalDifficulty(pos), world.random);

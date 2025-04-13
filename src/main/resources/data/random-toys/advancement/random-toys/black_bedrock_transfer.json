@@ -1,0 +1,28 @@
+{
+  "parent": "random-toys:random-toys/black_bedrock_sword",
+  "criteria": {
+    "black_bedrock_transfer": {
+      "conditions": {},
+      "trigger": "random-toys:black_bedrock_transfer"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.black_bedrock_transfer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:black_bedrock"
+    },
+    "title": {
+      "translate": "advancements.random-toys.black_bedrock_transfer.title"
+    },
+    "frame": "goal",
+    "hidden": true
+  },
+  "requirements": [
+    [
+      "black_bedrock_transfer"
+    ]
+  ]
+}

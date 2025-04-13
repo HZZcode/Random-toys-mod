@@ -1,0 +1,28 @@
+{
+  "parent": "random-toys:random-toys/industry",
+  "criteria": {
+    "transfer_all_xp": {
+      "conditions": {},
+      "trigger": "random-toys:transfer_all_xp"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.transfer_all_xp.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:experience_collector"
+    },
+    "title": {
+      "translate": "advancements.random-toys.transfer_all_xp.title"
+    },
+    "frame": "goal",
+    "hidden": true
+  },
+  "requirements": [
+    [
+      "transfer_all_xp"
+    ]
+  ]
+}

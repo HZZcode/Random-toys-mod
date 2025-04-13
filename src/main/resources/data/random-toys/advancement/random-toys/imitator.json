@@ -1,0 +1,26 @@
+{
+  "parent": "random-toys:random-toys/root",
+  "criteria": {
+    "imitator": {
+      "conditions": {},
+      "trigger": "random-toys:imitator"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.imitator.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:imitator"
+    },
+    "title": {
+      "translate": "advancements.random-toys.imitator.title"
+    }
+  },
+  "requirements": [
+    [
+      "imitator"
+    ]
+  ]
+}
