@@ -1,4 +1,4 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.item.ItemStack;
@@ -6,6 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import random_toys.zz_404.RandomToys;
 import random_toys.zz_404.block.block_entity.CompressorBlockEntity;
+import random_toys.zz_404.entity.MinerEntity;
 import random_toys.zz_404.registry.ModBlocks;
 
 import java.util.List;

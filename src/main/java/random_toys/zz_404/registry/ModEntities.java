@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.*;
 import random_toys.zz_404.entity.*;
+import random_toys.zz_404.entity.rendering.*;
 
 public class ModEntities {
     public static EntityType<ZZEntity> ZZ;

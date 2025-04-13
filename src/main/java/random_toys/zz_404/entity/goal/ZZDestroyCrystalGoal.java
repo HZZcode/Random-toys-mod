@@ -1,10 +1,12 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import random_toys.zz_404.entity.ThrownBlackstoneEntity;
+import random_toys.zz_404.entity.ZZEntity;
 import random_toys.zz_404.registry.ModEntities;
 
 import java.util.List;

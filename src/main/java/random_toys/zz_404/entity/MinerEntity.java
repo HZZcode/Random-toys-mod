@@ -31,6 +31,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import random_toys.zz_404.RandomToys;
+import random_toys.zz_404.entity.goal.*;
 import random_toys.zz_404.reflection_utils.HungerManagerUpdateUtils;
 import random_toys.zz_404.registry.ModEntities;
 import random_toys.zz_404.registry.ModTags;

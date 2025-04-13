@@ -1,6 +1,7 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.ai.goal.Goal;
+import random_toys.zz_404.entity.ZZEntity;
 
 public class ZZEscapeFluidGoal extends Goal {
     public final ZZEntity zz;

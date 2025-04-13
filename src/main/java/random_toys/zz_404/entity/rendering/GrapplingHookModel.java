@@ -1,4 +1,4 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.rendering;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;

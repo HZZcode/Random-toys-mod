@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.registry.ModBlockEntities;
 import random_toys.zz_404.registry.ModBlocks;
 import random_toys.zz_404.item.RandomizerItem;
-import random_toys.zz_404.item.RandomizerItemType;
 import random_toys.zz_404.block.RandomizerBlock;
 
 public class RandomizerBlockEntity extends LootableContainerBlockEntity implements Clearable, SingleStackInventory.SingleStackBlockEntityInventory {
@@ -97,8 +96,8 @@ public class RandomizerBlockEntity extends LootableContainerBlockEntity implemen
         return ItemStack.EMPTY;
     }
 
-    public RandomizerItemType getItemType(){
-        return RandomizerItemType.getTypeFromItem(inventory.getFirst());
+    public RandomizerItem.Type getItemType(){
+        return RandomizerItem.Type.getTypeFromItem(inventory.getFirst());
     }
 
     public int getRandomNumber() {

@@ -1,7 +1,8 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
+import random_toys.zz_404.entity.MinerEntity;
 import random_toys.zz_404.registry.ModTags;
 
 import java.util.ArrayList;

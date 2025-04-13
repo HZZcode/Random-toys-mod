@@ -1,4 +1,4 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -6,6 +6,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import random_toys.zz_404.entity.MinerEntity;
 import random_toys.zz_404.registry.ModTags;
 
 import java.util.ArrayList;

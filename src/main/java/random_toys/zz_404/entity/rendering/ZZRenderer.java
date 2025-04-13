@@ -1,4 +1,4 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.rendering;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -7,6 +7,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.RandomToys;
+import random_toys.zz_404.entity.ZZEntity;
 import random_toys.zz_404.registry.ModModelLayers;
 
 public class ZZRenderer extends MobEntityRenderer<ZZEntity, ZZModel<ZZEntity>> {

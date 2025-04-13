@@ -1,7 +1,8 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.Vec3d;
+import random_toys.zz_404.entity.ZZEntity;
 
 public class ZZRandomTeleportGoal extends Goal {
     public final ZZEntity zz;

@@ -1,9 +1,10 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.rendering;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import random_toys.zz_404.entity.AbstractThrownBlackstoneEntity;
 
 @Environment(EnvType.CLIENT)
 public class ThrownBlackstonesRenderer extends FlyingItemEntityRenderer<AbstractThrownBlackstoneEntity> {

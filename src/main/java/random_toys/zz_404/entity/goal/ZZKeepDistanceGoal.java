@@ -1,8 +1,9 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.world.World;
+import random_toys.zz_404.entity.ZZEntity;
 
 public class ZZKeepDistanceGoal extends Goal {
     public final ZZEntity zz;

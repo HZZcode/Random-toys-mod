@@ -17,10 +17,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import random_toys.zz_404.item.RandomizerItem;
 import random_toys.zz_404.registry.ModBlockEntities;
 import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModItems;
-import random_toys.zz_404.item.RandomizerItemType;
 import random_toys.zz_404.block.block_entity.RandomizerBlockEntity;
 
 import java.util.function.Supplier;
@@ -28,11 +28,11 @@ import java.util.function.Supplier;
 public class RandomizerBlock extends AbstractChestBlock<RandomizerBlockEntity> {
     public static final MapCodec<RandomizerBlock> CODEC = createCodec(settings -> new RandomizerBlock(settings, () -> ModBlockEntities.RANDOMIZER));
 
-    public static final EnumProperty<RandomizerItemType> ITEM_TYPE = EnumProperty.of("item_type", RandomizerItemType.class);
+    public static final EnumProperty<RandomizerItem.Type> ITEM_TYPE = EnumProperty.of("item_type", RandomizerItem.Type.class);
 
     public RandomizerBlock(Settings settings, Supplier<BlockEntityType<? extends RandomizerBlockEntity>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
-        this.setDefaultState(this.getStateManager().getDefaultState().with(ITEM_TYPE, RandomizerItemType.EMPTY));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(ITEM_TYPE, RandomizerItem.Type.EMPTY));
     }
 
     @Override

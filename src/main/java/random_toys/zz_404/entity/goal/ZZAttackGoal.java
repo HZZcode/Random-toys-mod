@@ -1,7 +1,8 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import random_toys.zz_404.entity.ZZEntity;
 
 public class ZZAttackGoal extends MeleeAttackGoal {
     private final ZZEntity zz;

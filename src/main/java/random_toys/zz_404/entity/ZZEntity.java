@@ -39,6 +39,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import random_toys.zz_404.entity.goal.*;
 import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModParticles;
 

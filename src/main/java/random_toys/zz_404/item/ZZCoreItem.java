@@ -1,4 +1,4 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.item;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;

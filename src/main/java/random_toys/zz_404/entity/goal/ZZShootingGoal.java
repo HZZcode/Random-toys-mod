@@ -1,4 +1,4 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.goal;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,6 +12,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import random_toys.zz_404.entity.ZZEntity;
 import random_toys.zz_404.reflection_utils.FireballEntityExplosionPowerUtils;
 import random_toys.zz_404.registry.ModEntities;
 

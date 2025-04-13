@@ -1,10 +1,11 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.rendering;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.NotNull;
+import random_toys.zz_404.entity.ZZEntity;
 
 public class ZZModel<T extends ZZEntity> extends SinglePartEntityModel<T> {
     private final ModelPart bb_main;

@@ -1,4 +1,4 @@
-package random_toys.zz_404.entity;
+package random_toys.zz_404.entity.rendering;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import random_toys.zz_404.RandomToys;
+import random_toys.zz_404.entity.GrapplingHookEntity;
 import random_toys.zz_404.registry.ModItems;
 import random_toys.zz_404.registry.ModModelLayers;
 
