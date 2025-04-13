@@ -9,6 +9,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.registry.ModBlockEntities;
+import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModGamerules;
 import random_toys.zz_404.block.BeltBlock;
 import random_toys.zz_404.block.EnderHopperBlock;
@@ -85,6 +87,9 @@ public class EnderHopperBlockEntity extends BlockEntity {
                 for (Entity entity : world.getEntitiesByClass(Entity.class, Box.from(Vec3d.of(pos)).expand(3),
                         entity -> BeltBlock.isStepping(pos, entity) && !entity.isSpectator())) {
                     Vec3d vec = linked.toBottomCenterPos().subtract(0, entity.getHeight(), 0);
+                    if (entity.getPos().subtract(vec).length() >= 500
+                            && entity instanceof ServerPlayerEntity player)
+                        ModCriteria.ENDER_HOPPER_TELEPORT.trigger(player);
                     entity.requestTeleport(vec.x, vec.y, vec.z);
                 }
             }

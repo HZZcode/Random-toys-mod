@@ -33,7 +33,8 @@ public class ModCriteria {
     public static final BlockTransferringCriterion BLACK_BEDROCK_TRANSFER = register("black_bedrock_transfer", new BlockTransferringCriterion());
     public static final TransferAllXpCriterion TRANSFER_ALL_XP = register("transfer_all_xp", new TransferAllXpCriterion());
     public static final ImitatorCriterion IMITATOR = register("imitator", new ImitatorCriterion());
-    //TODO: challenge for travelling long distance with ender hopper
+    public static final EnderHopperTeleportCriterion ENDER_HOPPER_TELEPORT = register("ender_hopper_teleport", new EnderHopperTeleportCriterion());
+    public static final HookSpeedCriterion HOOK_SPEED = register("hook_speed", new HookSpeedCriterion());
 
     public static <T extends Criterion<?>> T register(String id, T criterion) {
         return Registry.register(Registries.CRITERION, Identifier.of(RandomToys.MOD_ID, id), criterion);

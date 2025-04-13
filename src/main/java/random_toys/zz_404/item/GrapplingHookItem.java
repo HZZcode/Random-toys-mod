@@ -5,6 +5,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -12,6 +13,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.entity.GrapplingHookEntity;
+import random_toys.zz_404.registry.ModCriteria;
 import random_toys.zz_404.registry.ModDataComponents;
 import random_toys.zz_404.registry.ModEntities;
 
@@ -59,7 +61,11 @@ public class GrapplingHookItem extends Item {
     private void grapple(@NotNull Entity entity, @NotNull Vec3d pos) {
         final double MaxSpeed = 40;
         Vec3d direction = pos.subtract(entity.getPos()).multiply(0.3);
-        if (direction.length() >= MaxSpeed) direction = direction.normalize().multiply(MaxSpeed);
+        if (direction.length() >= MaxSpeed) {
+            direction = direction.normalize().multiply(MaxSpeed);
+            if (entity instanceof ServerPlayerEntity player)
+                ModCriteria.HOOK_SPEED.trigger(player);
+        }
         entity.addVelocity(direction);
         entity.velocityModified = true;
     }

@@ -232,5 +232,9 @@
   "advancements.random-toys.transfer_all_xp.title": "Experience-less",
   "advancements.random-toys.transfer_all_xp.description": "Transfer all your xp into experience collector.",
   "advancements.random-toys.imitator.title": "Imitator Imitates Imitator",
-  "advancements.random-toys.imitator.description": "java.lang.StackOverflowError: Unexpected error\nat knot//random_toys.zz_404.block.ImitatorBlock.getOutlineShape(ImitatorBlock.java:59)"
+  "advancements.random-toys.imitator.description": "java.lang.StackOverflowError: Unexpected error\nat knot//random_toys.zz_404.block.ImitatorBlock.getOutlineShape(ImitatorBlock.java:59)",
+  "advancements.random-toys.ender_hopper_teleport.title": "Ender Travel",
+  "advancements.random-toys.ender_hopper_teleport.description": "Teleport to more than 500 blocks away with ender hopper.",
+  "advancements.random-toys.hook_speed.title": "Spiderman!",
+  "advancements.random-toys.hook_speed.description": "Obtain velocity of more than 40m/s with grappling hook."
 }

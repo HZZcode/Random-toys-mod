@@ -11,7 +11,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.*;
-import random_toys.zz_404.item.ZZCoreItem;
 import random_toys.zz_404.item.*;
 
 import java.util.ArrayList;

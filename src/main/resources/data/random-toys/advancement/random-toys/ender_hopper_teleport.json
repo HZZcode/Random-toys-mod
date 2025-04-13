@@ -1,0 +1,28 @@
+{
+  "parent": "random-toys:random-toys/industry",
+  "criteria": {
+    "ender_hopper_teleport": {
+      "conditions": {},
+      "trigger": "random-toys:ender_hopper_teleport"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.ender_hopper_teleport.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:ender_hopper"
+    },
+    "title": {
+      "translate": "advancements.random-toys.ender_hopper_teleport.title"
+    },
+    "frame": "challenge",
+    "hidden": true
+  },
+  "requirements": [
+    [
+      "ender_hopper_teleport"
+    ]
+  ]
+}

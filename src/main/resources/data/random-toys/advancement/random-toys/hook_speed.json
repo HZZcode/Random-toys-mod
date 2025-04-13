@@ -1,0 +1,28 @@
+{
+  "parent": "random-toys:random-toys/root",
+  "criteria": {
+    "hook_speed": {
+      "conditions": {},
+      "trigger": "random-toys:hook_speed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.random-toys.hook_speed.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random-toys:grappling_hook"
+    },
+    "title": {
+      "translate": "advancements.random-toys.hook_speed.title"
+    },
+    "frame": "challenge",
+    "hidden": true
+  },
+  "requirements": [
+    [
+      "hook_speed"
+    ]
+  ]
+}
