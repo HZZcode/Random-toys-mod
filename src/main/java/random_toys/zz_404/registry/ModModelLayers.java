@@ -11,6 +11,8 @@ public class ModModelLayers {
             new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "miner"), "main");
     public static final EntityModelLayer GRAPPLING_HOOK =
             new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "grappling_hook"), "main");
+    public static final EntityModelLayer BEDROCK_DEMON =
+            new EntityModelLayer(Identifier.of(RandomToys.MOD_ID, "bedrock_demon"), "main");
 
     public static void registerModelLayers() {
         RandomToys.log("Registering Model Layers");

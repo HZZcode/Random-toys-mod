@@ -135,7 +135,7 @@ public class ZZEntity extends HostileEntity implements Angerable {
         this.targetSelector.add(5, new UniversalAngerGoal<>(this, false));
     }
 
-    public static DefaultAttributeContainer.Builder createZZAttributes() {
+    public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 300.0F)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5F)

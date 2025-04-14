@@ -22,6 +22,7 @@ public class ModEntities {
     public static EntityType<MinerEntity> MINER;
     public static EntityType<ThrownBlackBedrockEntity> THROWN_BLACK_BEDROCK;
     public static EntityType<GrapplingHookEntity> GRAPPLING_HOOK;
+    public static EntityType<BedrockDemonEntity> BEDROCK_DEMON;
 
     public static <T extends Entity> EntityType<T> registerEntities(String id, EntityType.@NotNull Builder<T> entityTypeBuilder) {
         return Registry.register(Registries.ENTITY_TYPE, Identifier.of(RandomToys.MOD_ID, id), entityTypeBuilder.build(id));
@@ -32,7 +33,7 @@ public class ModEntities {
                 EntityType.Builder.create(ZZEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.6f, 2.9f)
                     .maxTrackingRange(32));
-        FabricDefaultAttributeRegistry.register(ZZ, ZZEntity.createZZAttributes());
+        FabricDefaultAttributeRegistry.register(ZZ, ZZEntity.createAttributes());
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.ZZ, ZZModel::getTexturedModelData);
         EntityRendererRegistry.register(ZZ, ZZRenderer::new);
 
@@ -73,6 +74,15 @@ public class ModEntities {
         );
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.GRAPPLING_HOOK, GrapplingHookModel::getTexturedModelData);
         EntityRendererRegistry.register(GRAPPLING_HOOK, GrapplingHookRenderer::new);
+
+        BEDROCK_DEMON = registerEntities("bedrock_demon",
+                EntityType.Builder.create(BedrockDemonEntity::new, SpawnGroup.MONSTER)
+                        .dimensions(1.0f, 1.0f)
+                        .eyeHeight(0.5f)
+                        .maxTrackingRange(32));
+        FabricDefaultAttributeRegistry.register(BEDROCK_DEMON, BedrockDemonEntity.createAttributes());
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.BEDROCK_DEMON, BedrockDemonModel::getTexturedModelData);
+        EntityRendererRegistry.register(BEDROCK_DEMON, BedrockDemonRenderer::new);
 
         RandomToys.log("Registering Entities");
     }
