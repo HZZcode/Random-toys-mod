@@ -210,16 +210,7 @@ public class ZZEntity extends HostileEntity implements Angerable {
     }
 
     private boolean isSelfDamage(Entity sourceEntity) {
-        return (sourceEntity instanceof BreezeWindChargeEntity
-                && ((BreezeWindChargeEntity) sourceEntity).getOwner() == this)
-        || (sourceEntity instanceof WindChargeEntity
-                && ((WindChargeEntity) sourceEntity).getOwner() == this)
-        || (sourceEntity instanceof ArrowEntity
-                && ((ArrowEntity) sourceEntity).getOwner() == this)
-        || (sourceEntity instanceof FireballEntity
-                && ((FireballEntity) sourceEntity).getOwner() == this)
-        || (sourceEntity instanceof SmallFireballEntity
-                && ((SmallFireballEntity) sourceEntity).getOwner() == this);
+        return sourceEntity instanceof ProjectileEntity projectile && projectile.getOwner() == this;
     }
 
     private boolean damageCanBeImmunized(@NotNull DamageSource source) {
@@ -253,9 +244,7 @@ public class ZZEntity extends HostileEntity implements Angerable {
             float newAmount = amount * (3 + getEntityWorld().random.nextInt(2));
             this.damage(source, newAmount, false);
         }
-        if (needPostProcess && damageCanBeImmunized(source))
-            return false;
-        if (needPostProcess && isSelfDamage(sourceEntity))
+        if (needPostProcess && (damageCanBeImmunized(source) || isSelfDamage(sourceEntity)))
             return false;
         return super.damage(source, amount);
     }

@@ -33,15 +33,13 @@ public class BedrockDemonFlyingGoal extends Goal {
     public void tick() {
         World world = demon.getWorld();
         LivingEntity target = demon.getTarget();
-        if (target == null || !target.isAlive() || target.getPos().subtract(demon.getPos()).length() <= 15) {
+        if (target != null) demon.setYaw(demon.getYaw() + 18);
+        if (target == null || !target.isAlive() || target.getPos().subtract(demon.getPos()).length() <= 15)
             if (demon.getRandom().nextInt(15) == 0)
                 turnVelocity(demon.getRandomVec().normalize().multiply(0.5));
-        }
-        else {
-            demon.setYaw(demon.getYaw() + demon.getRandom().nextInt(3) + 1);
+        else if (target != null)
             turnVelocity(target.getPos().subtract(demon.getPos()).add(demon.getRandomVec().multiply(10))
                     .normalize().multiply(0.3));
-        }
 
         List<ProjectileEntity> projectiles = world.getEntitiesByClass(ProjectileEntity.class,
                 demon.getBoundingBox().expand(15),
