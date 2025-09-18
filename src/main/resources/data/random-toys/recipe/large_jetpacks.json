@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "random-toys:jetpacks"
+    },
+    "x": {
+      "item": "random-toys:compressor"
+    }
+  },
+  "pattern": [
+    "###",
+    "#x#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "random-toys:large_jetpacks"
+  }
+}

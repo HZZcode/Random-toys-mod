@@ -13,16 +13,18 @@ import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.reflection_utils.TrinketUtils;
 import random_toys.zz_404.registry.ModArmorMaterials;
 import random_toys.zz_404.registry.ModDataComponents;
-import random_toys.zz_404.registry.ModItems;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class JetpackItem extends ArmorItem {
-    public JetpackItem(Settings settings) {
+    public final int maxGas;
+
+    public JetpackItem(Settings settings, int maxGas) {
         super(ModArmorMaterials.JETPACK, Type.CHESTPLATE, settings);
         DispenserBlock.registerBehavior(this, ArmorItem.DISPENSER_BEHAVIOR);
+        this.maxGas = maxGas;
     }
 
     @Override
@@ -32,15 +34,15 @@ public class JetpackItem extends ArmorItem {
 
     @Override
     public int getItemBarStep(@NotNull ItemStack stack) {
-        return MathHelper.clamp(Math.round((float)getRemainingGas(stack)
-                * 13.0F / (float)getMaxGas()), 0, 13);
+        return MathHelper.clamp(Math.round((float) getRemainingGas(stack)
+                * 13.0F / (float) getMaxGas()), 0, 13);
     }
 
     @Override
     public int getItemBarColor(ItemStack stack) {
         final Vec3d min = new Vec3d(93, 143, 194);
         final Vec3d max = new Vec3d(212, 229, 247);
-        double rate = (float)getRemainingGas(stack) / (float)getMaxGas();
+        double rate = (float) getRemainingGas(stack) / (float) getMaxGas();
         Vec3d result = min.multiply(1 - rate).add(max.multiply(rate));
         return ColorHelper.Argb.getArgb((int) result.x, (int) result.y, (int) result.z);
     }
@@ -49,8 +51,8 @@ public class JetpackItem extends ArmorItem {
         return stack.getOrDefault(ModDataComponents.GAS_REMAINING, 0);
     }
 
-    public static int getMaxGas() {
-        return 600;
+    public int getMaxGas() {
+        return maxGas;
     }
 
     @Override
@@ -62,8 +64,9 @@ public class JetpackItem extends ArmorItem {
     }
 
     public static ArrayList<ItemStack> getRemainingWearingStacks(PlayerEntity player) {
-        ArrayList<ItemStack> jetpacks = TrinketUtils.findInTrinkets(player, ModItems.JETPACKS);
-        if (player.getInventory().armor.get(2).isOf(ModItems.JETPACKS))
+        ArrayList<ItemStack> jetpacks = TrinketUtils.findInTrinkets(player,
+                stack -> stack.getItem() instanceof JetpackItem);
+        if (player.getInventory().armor.get(2).getItem() instanceof JetpackItem)
             jetpacks.add(player.getInventory().armor.get(2));
         return jetpacks.stream().filter(stack -> getRemainingGas(stack) != 0)
                 .collect(Collectors.toCollection(ArrayList::new));

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_jetpacks": {
+      "conditions": {
+        "items": [
+          {
+            "item": "random-toys:jetpacks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_compressor": {
+      "conditions": {
+        "items": [
+          {
+            "item": "random-toys:compressor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "random-toys:large_jetpacks"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_jetpacks",
+      "has_compressor"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "random-toys:large_jetpacks"
+    ]
+  }
+}

@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class TrinketUtils {
@@ -19,8 +20,11 @@ public class TrinketUtils {
     }
 
     public static ArrayList<ItemStack> findInTrinkets(PlayerEntity player, Item item) {
-        return getTrinkets(player).stream().filter(slot -> slot.isOf(item))
-                .collect(Collectors.toCollection(ArrayList::new));
+        return findInTrinkets(player, slot -> slot.isOf(item));
+    }
+
+    public static ArrayList<ItemStack> findInTrinkets(PlayerEntity player, Predicate<ItemStack> predicate) {
+        return getTrinkets(player).stream().filter(predicate).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public static ArrayList<ItemStack> getTrinkets(PlayerEntity player) {
@@ -36,9 +40,8 @@ public class TrinketUtils {
                 List<Pair<?, ItemStack>> slots = (List<Pair<?, ItemStack>>) getAllEquipped.invoke(components);
                 return slots.stream().map(Pair::getRight).collect(Collectors.toCollection(ArrayList::new));
             }
-        }
-        catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
-               | IllegalAccessException ignored) {
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
+                 | IllegalAccessException ignored) {
             //Trinkets mod doesn't exist
         }
         return new ArrayList<>();

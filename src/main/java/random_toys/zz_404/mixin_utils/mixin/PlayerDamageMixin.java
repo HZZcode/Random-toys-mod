@@ -18,8 +18,7 @@ import random_toys.zz_404.entity.ZZEntity;
 public class PlayerDamageMixin {
     @Inject(method = "damage", at = @At(value = "RETURN", ordinal = 4, shift = At.Shift.BEFORE), cancellable = true)
     private void beforeDamage(@NotNull DamageSource source, float amount, @NotNull CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-        PlayerEntity player = (PlayerEntity) entity;
+        PlayerEntity player = (PlayerEntity) (Object) this;
         Entity attacker = source.getSource();
         if (BlackBedrockArmorItem.isWearingAll(player)
                 && (player.equals(attacker)
@@ -34,7 +33,7 @@ public class PlayerDamageMixin {
                 || (attacker instanceof ProjectileEntity projectile
                 && (projectile.getOwner() instanceof ZZEntity)))) {
             amount /= player.getWorld().random.nextBetween(4, 10);
-            cir.setReturnValue(amount != 0.0F && entity.damage(source, amount));
+            cir.setReturnValue(amount != 0.0F && player.damage(source, amount));
             cir.cancel();
         }
     }

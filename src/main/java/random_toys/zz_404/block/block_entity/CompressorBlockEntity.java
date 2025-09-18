@@ -22,7 +22,6 @@ import random_toys.zz_404.block.TransferringBlock;
 import random_toys.zz_404.item.JetpackItem;
 import random_toys.zz_404.registry.ModBlockEntities;
 import random_toys.zz_404.registry.ModDataComponents;
-import random_toys.zz_404.registry.ModItems;
 
 import java.util.HashMap;
 import java.util.stream.IntStream;
@@ -91,11 +90,12 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
     }
 
     private final HashMap<Item, CompressingResult> cache = new HashMap<>();
+
     private @Nullable CompressingResult getCompressRecipe(Item item) {
         if (world == null || item == Items.AIR) return null;
         if (cache.containsKey(item)) return cache.get(item);
         var recipes = world.getRecipeManager().listAllOfType(RecipeType.CRAFTING);
-        for (RecipeEntry<CraftingRecipe> recipe: recipes) {
+        for (RecipeEntry<CraftingRecipe> recipe : recipes) {
             var ingredients = recipe.value().getIngredients();
             int inputCount = (int) ingredients.stream()
                     .filter(ingredient -> !ingredient.isEmpty()).count();
@@ -134,9 +134,9 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
         mergeStacks();
         for (int i = 0; i < count; i++) {
             var recipe = getCompressRecipe(inventory.get(i).getItem());
-            if (recipe != null){
+            if (recipe != null) {
                 var space = getSpace();
-                if (space.isPresent()){
+                if (space.isPresent()) {
                     int j = space.orElseThrow();
                     int mul = inventory.get(i).getCount() / recipe.in().getCount();
                     int remaining = inventory.get(i).getCount() % recipe.in().getCount();
@@ -153,15 +153,15 @@ public class CompressorBlockEntity extends LootableContainerBlockEntity implemen
             }
         }
         for (int i = 0; i < count; i++) {
-            if (inventory.get(i).getItem() == ModItems.JETPACKS) {
+            if (inventory.get(i).getItem() instanceof JetpackItem jetpackItem) {
                 ItemStack jetpack = inventory.get(i).copy();
-                jetpack.set(ModDataComponents.GAS_REMAINING,
-                        Math.min(JetpackItem.getMaxGas(),
-                                JetpackItem.getRemainingGas(jetpack) + world.random.nextInt(5)));
+                jetpack.set(ModDataComponents.GAS_REMAINING, Math.min(jetpackItem.getMaxGas(),
+                        JetpackItem.getRemainingGas(jetpack) + world.random.nextInt(5)));
                 inventory.set(i, jetpack);
             }
         }
     }
 
-    public record CompressingResult(ItemStack in, ItemStack out) { }
+    public record CompressingResult(ItemStack in, ItemStack out) {
+    }
 }

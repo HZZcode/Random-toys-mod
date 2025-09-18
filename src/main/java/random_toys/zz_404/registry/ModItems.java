@@ -32,7 +32,8 @@ public class ModItems {
     public static final Item ENDER_LINKER_CONFIGURATOR = registerItem("ender_linker_configurator", new EnderLinkerConfiguratorItem(new Item.Settings()));
     public static final Item HELPER = registerItem("helper", new HelperItem(new Item.Settings()));
     public static final Item GLASSES = registerItem("glasses", new GlassesItem(new Item.Settings().maxCount(1)));
-    public static final Item JETPACKS = registerItem("jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0)));
+    public static final Item JETPACKS = registerItem("jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0), 600));
+    public static final Item LARGE_JETPACKS = registerItem("large_jetpacks", new JetpackItem(new Item.Settings().maxCount(1).component(ModDataComponents.GAS_REMAINING, 0), 5400));
     public static final Item MINER_SPAWN_EGG = registerItem("miner_spawn_egg", new SpawnEggItem(ModEntities.MINER, 0x00a4a4, 0x9b6349, new Item.Settings()));
     public static final Item REGEX_FILTER = registerItem("regex_filter", new RegexFilterItem(new Item.Settings().maxCount(1)));
     public static final Item BLACK_BEDROCK_HELMET = registerItem("black_bedrock_helmet", new BlackBedrockArmorItem(ArmorItem.Type.HELMET));
@@ -77,6 +78,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.TURTLE_HELMET, ModItems.GLASSES);
         fabricItemGroupEntries.addAfter(Items.TURTLE_HELMET, ModItems.JETPACKS);
+        fabricItemGroupEntries.addAfter(Items.TURTLE_HELMET, ModItems.LARGE_JETPACKS);
         fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_BOOTS);
         fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_LEGGINGS);
         fabricItemGroupEntries.addAfter(Items.NETHERITE_BOOTS, ModItems.BLACK_BEDROCK_CHESTPLATE);
@@ -138,6 +140,7 @@ public class ModItems {
                         entries.add(ModBlocks.IMITATOR);
                         entries.add(ModItems.GLASSES);
                         entries.add(ModItems.JETPACKS);
+                        entries.add(ModItems.LARGE_JETPACKS);
                         entries.add(ModBlocks.BELT);
                         entries.add(ModItems.MINER_SPAWN_EGG);
                         entries.add(ModItems.REGEX_FILTER);

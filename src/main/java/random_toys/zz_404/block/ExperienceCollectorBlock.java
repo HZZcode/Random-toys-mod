@@ -133,7 +133,7 @@ public class ExperienceCollectorBlock extends BlockWithEntity {
                 Optional<EnchantmentEffectContext> optional = EnchantmentHelper
                         .chooseEquipmentWith(EnchantmentEffectComponentTypes.REPAIR_WITH_XP, player, ItemStack::isDamaged);
                 if (optional.isPresent() && player instanceof ServerPlayerEntity serverPlayer) {
-                    ItemStack itemStack = (optional.get()).stack();
+                    ItemStack itemStack = optional.get().stack();
                     int i = EnchantmentHelper.getRepairWithXp(serverPlayer.getServerWorld(), itemStack, entity.experience);
                     int j = Math.min(i, itemStack.getDamage());
                     itemStack.setDamage(itemStack.getDamage() - j);

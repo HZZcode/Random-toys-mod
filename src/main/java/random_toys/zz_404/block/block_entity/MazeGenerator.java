@@ -28,10 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class MazeGenerator {
-    private final World world;
-    private final BlockPos pos;
-
+public record MazeGenerator(World world, BlockPos pos) {
     private static final int unit = 6;
     private static final int length = 6;
     private static final int height = 5;
@@ -64,24 +61,29 @@ public class MazeGenerator {
 
     private class RelativePos {
         double x, z;
+
         private BlockPos toBlockPos() {
-            return pos.add((int)Math.round(unit * x), 0, (int)Math.round(unit * z));
+            return pos.add((int) Math.round(unit * x), 0, (int) Math.round(unit * z));
         }
+
         @Contract("_, _ -> new")
         public @NotNull RelativePos add(double dx, double dz) {
             return relative(x + dx, z + dz);
         }
+
         @Override
         public boolean equals(Object object) {
             if (!(object instanceof RelativePos that)) return false;
             return Math.round(x * 2) == Math.round(that.x * 2)
                     && Math.round(z * 2) == Math.round(that.z * 2);
         }
+
         @Override
         public int hashCode() {
             return Objects.hash(Math.round(x * 2), Math.round(z * 2));
         }
     }
+
     @Contract("_, _ -> new")
     private @NotNull RelativePos relative(double x, double z) {
         var pos = new RelativePos();
@@ -115,7 +117,7 @@ public class MazeGenerator {
         for (int i : range)
             for (int j : range)
                 for (int h = 0; h < height; h++)
-                    if (i != 0 || j != 0){
+                    if (i != 0 || j != 0) {
                         if ((i != -1 || j != 0) && i != length)
                             pillars.add(relative(i, j).toBlockPos().up(h).add(1, 0, 0));
                         if ((i != 1 || j != 0) && i != -length)
@@ -147,7 +149,7 @@ public class MazeGenerator {
             if (Math.abs(relative.x) == length || Math.abs(relative.z) == length)
                 state = Blocks.OBSIDIAN.getDefaultState();
             if (Math.abs(relative.x) < 1 && Math.abs(relative.z) < 1) continue;
-            for (int i = -1; i <= 1; i ++) {
+            for (int i = -1; i <= 1; i++) {
                 for (int h = 0; h < height; h++) {
                     if (isNotInt(relative.z)) {
                         setBlock(pos.add(i, h, 0), state);
@@ -182,8 +184,7 @@ public class MazeGenerator {
             if (world.random.nextBoolean()) {
                 setBlock(center.up(), Blocks.CHAIN.getDefaultState().with(PillarBlock.AXIS, Direction.Axis.Y));
                 setBlock(center.up(2), Blocks.CHAIN.getDefaultState().with(PillarBlock.AXIS, Direction.Axis.Y));
-            }
-            else {
+            } else {
                 setBlock(center.down(), Blocks.WARPED_FENCE.getDefaultState());
                 setBlock(center.down(2), Blocks.WARPED_FENCE.getDefaultState());
             }
@@ -325,8 +326,7 @@ public class MazeGenerator {
                     }
                     setBlock(mid, Blocks.NETHERRACK.getDefaultState());
                     setBlock(mid.up(), Blocks.FIRE.getDefaultState());
-                }
-                else if (li == 1) {
+                } else if (li == 1) {
                     if (world.getBlockEntity(far.add(li, 0, lj)) instanceof BarrelBlockEntity barrel) {
                         barrel.setStack(4, new ItemStack(Blocks.COPPER_BLOCK, 16));
                         barrel.setStack(13, new ItemStack(ModBlocks.OXIDIZER));
@@ -337,8 +337,7 @@ public class MazeGenerator {
                     setBlock(mid.west(), Blocks.POLISHED_BLACKSTONE_SLAB.getDefaultState());
                     setBlock(mid.east(), Blocks.POLISHED_BLACKSTONE_SLAB.getDefaultState());
                     setBlock(mid.up(), ModBlocks.OXIDIZER.getDefaultState());
-                }
-                else {
+                } else {
                     if (world.getBlockEntity(far.add(li, 0, lj)) instanceof BarrelBlockEntity barrel) {
                         barrel.setStack(13, ExperienceCollectorBlock.enchantBook(world, 30));
                     }
