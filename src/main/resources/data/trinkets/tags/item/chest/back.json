@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "random-toys:jetpacks"
+    "random-toys:jetpacks",
+    "random-toys:large_jetpacks"
   ]
 }
