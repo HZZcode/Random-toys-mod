@@ -27,7 +27,6 @@ public class RandomToys implements ModInitializer {
 
 	public static void msg(LivingEntity entity, Text message) {
 		if (entity != null) entity.sendMessage(message);
-		//TODO: change it to showing message on screen (like /title command)
 	}
 
 	@Override
