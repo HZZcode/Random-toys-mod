@@ -24,6 +24,15 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
     public BlockPos linked;
     public RegistryKey<World> dimension;
 
+    @Override
+    public @Nullable World getWorld() {
+        return super.getWorld();
+    }
+
+    @Override
+    public void setWorld(World world) {
+        super.setWorld(world);
+    }
 
     public BlockPos getLinked() {
         return linked;

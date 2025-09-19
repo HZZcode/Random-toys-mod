@@ -12,11 +12,22 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import random_toys.zz_404.registry.ModBlockEntities;
 
 public class EnderSwitchBlockEntity extends BlockEntity implements EnderBlockEntity {
     public BlockPos linked;
     public RegistryKey<World> dimension;
+
+    @Override
+    public @Nullable World getWorld() {
+        return super.getWorld();
+    }
+
+    @Override
+    public void setWorld(World world) {
+        super.setWorld(world);
+    }
 
     public BlockPos getLinked() {
         return linked;
