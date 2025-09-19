@@ -110,6 +110,16 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "ender_switch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "random-toys:ender_switch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -136,7 +146,8 @@
       "destroyer",
       "timer",
       "ender_hopper",
-      "chunk_destroyer"
+      "chunk_destroyer",
+      "ender_switch"
     ]
   ]
 }

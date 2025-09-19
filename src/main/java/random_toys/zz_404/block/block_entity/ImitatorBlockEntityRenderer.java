@@ -31,7 +31,6 @@ public class ImitatorBlockEntityRenderer implements BlockEntityRenderer<Imitator
                     imitator.getPos(),
                     matrices,
                     vertexConsumers.getBuffer(RenderLayers.getEntityBlockLayer(state, false)),
-//                    vertexConsumers.getBuffer(RenderLayers.getBlockLayer(state)),
                     false,
                     Random.create(),
                     state.getRenderingSeed(imitator.getPos()),

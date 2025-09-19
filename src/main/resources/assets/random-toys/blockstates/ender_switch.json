@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=true": {
+      "model": "random-toys:block/ender_switch_on"
+    },
+    "powered=false": {
+      "model": "random-toys:block/ender_switch"
+    }
+  }
+}

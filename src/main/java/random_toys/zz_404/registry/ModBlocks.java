@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.block.Blocks;
 import random_toys.zz_404.RandomToys;
@@ -43,6 +44,7 @@ public class ModBlocks {
     public static final Block TIMER = register("timer", new TimerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.TIMER));
     public static final Block ENDER_HOPPER = register("ender_hopper", new EnderHopperBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
     public static final Block CHUNK_DESTROYER = register("chunk_destroyer", new ChunkDestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.CHUNK_DESTROYER));
+    public static final Block ENDER_SWITCH = register("ender_switch",  new EnderSwitchBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(state -> state.get(Properties.POWERED) ? 7 : 0)));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);

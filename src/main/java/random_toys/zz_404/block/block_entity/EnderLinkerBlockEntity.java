@@ -7,14 +7,10 @@ import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,9 +20,26 @@ import random_toys.zz_404.registry.ModBlockEntities;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class EnderLinkerBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity {
+public class EnderLinkerBlockEntity extends LootableContainerBlockEntity implements TransferableBlockEntity, EnderBlockEntity {
     public BlockPos linked;
     public RegistryKey<World> dimension;
+
+
+    public BlockPos getLinked() {
+        return linked;
+    }
+
+    public void setLinked(BlockPos linked) {
+        this.linked = linked;
+    }
+
+    public RegistryKey<World> getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(RegistryKey<World> dimension) {
+        this.dimension = dimension;
+    }
 
     public EnderLinkerBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
         super(blockEntityType, blockPos, blockState);
@@ -40,29 +53,29 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
 
     @Override
     public @Nullable DefaultedList<ItemStack> getInventory() {
-        TransferableBlockEntity entity = getLinked();
+        TransferableBlockEntity entity = getLinkedEntity();
         return entity == null ? DefaultedList.ofSize(0) : entity.getInventory();
     }
 
     @Override
     public void setInventory(DefaultedList<ItemStack> inventory) {
-        TransferableBlockEntity entity = getLinked();
+        TransferableBlockEntity entity = getLinkedEntity();
         if (entity != null) entity.setInventory(inventory);
     }
 
-    public @Nullable TransferableBlockEntity getLinked() {
+    public @Nullable TransferableBlockEntity getLinkedEntity() {
         ArrayList<BlockPos> self = new ArrayList<>();
         self.add(pos);
-        return getLinked(self);
+        return getLinkedEntity(self);
     }
 
-    private @Nullable TransferableBlockEntity getLinked(ArrayList<BlockPos> found) {
+    private @Nullable TransferableBlockEntity getLinkedEntity(ArrayList<BlockPos> found) {
         if (nullCheck()) return null;
         BlockEntity link = Objects.requireNonNull(world).getBlockEntity(linked);
         if (link instanceof EnderLinkerBlockEntity entity) {
             if (found.stream().anyMatch(pos -> pos.equals(linked))) return null;
             found.add(entity.pos);
-            return entity.getLinked(found);
+            return entity.getLinkedEntity(found);
         }
         if (link instanceof TransferableBlockEntity entity) return entity;
         return null;
@@ -71,7 +84,7 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
     @Override
     public Text getContainerName() {
         return Text.translatable("container.random-toys.ender_linker",
-                getLinked() == null ? "" : getLinked().getContainerName());
+                getLinkedEntity() == null ? "" : getLinkedEntity().getContainerName());
     }
 
     @Override
@@ -86,46 +99,24 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
 
     @Override
     public ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        TransferableBlockEntity entity = getLinked();
+        TransferableBlockEntity entity = getLinkedEntity();
         return entity == null ? null : entity.createScreenHandler(syncId, playerInventory);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if (nbt.contains("Linked", NbtElement.INT_ARRAY_TYPE)) {
-            int[] pos = nbt.getIntArray("Linked");
-            if (pos.length == 3) linked = new BlockPos(pos[0], pos[1], pos[2]);
-        }
-        if (nbt.contains("Dim", NbtElement.STRING_TYPE)) {
-            String dimName = nbt.getString("Dim");
-            dimension = RegistryKey.of(RegistryKeys.WORLD, Identifier.of(dimName));
-        }
+        readNbtFrom(nbt);
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if (linked != null) {
-            int[] pos = {linked.getX(), linked.getY(), linked.getZ()};
-            nbt.putIntArray("Linked", pos);
-        }
-        if (dimension != null) {
-            nbt.putString("Dim", dimension.getValue().toString());
-        }
-    }
-
-    public boolean nullCheck() {
-        if (world instanceof ServerWorld server && dimension != null)
-            world = server.getServer().getWorld(dimension);
-        if (world == null) return true;
-        if (world instanceof ServerWorld server && dimension == null)
-            dimension = server.getRegistryKey();
-        return linked == null;
+        writeNbtTo(nbt);
     }
 
     @Override
     public int size() {
-        return getLinked() == null ? 0 : getLinked().size();
+        return getLinkedEntity() == null ? 0 : getLinkedEntity().size();
     }
 }

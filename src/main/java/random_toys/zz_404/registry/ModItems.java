@@ -60,6 +60,7 @@ public class ModItems {
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
         fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.CHUNK_DESTROYER);
         fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.DESTROYER);
+        fabricItemGroupEntries.addBefore(Blocks.LEVER, ModBlocks.ENDER_SWITCH);
     }
 
     private static void addNaturalGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -156,6 +157,7 @@ public class ModItems {
                         entries.add(ModBlocks.CHUNK_DESTROYER);
                         entries.add(ModItems.BLACK_BEDROCK_SWORD);
                         entries.add(ModItems.GRAPPLING_HOOK);
+                        entries.add(ModBlocks.ENDER_SWITCH);
                     }).build());
 
     public static void registerItems(){

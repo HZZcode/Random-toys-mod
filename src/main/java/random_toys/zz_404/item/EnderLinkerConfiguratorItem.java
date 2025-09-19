@@ -18,8 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.RandomToys;
-import random_toys.zz_404.block.block_entity.EnderHopperBlockEntity;
-import random_toys.zz_404.block.block_entity.EnderLinkerBlockEntity;
+import random_toys.zz_404.block.block_entity.EnderBlockEntity;
 
 public class EnderLinkerConfiguratorItem extends Item {
     private BlockPos linked;
@@ -38,16 +37,10 @@ public class EnderLinkerConfiguratorItem extends Item {
         if (player == null) return ActionResult.FAIL;
         World world = player.getWorld();
         if (!world.isClient) {
-            if (player.isSneaking() && world.getBlockEntity(pos) instanceof EnderLinkerBlockEntity linker && linker.linked != null) {
+            if (player.isSneaking() && world.getBlockEntity(pos) instanceof EnderBlockEntity entity && entity.getLinked() != null) {
                 RandomToys.msg(player, Text.translatable("message.random-toys.ender_linker_configurator.check",
-                        linker.dimension.getValue().toString(),
-                        linker.linked.getX(), linker.linked.getY(), linker.linked.getZ()));
-                return ActionResult.SUCCESS_NO_ITEM_USED;
-            }
-            if (player.isSneaking() && world.getBlockEntity(pos) instanceof EnderHopperBlockEntity hopper && hopper.linked != null) {
-                RandomToys.msg(player, Text.translatable("message.random-toys.ender_linker_configurator.check",
-                        hopper.dimension.getValue().toString(),
-                        hopper.linked.getX(), hopper.linked.getY(), hopper.linked.getZ()));
+                        entity.getDimension().getValue().toString(),
+                        entity.getLinked().getX(), entity.getLinked().getY(), entity.getLinked().getZ()));
                 return ActionResult.SUCCESS_NO_ITEM_USED;
             }
             if (linked == null || dimension == null) {
@@ -59,24 +52,9 @@ public class EnderLinkerConfiguratorItem extends Item {
                                 linked.getX(), linked.getY(), linked.getZ()));
                 return ActionResult.SUCCESS_NO_ITEM_USED;
             }
-            if (world.getBlockEntity(pos) instanceof EnderLinkerBlockEntity linker) {
-                linker.linked = linked;
-                linker.dimension = dimension;
-                RandomToys.msg(player,
-                        Text.translatable("message.random-toys.ender_linker_configurator.set",
-                                dimension.getValue().toString(),
-                                linked.getX(), linked.getY(), linked.getZ()));
-                linked = null;
-                dimension = null;
-                return ActionResult.SUCCESS_NO_ITEM_USED;
-            }
-            if (world.getBlockEntity(pos) instanceof EnderHopperBlockEntity hopper) {
-                if (!(world.getBlockEntity(linked) instanceof EnderHopperBlockEntity hopper0)
-                        || hopper.getWorld() == null) return ActionResult.FAIL;
-                hopper.linked = linked;
-                hopper.dimension = dimension;
-                hopper0.linked = hopper.getPos();
-                hopper0.dimension = hopper.getWorld().getRegistryKey();
+            if (world.getBlockEntity(pos) instanceof EnderBlockEntity entity) {
+                entity.setLinked(linked);
+                entity.setDimension(dimension);
                 RandomToys.msg(player,
                         Text.translatable("message.random-toys.ender_linker_configurator.set",
                                 dimension.getValue().toString(),
