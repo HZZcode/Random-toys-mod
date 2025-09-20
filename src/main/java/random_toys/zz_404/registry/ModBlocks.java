@@ -44,26 +44,31 @@ public class ModBlocks {
     public static final Block TIMER = register("timer", new TimerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.TIMER));
     public static final Block ENDER_HOPPER = register("ender_hopper", new EnderHopperBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
     public static final Block CHUNK_DESTROYER = register("chunk_destroyer", new ChunkDestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.CHUNK_DESTROYER));
-    public static final Block ENDER_SWITCH = register("ender_switch",  new EnderSwitchBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(state -> state.get(Properties.POWERED) ? 7 : 0)));
+    public static final Block ENDER_SWITCH = register("ender_switch", new EnderSwitchBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(state -> state.get(Properties.POWERED) ? 7 : 0)));
+    public static final Block LITEMATICA_PRINTER = register("litematica_printer", new LitematicaPrinterBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);
     }
+
     public static Block register(String id, String item_id, Block block) {
         registerBlockItems(item_id, block);
         return Registry.register(Registries.BLOCK, Identifier.of(RandomToys.MOD_ID, id), block);
     }
+
     public static Block register(String id, Block block, BlockItem blockItem) {
         return register(id, id, block, blockItem);
     }
+
     public static Block register(String id, String item_id, Block block, BlockItem blockItem) {
         registerBlockItems(item_id, blockItem);
         return Registry.register(Registries.BLOCK, Identifier.of(RandomToys.MOD_ID, id), block);
     }
 
     public static void registerBlockItems(String id, Block block) {
-       registerBlockItems(id, new BlockItem(block, new Item.Settings()));
+        registerBlockItems(id, new BlockItem(block, new Item.Settings()));
     }
+
     public static void registerBlockItems(String id, BlockItem blockItem) {
         BlockItem item = Registry.register(Registries.ITEM, Identifier.of(RandomToys.MOD_ID, id), blockItem);
         item.appendBlocks(Item.BLOCK_ITEMS, item);

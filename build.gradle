@@ -27,6 +27,7 @@ repositories {
 		url = 'https://maven.ladysnake.org/releases'
 	}
 	maven { url "https://cursemaven.com" }
+    maven { url "https://api.modrinth.com/maven/" }
 }
 
 fabricApi {
@@ -46,10 +47,6 @@ dependencies {
 
 	modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta66-1.21'
 	include 'net.kyrptonaught:customportalapi:0.0.1-beta66-1.21'
-//	modImplementation "dev.emi:trinkets:3.10.0"
-//	modImplementation "curse.maven:supplementaries-412082:6028333"
-//	modImplementation "curse.maven:selene-499980:5983850"
-//	modImplementation "curse.maven:spiky-spikes-666944:5731854"
 }
 
 processResources {

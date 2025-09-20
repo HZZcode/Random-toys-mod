@@ -18,7 +18,7 @@ import random_toys.zz_404.registry.ModGamerules;
 
 import static net.minecraft.block.Block.dropStack;
 
-public class DispenserShearsHarvestBehavior extends ShearsDispenserBehavior {
+public class ShearsDispenserHarvestBehavior extends ShearsDispenserBehavior {
     private boolean useShears(@NotNull World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof AppleLeavesBlock appleLeavesBlock) {
@@ -79,5 +79,9 @@ public class DispenserShearsHarvestBehavior extends ShearsDispenserBehavior {
             }
         }
         return super.dispenseSilently(pointer, stack);
+    }
+
+    public static void register() {
+        DispenserBlock.registerBehavior(Items.SHEARS, new ShearsDispenserHarvestBehavior());
     }
 }

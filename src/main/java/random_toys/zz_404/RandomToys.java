@@ -2,13 +2,11 @@ package random_toys.zz_404;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import random_toys.zz_404.misc.DispenserShearsHarvestBehavior;
+import random_toys.zz_404.misc.ShearsDispenserHarvestBehavior;
 import random_toys.zz_404.registry.*;
 
 import java.util.Random;
@@ -21,9 +19,13 @@ public class RandomToys implements ModInitializer {
 		LOGGER.info(String.format("[RandomToys] %s", format), objects);
 	}
 
-	public static void error(String format, Object... objects) {
-		LOGGER.error(String.format("[RandomToys] %s", format), objects);
-	}
+    public static void error(String format, Object... objects) {
+        LOGGER.error(String.format("[RandomToys] %s", format), objects);
+    }
+
+    public static void error(String format, Throwable throwable) {
+        LOGGER.error(String.format("[RandomToys] %s", format), throwable);
+    }
 
 	public static void msg(LivingEntity entity, Text message) {
 		if (entity != null) entity.sendMessage(message);
@@ -47,7 +49,8 @@ public class RandomToys implements ModInitializer {
 		ModFeatures.registerFeatures();
 		ModModelPredicates.registerModModelPredicates();
 		ModCriteria.registerCriteria();
-		DispenserBlock.registerBehavior(Items.SHEARS, new DispenserShearsHarvestBehavior());
+        ModPayloads.registerPayloads();
+		ShearsDispenserHarvestBehavior.register();
 
 		log("Hello from RandomToys.ZZ_404!");
 
@@ -57,7 +60,6 @@ public class RandomToys implements ModInitializer {
 		//TODO: a block to place blocks
 		//TODO: a block to show real-world time
 		//TODO: block comparator (filter)
-		//TODO: some block to print litematica?
 		//TODO: a way to create item shadow?
 		//TODO: item imitator?
 	}
