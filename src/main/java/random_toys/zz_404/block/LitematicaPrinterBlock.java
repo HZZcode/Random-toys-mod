@@ -182,4 +182,4 @@ public class LitematicaPrinterBlock extends Block {
             return ID;
         }
     }
-} // This block is not ready, so we're not adding its recipe and texture yet
+} // This block is still in dev

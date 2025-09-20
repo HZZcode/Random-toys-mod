@@ -99,7 +99,6 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_HOPPER);
         fabricItemGroupEntries.addAfter(Blocks.ENDER_CHEST, ModBlocks.ENDER_LINKER);
         fabricItemGroupEntries.addAfter(Items.FISHING_ROD, ModItems.GRAPPLING_HOOK);
-        fabricItemGroupEntries.add(ModBlocks.LITEMATICA_PRINTER);
     }
 
     private static void addSpawnEggGroupItems(@NotNull FabricItemGroupEntries fabricItemGroupEntries){
@@ -159,7 +158,6 @@ public class ModItems {
                         entries.add(ModItems.BLACK_BEDROCK_SWORD);
                         entries.add(ModItems.GRAPPLING_HOOK);
                         entries.add(ModBlocks.ENDER_SWITCH);
-                        entries.add(ModBlocks.LITEMATICA_PRINTER);
                     }).build());
 
     public static void registerItems(){

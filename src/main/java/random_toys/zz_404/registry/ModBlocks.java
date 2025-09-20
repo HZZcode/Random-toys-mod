@@ -45,7 +45,7 @@ public class ModBlocks {
     public static final Block ENDER_HOPPER = register("ender_hopper", new EnderHopperBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
     public static final Block CHUNK_DESTROYER = register("chunk_destroyer", new ChunkDestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.CHUNK_DESTROYER));
     public static final Block ENDER_SWITCH = register("ender_switch", new EnderSwitchBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(state -> state.get(Properties.POWERED) ? 7 : 0)));
-    public static final Block LITEMATICA_PRINTER = register("litematica_printer", new LitematicaPrinterBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+//    public static final Block LITEMATICA_PRINTER = register("litematica_printer", new LitematicaPrinterBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);
