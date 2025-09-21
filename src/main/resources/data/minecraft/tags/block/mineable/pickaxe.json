@@ -19,6 +19,8 @@
     "random-toys:black_bedrock_processing_table",
     "random-toys:timer",
     "random-toys:ender_hopper",
-    "random-toys:chunk_destroyer"
+    "random-toys:chunk_destroyer",
+    "random-toys:ender_switch",
+    "random-toys:perimeter_destroyer"
   ]
 }

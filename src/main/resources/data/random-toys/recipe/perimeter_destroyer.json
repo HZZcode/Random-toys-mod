@@ -3,13 +3,13 @@
   "category": "redstone",
   "key": {
     "o": {
-      "item": "random-toys:destroyer"
+      "item": "random-toys:chunk_destroyer"
     },
     "|": {
-      "item": "minecraft:iron_ingot"
+      "item": "random_toys:black_bedrock"
     },
     "#": {
-      "item": "minecraft:barrel"
+      "item": "minecraft:netherite_block"
     }
   },
   "pattern": [
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "random-toys:chunk_destroyer"
+    "id": "random-toys:perimeter_destroyer"
   }
 }

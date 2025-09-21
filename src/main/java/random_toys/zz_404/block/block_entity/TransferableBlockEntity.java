@@ -15,9 +15,13 @@ import java.util.stream.IntStream;
 
 public interface TransferableBlockEntity {
     @Nullable DefaultedList<ItemStack> getInventory();
+
     void setInventory(DefaultedList<ItemStack> inventory);
-    ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory);
-    Text getContainerName();
+
+    // Used by EnderLinkerBlockEntity
+    @Nullable ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory);
+
+    @Nullable Text getContainerName();
 
     default OptionalInt getSpace() {
         DefaultedList<ItemStack> inventory = getInventory();
@@ -26,13 +30,15 @@ public interface TransferableBlockEntity {
                 .filter(k -> inventory.get(k).isEmpty()).findFirst();
     }
 
-    @Nullable default ItemStack get(int index) {
+    @Nullable
+    default ItemStack get(int index) {
         DefaultedList<ItemStack> inventory = getInventory();
         if (inventory == null || inventory.isEmpty()) return null;
         return inventory.get(index);
     }
 
-    @Nullable default ItemStack set(int index, ItemStack element) {
+    @Nullable
+    default ItemStack set(int index, ItemStack element) {
         DefaultedList<ItemStack> inventory = getInventory();
         if (inventory == null || inventory.isEmpty()) return null;
         return inventory.set(index, element);
@@ -45,9 +51,9 @@ public interface TransferableBlockEntity {
 
     default boolean transformSingle(Item from, ItemStack to) {
         if (getInventory() == null) return false;
-        int[] indexes = IntStream.range(0, getInventory().size())
-                .filter(k -> get(k) != null && !Objects.requireNonNull(get(k)).isEmpty()
-                        && Objects.requireNonNull(get(k)).getItem() == from).toArray();
+        int[] indexes = IntStream.range(0, size()).filter(k -> get(k) != null
+                && !Objects.requireNonNull(get(k)).isEmpty()
+                && Objects.requireNonNull(get(k)).getItem() == from).toArray();
         var space = getSpace().orElse(-1);
         if (indexes.length != 0) {
             int index = indexes[0];
@@ -56,8 +62,7 @@ public interface TransferableBlockEntity {
                 set(index, stack.copyWithCount(stack.getCount() - 1));
                 set(space, to);
                 return true;
-            }
-            else if (stack.getCount() == 1) {
+            } else if (stack.getCount() == 1) {
                 set(index, to);
                 return true;
             }
@@ -70,21 +75,18 @@ public interface TransferableBlockEntity {
         if (stack1.isEmpty() && !stack2.isEmpty()) {
             result1 = stack2.copy();
             result2 = ItemStack.EMPTY;
-        }
-        else if (stack1.getItem() == stack2.getItem() && stack1.getCount() < stack1.getItem().getMaxCount()) {
+        } else if (stack1.getItem() == stack2.getItem() && stack1.getCount() < stack1.getItem().getMaxCount()) {
             Item item = stack1.getItem();
             int max = item.getMaxCount();
             int count = stack1.getCount() + stack2.getCount();
-            if (count <= max){
+            if (count <= max) {
                 result1 = new ItemStack(item, count);
                 result2 = ItemStack.EMPTY;
-            }
-            else {
+            } else {
                 result1 = new ItemStack(item, max);
                 result2 = new ItemStack(item, count - max);
             }
-        }
-        else {
+        } else {
             result1 = stack1.copy();
             result2 = stack2.copy();
         }

@@ -5,16 +5,11 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.provider.EnchantmentProviders;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.context.LootContextParameterSet;
-import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
@@ -26,12 +21,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import random_toys.zz_404.block.block_entity.DestroyerHelper;
 import random_toys.zz_404.registry.ModBlockEntities;
 import random_toys.zz_404.registry.ModBlocks;
 import random_toys.zz_404.block.block_entity.BlackBedrockProcessingTableBlockEntity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.stream.IntStream;
 
 public class BlackBedrockProcessingTableBlock extends BlockWithEntity {
@@ -107,16 +102,10 @@ public class BlackBedrockProcessingTableBlock extends BlockWithEntity {
 
     private void destroy(@NotNull ServerWorld world, @NotNull BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
-        ItemStack itemStack = new ItemStack(Items.DIAMOND_AXE);
-        EnchantmentHelper.applyEnchantmentProvider(itemStack, world.getRegistryManager(),
-                EnchantmentProviders.ENDERMAN_LOOT_DROP, world.getLocalDifficulty(pos), world.random);
-        List<ItemStack> drops = blockState.getDroppedStacks(new LootContextParameterSet.Builder(world)
-                .add(LootContextParameters.ORIGIN, Vec3d.of(pos))
-                .add(LootContextParameters.TOOL, itemStack));
-        for (ItemStack drop : drops) {
+        DestroyerHelper.destroy(world, pos, blockState).forEach(drop -> {
             Vec3d up = pos.toCenterPos();
             world.spawnEntity(new ItemEntity(world, up.x, up.y, up.z, drop.copy()));
-        }
+        });
     }
     
     private void setBlock(@NotNull ServerWorld world, @NotNull BlockPos pos, BlockState state) {

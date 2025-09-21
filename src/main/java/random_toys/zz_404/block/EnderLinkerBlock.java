@@ -6,29 +6,22 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import random_toys.zz_404.registry.ModBlockEntities;
-import random_toys.zz_404.registry.ModItems;
-import random_toys.zz_404.RandomToys;
 import random_toys.zz_404.block.block_entity.EnderLinkerBlockEntity;
 
 import java.util.function.Supplier;
 
-public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity> {
+public class EnderLinkerBlock extends TransferableBlock<EnderLinkerBlockEntity> {
     public static final MapCodec<EnderLinkerBlock> CODEC = createCodec(settings -> new EnderLinkerBlock(settings, () -> ModBlockEntities.ENDER_LINKER));
 
     @Override
-    protected MapCodec<? extends AbstractChestBlock<EnderLinkerBlockEntity>> getCodec() {
+    protected MapCodec<? extends TransferableBlock<EnderLinkerBlockEntity>> getCodec() {
         return CODEC;
     }
 
@@ -50,21 +43,6 @@ public class EnderLinkerBlock extends AbstractChestBlock<EnderLinkerBlockEntity>
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient() && !player.getStackInHand(player.getActiveHand())
-                .isOf(ModItems.ENDER_LINKER_CONFIGURATOR)) {
-            NamedScreenHandlerFactory factory = this.createScreenHandlerFactory(state, world, pos);
-            if (factory != null) {
-                player.openHandledScreen(factory);
-                return ActionResult.SUCCESS;
-            }
-            RandomToys.msg(player, Text.translatable("message.random-toys.ender_linker"));
-            return ActionResult.FAIL;
-        }
-        return ActionResult.PASS;
     }
 
     @Override

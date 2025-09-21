@@ -34,14 +34,18 @@ public class DestroyerHelper {
     public static List<ItemStack> breakAndDrop(@NotNull ServerWorld world, BlockPos pos, @NotNull BlockState blockState) {
         if (blockState.isOf(ModBlocks.BLACK_BEDROCK))
             ModCriteria.triggerPlayers(world, pos, 6, ModCriteria.DESTROY_BLACK_BEDROCK::trigger);
+        List<ItemStack> drops = destroy(world, pos, blockState);
+        world.breakBlock(pos, false);
+        return drops;
+    }
+
+    public static List<ItemStack> destroy(@NotNull ServerWorld world, BlockPos pos, @NotNull BlockState blockState) {
         ItemStack itemStack = new ItemStack(Items.DIAMOND_AXE);
         EnchantmentHelper.applyEnchantmentProvider(itemStack, world.getRegistryManager(),
                 EnchantmentProviders.ENDERMAN_LOOT_DROP, world.getLocalDifficulty(pos), world.random);
-        List<ItemStack> drops = blockState.getDroppedStacks(new LootContextParameterSet.Builder(world)
+        return blockState.getDroppedStacks(new LootContextParameterSet.Builder(world)
                 .add(LootContextParameters.ORIGIN, Vec3d.of(pos))
                 .add(LootContextParameters.TOOL, itemStack));
-        world.breakBlock(pos, false);
-        return drops;
     }
 
     public static void insertDrops(World world, List<ItemStack> drops, BlockPos pos, DefaultedList<ItemStack> inventory) {

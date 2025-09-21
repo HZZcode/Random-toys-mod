@@ -1,35 +1,31 @@
 package random_toys.zz_404.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import random_toys.zz_404.registry.ModBlockEntities;
-import random_toys.zz_404.block.block_entity.DisenchantmentBlockEntity;
+import random_toys.zz_404.block.block_entity.AbstractDestroyerBlockEntity;
+import random_toys.zz_404.registry.ModBlocks;
 
+import java.util.Set;
 import java.util.function.Supplier;
 
-public class DisenchantmentBlock extends TransferableBlock<DisenchantmentBlockEntity> {
-    public static final MapCodec<DisenchantmentBlock> CODEC = createCodec(settings -> new DisenchantmentBlock(settings, () -> ModBlockEntities.DISENCHANTMENTOR));
+public abstract class AbstractDestroyerBlock<T extends AbstractDestroyerBlockEntity> extends TransferableBlock<T> {
     public static final BooleanProperty POWERED;
 
-    @Override
-    protected MapCodec<? extends TransferableBlock<DisenchantmentBlockEntity>> getCodec() {
-        return CODEC;
-    }
-
-    public DisenchantmentBlock(Settings settings, Supplier<BlockEntityType<? extends DisenchantmentBlockEntity>> blockEntityTypeSupplier) {
+    protected AbstractDestroyerBlock(Settings settings, Supplier<BlockEntityType<? extends T>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
         this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false));
     }
@@ -44,12 +40,6 @@ public class DisenchantmentBlock extends TransferableBlock<DisenchantmentBlockEn
         return null;
     }
 
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new DisenchantmentBlockEntity(pos, state);
-    }
-
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
@@ -61,13 +51,6 @@ public class DisenchantmentBlock extends TransferableBlock<DisenchantmentBlockEn
         super.onStateReplaced(state, world, pos, newState, moved);
     }
 
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world_, BlockState state_, BlockEntityType<T> type) {
-        return validateTicker(type, ModBlockEntities.DISENCHANTMENTOR,
-                (world, pos, state, blockEntity) -> blockEntity.tick(world, pos, state));
-    }
-
     @Override
     protected boolean hasComparatorOutput(BlockState state) {
         return true;
@@ -76,6 +59,19 @@ public class DisenchantmentBlock extends TransferableBlock<DisenchantmentBlockEn
     @Override
     protected int getComparatorOutput(BlockState state, @NotNull World world, BlockPos pos) {
         return ScreenHandler.calculateComparatorOutput(world.getBlockEntity(pos));
+    }
+
+    protected abstract Set<Item> getActivateItem();
+
+    @Override
+    protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, @NotNull PlayerEntity player, BlockHitResult hit) {
+        ItemStack stack = player.getStackInHand(player.getActiveHand());
+        if (!world.isClient() && getActivateItem().contains(stack.getItem()) && !world.getBlockState(pos).get(POWERED)) {
+            stack.decrementUnlessCreative(1, player);
+            world.setBlockState(pos, state.with(POWERED, true));
+            return ActionResult.SUCCESS;
+        }
+        return super.onUse(state, world, pos, player, hit);
     }
 
     static {

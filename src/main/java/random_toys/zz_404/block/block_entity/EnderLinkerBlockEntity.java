@@ -63,7 +63,7 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
     @Override
     public @Nullable DefaultedList<ItemStack> getInventory() {
         TransferableBlockEntity entity = getLinkedEntity();
-        return entity == null ? DefaultedList.ofSize(0) : entity.getInventory();
+        return entity == null ? DefaultedList.of() : entity.getInventory();
     }
 
     @Override
@@ -126,6 +126,6 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
 
     @Override
     public int size() {
-        return getLinkedEntity() == null ? 0 : getLinkedEntity().size();
+        return TransferableBlockEntity.super.size();
     }
 }

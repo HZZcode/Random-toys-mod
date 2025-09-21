@@ -6,12 +6,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -21,11 +17,11 @@ import random_toys.zz_404.block.block_entity.TimerBlockEntity;
 
 import java.util.function.Supplier;
 
-public class TimerBlock extends AbstractChestBlock<TimerBlockEntity> {
+public class TimerBlock extends TransferableBlock<TimerBlockEntity> {
     public static final MapCodec<TimerBlock> CODEC = createCodec(settings -> new TimerBlock(settings, () -> ModBlockEntities.TIMER));
 
     @Override
-    protected MapCodec<? extends AbstractChestBlock<TimerBlockEntity>> getCodec() {
+    protected MapCodec<? extends TransferableBlock<TimerBlockEntity>> getCodec() {
         return CODEC;
     }
 
@@ -47,18 +43,6 @@ public class TimerBlock extends AbstractChestBlock<TimerBlockEntity> {
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient) {
-            NamedScreenHandlerFactory factory = this.createScreenHandlerFactory(state, world, pos);
-            if (factory != null) {
-                player.openHandledScreen(factory);
-                return ActionResult.SUCCESS;
-            }
-        }
-        return ActionResult.PASS;
     }
 
     @Override

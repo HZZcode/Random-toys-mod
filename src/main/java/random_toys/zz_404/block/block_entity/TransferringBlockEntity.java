@@ -72,14 +72,17 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
                 .getMax(Direction.Axis.Y) <= 0.5) {
             for (BlockEntity in : inputs) {
                 if (in instanceof TransferableBlockEntity input) {
+                    var inventory = input.getInventory();
+                    if (inventory == null) continue;
+                    boolean isFull = inventory.stream().noneMatch(ItemStack::isEmpty);
                     for (int i = 0; i < input.size(); i++) {
                         ItemStack stack = input.get(i);
                         if (stack == null) continue;
-                        if (match(stack) && stack.getCount() >= stack.getMaxCount()) {
+                        if ((match(stack) && stack.getCount() >= stack.getMaxCount()) || isFull) {
                             input.set(i, ItemStack.EMPTY);
                             Vec3d down = pos.down().toCenterPos();
                             world.spawnEntity(new ItemEntity(world, down.x, down.y, down.z, stack.copy()));
-                            return;
+                            if (!isFull) return;
                         }
                     }
                 }

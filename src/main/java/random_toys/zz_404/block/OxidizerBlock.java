@@ -6,31 +6,26 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import random_toys.zz_404.registry.ModBlockEntities;
-import random_toys.zz_404.registry.ModItems;
 import random_toys.zz_404.block.block_entity.OxidizerBlockEntity;
 
 import java.util.function.Supplier;
 
-public class OxidizerBlock extends AbstractChestBlock<OxidizerBlockEntity> {
+public class OxidizerBlock extends TransferableBlock<OxidizerBlockEntity> {
     public static final MapCodec<OxidizerBlock> CODEC = createCodec(settings -> new OxidizerBlock(settings, () -> ModBlockEntities.OXIDIZER));
     public static final BooleanProperty POWERED;
 
     @Override
-    protected MapCodec<? extends AbstractChestBlock<OxidizerBlockEntity>> getCodec() {
+    protected MapCodec<? extends TransferableBlock<OxidizerBlockEntity>> getCodec() {
         return CODEC;
     }
 
@@ -58,19 +53,6 @@ public class OxidizerBlock extends AbstractChestBlock<OxidizerBlockEntity> {
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    protected ActionResult onUse(BlockState state, @NotNull World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient() && !player.getStackInHand(player.getActiveHand())
-                .isOf(ModItems.ENDER_LINKER_CONFIGURATOR)) {
-            NamedScreenHandlerFactory factory = this.createScreenHandlerFactory(state, world, pos);
-            if (factory != null) {
-                player.openHandledScreen(factory);
-                return ActionResult.SUCCESS;
-            }
-        }
-        return ActionResult.PASS;
     }
 
     @Override

@@ -33,6 +33,7 @@ public class ModBlockEntities {
     public static final BlockEntityType<EnderHopperBlockEntity> ENDER_HOPPER = create("ender_hopper", BlockEntityType.Builder.create(EnderHopperBlockEntity::new, ModBlocks.ENDER_HOPPER));
     public static final BlockEntityType<ChunkDestroyerBlockEntity> CHUNK_DESTROYER = create("chunk_destroyer", BlockEntityType.Builder.create(ChunkDestroyerBlockEntity::new, ModBlocks.CHUNK_DESTROYER));
     public static final BlockEntityType<EnderSwitchBlockEntity> ENDER_SWITCH = create("ender_switch", BlockEntityType.Builder.create(EnderSwitchBlockEntity::new, ModBlocks.ENDER_SWITCH));
+    public static final BlockEntityType<PerimeterDestroyerBlockEntity> PERIMETER_DESTROYER = create("perimeter_destroyer", BlockEntityType.Builder.create(PerimeterDestroyerBlockEntity::new, ModBlocks.PERIMETER_DESTROYER));
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String id, BlockEntityType.@NotNull Builder<T> builder) {
         Type<?> type = Util.getChoiceType(TypeReferences.BLOCK_ENTITY, id);
