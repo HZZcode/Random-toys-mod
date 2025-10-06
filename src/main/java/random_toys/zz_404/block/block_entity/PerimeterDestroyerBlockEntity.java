@@ -79,7 +79,7 @@ public class PerimeterDestroyerBlockEntity extends ChunkDestroyerBlockEntity {
         if (subChunkPos == null) return Collections.emptyList();
         List<BlockPos> nears = new ArrayList<>();
         for (int x = 16 * subChunkPos.x; x < 16 * (subChunkPos.x + 1); x++)
-            for (int y = 16 * subChunkPos.y; y <= 16 * (subChunkPos.y + 1); y++)
+            for (int y = 16 * subChunkPos.y; y < 16 * (subChunkPos.y + 1); y++)
                 for (int z = 16 * subChunkPos.z; z < 16 * (subChunkPos.z + 1); z++)
                     nears.add(new BlockPos(x, y, z));
         return nears;

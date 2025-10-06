@@ -17,11 +17,10 @@ public class EndCrystalPlacingMixin {
                     value = "INVOKE",
                     target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z",
                     ordinal = 0
-            ),
-            require = 1
+            )
     )
     private boolean redirectFirstIsOf(BlockState instance, Block block) {
-        return EndCrystalPlacingBlocks.check(block);
+        return EndCrystalPlacingBlocks.contains(block);
     }
 
     @Redirect(
@@ -30,8 +29,7 @@ public class EndCrystalPlacingMixin {
                     value = "INVOKE",
                     target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z",
                     ordinal = 1
-            ),
-            require = 1
+            )
     )
     private boolean redirectSecondIsOf(BlockState instance, Block block) {
         return true;

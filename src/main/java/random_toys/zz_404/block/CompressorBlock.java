@@ -5,7 +5,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -37,11 +36,6 @@ public class CompressorBlock extends TransferableBlock<CompressorBlockEntity> {
     @Override
     protected void appendProperties(StateManager.@NotNull Builder<Block, BlockState> builder) {
         builder.add(POWERED);
-    }
-
-    @Override
-    public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySource(BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
-        return null;
     }
 
     @Nullable

@@ -67,8 +67,7 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
                     }
                 }
             }
-        }
-        else if (world.getBlockState(pos.down()).getCollisionShape(world, pos.down())
+        } else if (world.getBlockState(pos.down()).getCollisionShape(world, pos.down())
                 .getMax(Direction.Axis.Y) <= 0.5) {
             for (BlockEntity in : inputs) {
                 if (in instanceof TransferableBlockEntity input) {
@@ -152,8 +151,8 @@ public class TransferringBlockEntity extends BlockEntity implements Clearable, S
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        if (nbt.contains("FilterItem", 10)) inventory.set(0, ItemStack.fromNbt(registryLookup,
-                nbt.getCompound("FilterItem")).orElse(ItemStack.EMPTY));
+        if (nbt.contains("FilterItem", NbtCompound.COMPOUND_TYPE)) inventory.set(0, ItemStack
+                .fromNbt(registryLookup, nbt.getCompound("FilterItem")).orElse(ItemStack.EMPTY));
         else inventory.set(0, ItemStack.EMPTY);
     }
 

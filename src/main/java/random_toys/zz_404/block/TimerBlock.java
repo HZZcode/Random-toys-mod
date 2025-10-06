@@ -5,7 +5,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
@@ -27,11 +26,6 @@ public class TimerBlock extends TransferableBlock<TimerBlockEntity> {
 
     public TimerBlock(Settings settings, Supplier<BlockEntityType<? extends TimerBlockEntity>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
-    }
-
-    @Override
-    public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySource(BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
-        return null;
     }
 
     @Nullable

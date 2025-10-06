@@ -47,6 +47,7 @@ public class ModBlocks {
     public static final Block ENDER_SWITCH = register("ender_switch", new EnderSwitchBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).luminance(state -> state.get(Properties.POWERED) ? 7 : 0)));
     // public static final Block LITEMATICA_PRINTER = register("litematica_printer", new LitematicaPrinterBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
     public static final Block PERIMETER_DESTROYER = register("perimeter_destroyer", new PerimeterDestroyerBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK), () -> ModBlockEntities.PERIMETER_DESTROYER));
+    public static final Block UNLIMITED_STORAGE = register("unlimited_storage", new UnlimitedStorageBlock(AbstractBlock.Settings.copy(Blocks.BEDROCK), () -> ModBlockEntities.UNLIMITED_STORAGE));
 
     public static Block register(String id, Block block) {
         return register(id, id, block);
@@ -90,6 +91,7 @@ public class ModBlocks {
                 .nearBlock(state -> state.isOf(Blocks.POWDER_SNOW))
                 .underBlock(state -> state.isOf(Blocks.BLUE_ICE))
                 .transformTo(SOLID_LAVA));
+        AllowSneakBlockInteractionBlocks.add(UNLIMITED_STORAGE);
 
         RandomToys.log("Registering Blocks");
     }

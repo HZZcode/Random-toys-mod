@@ -90,10 +90,7 @@ public interface TransferableBlockEntity {
             result1 = stack1.copy();
             result2 = stack2.copy();
         }
-        ItemStack[] result = new ItemStack[2];
-        result[0] = result1;
-        result[1] = result2;
-        return result;
+        return new ItemStack[]{result1, result2};
     }
 
     default void mergeStacks() {

@@ -2,7 +2,7 @@ package random_toys.zz_404;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ public class RandomToys implements ModInitializer {
         LOGGER.error(String.format("[RandomToys] %s", format), throwable);
     }
 
-	public static void msg(LivingEntity entity, Text message) {
+	public static void msg(Entity entity, Text message) {
 		if (entity != null) entity.sendMessage(message);
 	}
 

@@ -22,6 +22,6 @@ public class BeaconBlockSpecialCaseMixin {
             require = 1
     )
     private static boolean isNotBlocking(@NotNull BlockState instance, Block block) {
-        return BeaconBlockSpecialCaseBlocks.check(instance.getBlock());
+        return BeaconBlockSpecialCaseBlocks.contains(instance.getBlock());
     }
 }

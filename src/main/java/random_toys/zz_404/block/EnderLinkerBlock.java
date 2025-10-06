@@ -5,7 +5,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
@@ -27,11 +26,6 @@ public class EnderLinkerBlock extends TransferableBlock<EnderLinkerBlockEntity> 
 
     public EnderLinkerBlock(Settings settings, Supplier<BlockEntityType<? extends EnderLinkerBlockEntity>> blockEntityTypeSupplier) {
         super(settings, blockEntityTypeSupplier);
-    }
-
-    @Override
-    public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySource(BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
-        return null;
     }
 
     @Nullable

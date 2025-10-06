@@ -99,7 +99,7 @@ public class EnderLinkerBlockEntity extends LootableContainerBlockEntity impleme
     @Override
     protected DefaultedList<ItemStack> getHeldStacks() {
         return getInventory();
-    }
+    } // I think this would cause bugs on unlimited stacks
 
     @Override
     protected void setHeldStacks(DefaultedList<ItemStack> inventory) {

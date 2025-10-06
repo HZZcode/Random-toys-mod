@@ -53,13 +53,15 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.REDSTONE, ModBlocks.COPPERED_REDSTONE_WIRE);
         fabricItemGroupEntries.addAfter(Items.REDSTONE_BLOCK, ModBlocks.COPPERED_REDSTONE_BLOCK);
         fabricItemGroupEntries.addBefore(Blocks.CHEST, ModBlocks.COMPRESSOR);
+        fabricItemGroupEntries.addBefore(Blocks.CHEST, ModBlocks.UNLIMITED_STORAGE);
         fabricItemGroupEntries.addAfter(Blocks.HOPPER, ModBlocks.TRANSFER);
         fabricItemGroupEntries.addAfter(Blocks.FURNACE, ModBlocks.DISENCHANTMENTOR);
         fabricItemGroupEntries.addAfter(Blocks.COMPARATOR, ModBlocks.TIMER);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.VANISHING_DOOR);
         fabricItemGroupEntries.addBefore(Blocks.PISTON, ModBlocks.BELT);
-        fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.CHUNK_DESTROYER);
         fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.DESTROYER);
+        fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.CHUNK_DESTROYER);
+        fabricItemGroupEntries.addBefore(Blocks.TNT, ModBlocks.PERIMETER_DESTROYER);
         fabricItemGroupEntries.addBefore(Blocks.LEVER, ModBlocks.ENDER_SWITCH);
     }
 
@@ -93,6 +95,7 @@ public class ModItems {
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.GILDED_BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Items.END_CRYSTAL, ModItems.BLACKSTONE_CRYSTAL);
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.EXPERIENCE_COLLECTOR);
+        fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.UNLIMITED_STORAGE);
         fabricItemGroupEntries.addAfter(Blocks.BARREL, ModBlocks.COMPRESSOR);
         fabricItemGroupEntries.addAfter(Blocks.GRINDSTONE, ModBlocks.DISENCHANTMENTOR);
         fabricItemGroupEntries.addBefore(Blocks.FURNACE, ModBlocks.OXIDIZER);
@@ -158,6 +161,8 @@ public class ModItems {
                         entries.add(ModItems.BLACK_BEDROCK_SWORD);
                         entries.add(ModItems.GRAPPLING_HOOK);
                         entries.add(ModBlocks.ENDER_SWITCH);
+                        entries.add(ModBlocks.PERIMETER_DESTROYER);
+                        entries.add(ModBlocks.UNLIMITED_STORAGE);
                     }).build());
 
     public static void registerItems(){

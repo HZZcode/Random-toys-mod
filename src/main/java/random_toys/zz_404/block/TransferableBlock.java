@@ -2,8 +2,10 @@ package random_toys.zz_404.block;
 
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.ActionResult;
@@ -32,5 +34,10 @@ public abstract class TransferableBlock<T extends BlockEntity & TransferableBloc
             }
         }
         return ActionResult.PASS;
+    }
+
+    @Override
+    public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySource(BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
+        return null;
     }
 }

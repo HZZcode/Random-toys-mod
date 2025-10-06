@@ -57,19 +57,15 @@ public abstract class AbstractDestroyerBlockEntity extends LootableContainerBloc
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
-        this.inventory = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        if (!this.readLootTable(nbt)) {
-            Inventories.readNbt(nbt, this.inventory, registryLookup);
-        }
+        inventory = DefaultedList.ofSize(size(), ItemStack.EMPTY);
+        if (!readLootTable(nbt)) Inventories.readNbt(nbt, inventory, registryLookup);
         if (nbt.contains("Cooldown")) cooldown = nbt.getInt("Cooldown");
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        if (!this.writeLootTable(nbt)) {
-            Inventories.writeNbt(nbt, this.inventory, registryLookup);
-        }
+        if (!writeLootTable(nbt)) Inventories.writeNbt(nbt, inventory, registryLookup);
         nbt.putInt("Cooldown", cooldown);
     }
 
@@ -81,7 +77,7 @@ public abstract class AbstractDestroyerBlockEntity extends LootableContainerBloc
                 return;
             }
             for (BlockPos pos : destroyPosSupplier.get())
-                DestroyerHelper.destroy(server, pos, inventory);
+                DestroyerHelper.destroy(server, pos, getStorage(world));
             mergeStacks();
             cooldown = maxCooldown;
         }
@@ -89,5 +85,12 @@ public abstract class AbstractDestroyerBlockEntity extends LootableContainerBloc
 
     public void tickDestroy(@NotNull World world, BlockState state, @NotNull BlockPos destroyPos) {
         tickDestroy(world, state, () -> List.of(destroyPos));
+    }
+
+    protected DefaultedList<ItemStack> getStorage(@NotNull World world) {
+        for (BlockPos near : new BlockPos[]{pos.up(), pos.down(), pos.north(), pos.south(), pos.west(), pos.east()})
+            if (world.getBlockEntity(near) instanceof TransferableBlockEntity entity)
+                if (entity.getSpace().isPresent()) return entity.getInventory();
+        return inventory;
     }
 }

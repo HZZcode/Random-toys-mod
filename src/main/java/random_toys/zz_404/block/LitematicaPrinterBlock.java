@@ -65,7 +65,7 @@ public class LitematicaPrinterBlock extends Block {
     }
 
     private static void error(PlayerEntity player, Exception exception) {
-        RandomToys.error("Cannot print litematica: {}", exception);
+        RandomToys.error("Cannot print litematica: ", exception);
         RandomToys.msg(player, Text.translatable("message.random-toys.litematica_printer.fail"));
     }
 

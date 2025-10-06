@@ -15,10 +15,11 @@ public class MixinSets {
     public static final MixinSet<Block> BeaconBlockSpecialCaseBlocks = new MixinSet<>();
     public static final MixinSet<FluidTransformationRule> FluidTransformationRules = new MixinSet<>();
     public static final MixinSet<Consumer<PlayerEntity>> PlayerTickBehaviours = new MixinSet<>();
+    public static final MixinSet<Block> AllowSneakBlockInteractionBlocks = new MixinSet<>();
 
     public static boolean isEndermanAvoidable(PlayerEntity player) {
-        return EndermanAvoidStarringItems.anyMatch(item -> TrinketUtils.isInTrinkets(player, item))
-                || EndermanAvoidStarringItems.check(player.getInventory().armor.get(3).getItem());
+        return EndermanAvoidStarringItems.stream().anyMatch(item -> TrinketUtils.isInTrinkets(player, item))
+                || EndermanAvoidStarringItems.contains(player.getInventory().armor.get(3).getItem());
     }
 
     static {

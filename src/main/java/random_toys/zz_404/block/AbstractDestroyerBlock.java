@@ -2,7 +2,6 @@ package random_toys.zz_404.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import random_toys.zz_404.block.block_entity.AbstractDestroyerBlockEntity;
-import random_toys.zz_404.registry.ModBlocks;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -33,11 +31,6 @@ public abstract class AbstractDestroyerBlock<T extends AbstractDestroyerBlockEnt
     @Override
     protected void appendProperties(StateManager.@NotNull Builder<Block, BlockState> builder) {
         builder.add(POWERED);
-    }
-
-    @Override
-    public DoubleBlockProperties.PropertySource<? extends ChestBlockEntity> getBlockEntitySource(BlockState state, World world, BlockPos pos, boolean ignoreBlocked) {
-        return null;
     }
 
     @Override

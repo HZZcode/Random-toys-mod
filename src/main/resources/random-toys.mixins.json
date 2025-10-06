@@ -7,6 +7,7 @@
     "EndCrystalPlacingMixin",
     "EndermanStarringMixin",
     "FluidTransformationMixin",
+    "PlayerCancelInteractionMixin",
     "PlayerDamageMixin",
     "PlayerTickMixin",
     "head_lootings.CreeperHeadLootingMixin",

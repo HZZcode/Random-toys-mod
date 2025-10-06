@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "random-toys:block/unlimited_storage_axis",
+    "east": "random-toys:block/unlimited_storage",
+    "north": "random-toys:block/unlimited_storage",
+    "particle": "random-toys:block/unlimited_storage_axis",
+    "south": "random-toys:block/unlimited_storage",
+    "west": "random-toys:block/unlimited_storage",
+    "up": "random-toys:block/unlimited_storage_axis"
+  }
+}

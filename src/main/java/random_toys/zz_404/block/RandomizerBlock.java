@@ -116,11 +116,10 @@ public class RandomizerBlock extends AbstractChestBlock<RandomizerBlockEntity> {
     protected void onStateReplaced(@NotNull BlockState state, World world, BlockPos pos, @NotNull BlockState newState, boolean moved) {
         if (!state.isOf(newState.getBlock()) && !world.isClient) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof RandomizerBlockEntity randomizerBlockEntity) {
+            if (blockEntity instanceof RandomizerBlockEntity randomizerBlockEntity)
                 randomizerBlockEntity.dropItem();
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
         }
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 
     @Override
